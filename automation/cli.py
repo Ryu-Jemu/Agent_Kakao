@@ -74,7 +74,10 @@ def main(argv=None):
                     raise AutomationError("Explicit run attempt differs from event attempt")
                 run_attempt = event_run["run_attempt"]
             client = JsonClient("https://api.github.com", required("GITHUB_TOKEN"), headers={
-                "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2026-03-10"
+                # 2026-03-10 removes merge_commit_sha; this collector depends on
+                # that field to verify merged PRs. 2022-11-28 is supported until
+                # 2028-03-10. Migrate the evidence schema before upgrading.
+                "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"
             })
             report = sanitize(GitHub(client, required("GITHUB_REPOSITORY")).collect(args.pr, run_id, run_attempt))
             write_json(args.output, report)

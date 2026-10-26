@@ -10,6 +10,7 @@
 | NOTION_TOKEN | 전용 내부 연결 API token | repository Actions Secret |
 | NOTION_PARENT_PAGE_ID | 405abd87-fe45-81fe-b786-c55d929dd654 | repository Variable |
 | Notion API version | 2026-03-11 | 검토된 코드에 고정 |
+| GitHub API version | 2022-11-28 | merge_commit_sha 필드를 사용하는 schema에 고정 |
 | 허용 상위 프로젝트 | 405abd87-fe45-80ab-9dd5-c430c8dce2e1 | 코드에 고정 |
 
 ## Notion 연결
@@ -51,6 +52,7 @@ gh workflow run document.yml --repo Ryu-Jemu/Agent_Kakao \
 | Notion 401/403/404 | token 유효성, 페이지 공유, Read/Insert/Update 권한 확인 |
 | 허용 부모 불일치 | Variable과 페이지 직접 부모 확인. 다른 페이지로 우회하지 않음 |
 | stale CI / PR changed | 현재 head에서 CI를 실행하고 그 run ID로 수집. 과거 결과를 최신 결과로 붙이지 않음 |
+| merge_commit_sha / API version/schema | 2026-03-10에서 제거된 필드. 지원 중인 2022-11-28 헤더와 코드 버전 확인 |
 | API 429/5xx | 제한된 retry 이후에도 실패하면 원인 해소 후 dispatch |
 | 생성 timeout/모호한 결과 | 기존 기록 키를 먼저 찾아 성공 여부 확인. 확인 전 새 페이지 수동 생성 금지 |
 | 중복 페이지/관리 블록 구조 변경 | 자동 처리를 중지하고 원본 비교 후 관리자가 조정 |
@@ -65,5 +67,7 @@ GPT의 PASS는 병합·배포 권한이 아닙니다. `docs/review-template.md`�
 자동화를 중단할 때는 해당 workflow를 비활성화하고 필요하면 Notion 연결을 해제합니다. Secret 회전 후 같은 run을 재처리할 수 있습니다. 이미 생성한 기록을 자동 삭제하지 않습니다.
 
 ## 설계 선택 근거
+
+GitHub `2026-03-10`은 PR 응답에서 `merge_commit_sha`를 제거합니다. 이 수집기는 병합 커밋을 직접 검증하므로 `2022-11-28`에 고정합니다. 지원 종료일은 2028-03-10이며, 그 전에 병합 증거 조회 방식을 마이그레이션해야 합니다. [공식 변경 명세](https://docs.github.com/en/rest/about-the-rest-api/breaking-changes), [지원 버전](https://docs.github.com/en/rest/about-the-rest-api/api-versions).
 
 `workflow_run`은 병합 전 CI 결과도 기록할 수 있어 기본 경로로 사용합니다. main `push` CI는 병합 결과를 보완하며 `workflow_dispatch`는 복구 경로입니다. trusted main 코드만 실행하고 API 입력을 셸 코드로 해석하지 않습니다. [GitHub 이벤트](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows), [보안 지침](https://docs.github.com/en/actions/reference/security/secure-use), [Notion API 버전](https://developers.notion.com/reference/versioning).
