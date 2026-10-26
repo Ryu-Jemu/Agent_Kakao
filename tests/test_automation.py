@@ -172,6 +172,13 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(report["head_sha"], HEAD)
         self.assertEqual(report["test_results"][0]["head_sha"], MERGE)
 
+    def test_merged_pr_without_merge_sha_reports_schema_error(self):
+        fixture = GitHubFixture()
+        fixture.pr.update(merged=True, state="closed")
+        fixture.pr.pop("merge_commit_sha")
+        with self.assertRaisesRegex(AutomationError, "API version/schema"):
+            GitHub(fixture, "Ryu-Jemu/Agent_Kakao").collect(1, 9)
+
     def test_bootstrap_run_has_no_matching_pr(self):
         fixture = GitHubFixture()
         fixture.run["pull_requests"] = []
@@ -303,6 +310,31 @@ def http_error(status, body=None, headers=None):
 
 
 class TransportAndCliTests(unittest.TestCase):
+    def test_cli_collects_merged_pr_using_compatible_http_schema(self):
+        fixture = GitHubFixture()
+        fixture.pr.update(merged=True, state="closed")
+        fixture.run.update(event="push", head_sha=MERGE, pull_requests=[])
+
+        class VersionedGitHub:
+            def open(self, request, timeout):
+                url = urlsplit(request.full_url)
+                response = fixture.request(request.method, url.path + "?" + url.query)
+                # The live 2026 API omits this field; test the actual CLI ->
+                # transport -> collector path instead of a version assertion.
+                if isinstance(response, dict) and request.get_header("X-github-api-version") != "2022-11-28":
+                    response.pop("merge_commit_sha", None)
+                return io.BytesIO(json.dumps(response).encode())
+
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "evidence.json"
+            with patch.dict(os.environ, {"GITHUB_TOKEN": "test", "GITHUB_REPOSITORY": "Ryu-Jemu/Agent_Kakao"}), \
+                    patch("urllib.request.build_opener", return_value=VersionedGitHub()), \
+                    patch("sys.stdout", new_callable=io.StringIO):
+                self.assertEqual(main(["collect", "--run-id", "9", "--output", str(output)]), 0)
+            report = json.loads(output.read_text())
+            self.assertEqual(report["merge_sha"], MERGE)
+            self.assertEqual(report["test_results"][0]["head_sha"], MERGE)
+
     def test_rate_limit_uses_retry_after(self):
         pauses = []
         opener = FakeOpener([http_error(429, headers={"Retry-After": "3"})])

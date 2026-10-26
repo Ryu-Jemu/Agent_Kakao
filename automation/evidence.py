@@ -86,6 +86,8 @@ class GitHub:
         sha = pr["head"]["sha"]
         if not SHA.fullmatch(sha):
             raise AutomationError("PR head SHA is invalid")
+        if pr.get("merged") and not SHA.fullmatch(pr.get("merge_commit_sha") or ""):
+            raise AutomationError("Merged PR has no valid merge_commit_sha; verify GitHub API version/schema")
         allowed_shas = {sha}
         if pr.get("merge_commit_sha") and (pr.get("merged") or (run and run.get("event") == "pull_request")):
             allowed_shas.add(pr["merge_commit_sha"])
@@ -133,6 +135,8 @@ class GitHub:
         final = self.get(f"/pulls/{pr_number}")
         if final["head"]["sha"] != sha or final["base"]["sha"] != pr["base"]["sha"]:
             raise AutomationError("PR changed during collection; rerun for the new revision")
+        if final.get("merged") and not SHA.fullmatch(final.get("merge_commit_sha") or ""):
+            raise AutomationError("Merged PR has no valid merge_commit_sha; verify GitHub API version/schema")
         now = dt.datetime.now(dt.timezone.utc).isoformat()
         return {
             "schema_version": 1,
