@@ -4,8 +4,10 @@
 사용: python3 coord/selftest.py  → 모든 검사 통과 시 exit 0, 하나라도 실패하면 exit 1.
 A6 BLOCKER #4(tc check 허위 통과) 재현 케이스를 포함한다.
 """
+import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -56,6 +58,9 @@ def main():
         c("read", "docs/contest/*.md", "tests/tc/public/*.md", agent="A6")
         check("H5 필독 후 소유 경로 허용", pre("release/x.md", "A6")[1].strip() == "")
         check("H6 남의 경로 deny", "A3의 소유" in pre("agent/x.py", "A6")[1])
+        os.rename(f"{t}/coord/owners.json", f"{t}/coord/owners.json.bak")
+        check("H7 훅 내부 오류 시 fail-closed(deny)", '"deny"' in pre("release/y.md", "A6")[1])
+        os.rename(f"{t}/coord/owners.json.bak", f"{t}/coord/owners.json")
         # ── 트리거 ──
         c("post", "--to", "A6", "--type", "INFO", "알림", agent="A0")
         o1 = c("hook-post", agent="A6", stdin='{"hook_event_name":"PostToolUse"}')[1]
@@ -67,7 +72,6 @@ def main():
         [p.wait() for p in procs]
         board = open(f"{t}/SHARED_BOARD.md", encoding="utf-8").read()
         ev = board[board.find("SEC:EVENTS:BEGIN"):]
-        import re
         seqs = [int(x) for x in re.findall(r"^\| (\d+) \|", ev, re.M)]
         check("T3 동시 post 30건 seq 무중복", len(seqs) == len(set(seqs)), f"{len(seqs)} vs {len(set(seqs))}")
         # ── RUNLOG ──
@@ -88,38 +92,177 @@ def main():
         rc_own, rid2 = c("log", "add", "--task", "own", "--result", "ok", "--cmd", "c", "--evidence", "e", agent="A2")
         check("P6 wu --record 본인 R-번호 허용", c("wu", "set", "--id", "A2-1", "--record", rid2.strip().splitlines()[-1], agent="A2")[0] == 0)
         # ── R3 게이트(tc check) ──
-        check("G1 미실행 상태 NO-GO", c("tc", "check", "--build", "deadbeef")[0] == 1)
-        # 가짜 성공 15행 + 비커밋 빌드 + 없는 증거 (A6 BLOCKER #4 재현)
+        # NO-GO 판정은 exit 1 + '결과: NO-GO' 출력(+기대 사유 문자열)으로 확인한다. 예외 traceback도 exit 1이므로 rc만으로는 부족하다.
+        def nogo(*args, why=None):
+            rc, out = c("tc", "check", *args)
+            ok = rc == 1 and "결과: NO-GO" in out and "Traceback" not in out and (why is None or why in out)
+            return ok, out[-400:]
+
+        def go(*args):
+            rc, out = c("tc", "check", *args)
+            return rc == 0 and "Traceback" not in out, out[-400:]
+
+        def g(*args):
+            return subprocess.run(["git", "-C", t, "-c", "user.email=s@t", "-c", "user.name=s", "-c", "commit.gpgsign=false",
+                                   "-c", "tag.gpgsign=false", "-c", "core.hooksPath=/dev/null", *args],
+                                  capture_output=True, text=True, env=env0)
+
+        def put_row(tid, res, build, ev):
+            """tc set을 거치지 않고 보드 행을 직접 쓴다(위조·구형 행 재현용)."""
+            os.chmod(f"{t}/SHARED_BOARD.md", 0o644)
+            lines = open(f"{t}/SHARED_BOARD.md", encoding="utf-8").read().split("\n")
+            for k, ln in enumerate(lines):
+                if ln.startswith(f"| {tid} |"):
+                    cells = [x.strip() for x in ln.strip()[1:-1].split("|")]
+                    cells[3:8] = [res, build, "00:00", "-", ev]
+                    lines[k] = "| " + " | ".join(cells) + " |"
+            open(f"{t}/SHARED_BOARD.md", "w", encoding="utf-8").write("\n".join(lines))
+
+        def tset(tid, path, build):
+            return c("tc", "set", "--id", tid, "--result", "ok", "--build", build, "--run", path, agent="A4")
+
+        check("G1 미실행 상태 NO-GO", *nogo("--build", "deadbeef"))
+        # 가짜 성공 15행 + 비커밋 빌드 + 없는 증거를 보드에 직접 기록 (A6 BLOCKER #4 재현)
         for i in IDS:
-            c("tc", "set", "--id", i, "--result", "ok", "--build", "dummy-sha", "--run", "/nonexistent/evidence", agent="A4")
-        check("G2 비커밋 빌드·없는 증거 → NO-GO", c("tc", "check", "--build", "dummy-sha")[0] == 1)
-        # 진짜 커밋 + 증거 파일 내용 검증
-        subprocess.run(["git", "-C", t, "-c", "user.email=s@t", "-c", "user.name=s", "commit", "-q", "--allow-empty", "-m", "r"])
-        sha = subprocess.run(["git", "-C", t, "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip()
+            put_row(i, "✅", "dummy-sha", "/nonexistent/evidence")
+        check("G2 비커밋 빌드·없는 증거(직접 기록) → NO-GO", *nogo("--build", "dummy-sha"))
+        # PIN: tc set 단계에서 tests/runs/ 밖·없는 증거를 거부한다
+        open(f"{t}/release/ev.md", "w").write("L-03 build 0000000\n")
+        os.symlink("../../release/ev.md", f"{t}/tests/runs/link.md")
+        rc1, o1 = tset("L-03", "/nonexistent/evidence", "deadbeef")
+        rc2, o2 = tset("L-03", "release/ev.md", "deadbeef")
+        rc3, o3 = tset("L-03", "tests/runs/link.md", "deadbeef")
+        rc4, o4 = tset("L-03", "tests/runs/none.md", "deadbeef")
+        check("PIN1 tc set: 없는 증거·tests/runs/ 밖·밖을 가리키는 링크 거부",
+              all(r != 0 and "tests/runs/" in o for r, o in ((rc1, o1), (rc2, o2), (rc3, o3), (rc4, o4))),
+              " / ".join(o.strip()[-80:] for o in (o1, o2, o3, o4)))
+        os.remove(f"{t}/tests/runs/link.md")
+        # 원문 고정 커밋 + originals-baseline 태그 → 릴리스 커밋 + release 태그(HEAD)
+        open(f"{t}/.gitignore", "w").write("tests/runs/\n.coord/\n")
+        g("add", "-A")
+        g("commit", "-q", "-m", "originals")
+        g("tag", "originals-baseline")
+        base_full = g("rev-parse", "HEAD").stdout.strip()
+        g("commit", "-q", "--allow-empty", "-m", "release")
+        g("tag", "release")
+        full = g("rev-parse", "HEAD").stdout.strip()
+        sha = g("rev-parse", "--short", "HEAD").stdout.strip()
+        run = "tests/runs/20261031-1200"
+        os.makedirs(f"{t}/{run}", exist_ok=True)
+        orig_ev = {}
         for i in IDS:
-            p = f"tests/runs/ev_{i}.md"
-            open(f"{t}/{p}", "w").write(f"{i} build {sha} PASS\n")
-            c("tc", "set", "--id", i, "--result", "ok", "--build", sha, "--run", p, agent="A4")
-        rc, out = c("tc", "check", "--build", sha)
-        check("G3 실제 커밋·증거 15/15 → GO", rc == 0, out[-300:])
-        open(f"{t}/tests/runs/ev_L-05.md", "w").write("no id here\n")
-        check("G4 증거 내용에 ID/SHA 없으면 NO-GO", c("tc", "check", "--build", sha)[0] == 1)
-        open(f"{t}/tests/runs/ev_L-05.md", "w").write(f"L-05 build {sha}\n")
+            orig_ev[i] = f"# {i}\n- tc: {i}\n- build: {sha}\n- 판정: PASS\n"
+            open(f"{t}/{run}/{i}.md", "w").write(orig_ev[i])
+            tset(i, f"{run}/{i}.md", sha)
+
+        def restore(*tids):
+            for i in tids:
+                open(f"{t}/{run}/{i}.md", "w").write(orig_ev[i])
+                tset(i, f"{run}/{i}.md", sha)
+
+        check("G3 실제 커밋·release 태그·증거 15/15 → GO", *go("--build", sha))
+        b = open(f"{t}/SHARED_BOARD.md", encoding="utf-8").read()
+        check("PIN2 tc set이 증거 해시(sha256 앞 16자)를 행에 기록",
+              all(re.search(rf"^\| {re.escape(i)} \|.*\| {re.escape(run)}/{re.escape(i)}\.md#[0-9a-f]{{16}} \|$", b, re.M) for i in IDS))
+        open(f"{t}/{run}/L-05.md", "w").write("no id here\n")
+        check("G4 증거 내용에 ID/SHA 없으면 NO-GO", *nogo("--build", sha))
+        restore("L-05")
+        # PIN: 기록 후 증거 교체(ID·SHA는 그대로) → 해시 불일치
+        open(f"{t}/{run}/L-05.md", "w").write(f"# L-05\n- tc: L-05\n- build: {sha}\n- 판정: PASS (사후 교체)\n")
+        check("PIN3 tc set 이후 증거 교체 → NO-GO(해시 불일치)", *nogo("--build", sha, why="해시 불일치"))
+        restore("L-05")
+        # PIN: 해시 없는 구형 행 → NO-GO
+        put_row("L-03", "✅", sha, f"{run}/L-03.md")
+        check("PIN4 해시 없는 구형 행 → NO-GO(hash missing)", *nogo("--build", sha, why="hash missing"))
+        restore("L-03")
+        # W1: 여러 행이 같은 증거(같은 경로·하드링크·동일 내용 사본)를 공유 → NO-GO
+        both = f"L-03 L-05 build {sha}\n"
+        open(f"{t}/{run}/both.md", "w").write(both)
+        tset("L-03", f"{run}/both.md", sha); tset("L-05", f"{run}/both.md", sha)
+        check("W1a 증거 파일 1개 공유 → NO-GO", *nogo("--build", sha, why="증거 공유"))
+        os.link(f"{t}/{run}/both.md", f"{t}/{run}/both_link.md")
+        tset("L-05", f"{run}/both_link.md", sha)
+        check("W1b 하드링크로 같은 증거 공유 → NO-GO", *nogo("--build", sha, why="증거 공유"))
+        open(f"{t}/{run}/both_copy.md", "w").write(both)
+        tset("L-05", f"{run}/both_copy.md", sha)
+        check("W1c 동일 내용 사본 공유 → NO-GO", *nogo("--build", sha, why="증거 공유"))
+        restore("L-03", "L-05")
+        check("W1r 원상복구 후 GO", *go("--build", sha))
+        # W6: ID·SHA는 경계가 있는 독립 토큰이어야 한다
+        open(f"{t}/{run}/L-03.md", "w").write(f"L-033 build {sha}\n"); tset("L-03", f"{run}/L-03.md", sha)
+        check("W6a ID 부분일치(L-033) → NO-GO", *nogo("--build", sha, why="TC ID가 독립 토큰"))
+        wrong = "0" if full[len(sha)] != "0" else "1"
+        open(f"{t}/{run}/L-03.md", "w").write(f"L-03 build {sha}{wrong}\n"); tset("L-03", f"{run}/L-03.md", sha)
+        check("W6b SHA 뒤에 다른 16진 문자(커밋 접두 아님) → NO-GO", *nogo("--build", sha, why="16진 토큰"))
+        open(f"{t}/{run}/L-03.md", "w").write(f"L-03 build g{sha}\n"); tset("L-03", f"{run}/L-03.md", sha)
+        check("W6c SHA 앞이 영숫자(경계 없음) → NO-GO", *nogo("--build", sha, why="16진 토큰"))
+        open(f"{t}/{run}/L-03.md", "w").write(f"L-03 build {full}\n"); tset("L-03", f"{run}/L-03.md", sha)
+        check("W6p 증거에 40자 전체 SHA(접두 일치) → GO", *go("--build", sha))
+        restore("L-03")
+        # W5·G09: release 태그 필수(기본), --interim은 그 요구만 생략, --build = HEAD는 항상 필수
+        g("tag", "-d", "release")
+        check("W5a release 태그 없음 → NO-GO", *nogo("--build", sha, why="'release'"))
+        rc, out = c("tc", "check", "--build", sha, "--interim")
+        check("W5b --interim은 release 태그 없이 통과하되 '중간 점검: 제출 판정 아님' 표시",
+              rc == 0 and "중간 점검: 제출 판정 아님" in out and "Traceback" not in out, out[-300:])
+        g("tag", "release", base_full)
+        check("W5c release 태그가 다른 커밋 → NO-GO", *nogo("--build", sha, why="태그("))
+        g("tag", "-f", "release", full)
+        g("commit", "-q", "--allow-empty", "-m", "after-release")
+        check("G09a --build ≠ HEAD → NO-GO", *nogo("--build", sha, why="≠ HEAD"))
+        check("G09b --interim이어도 --build ≠ HEAD → NO-GO", *nogo("--build", sha, "--interim", why="≠ HEAD"))
+        g("reset", "-q", "--soft", full)
+        check("W5r 태그·HEAD 원상복구 후 GO", *go("--build", sha))
+        # W4: 원문은 originals-baseline 태그와 같아야 한다
+        pub = f"{t}/tests/tc/public"
+        with open(f"{pub}/Y-24.md", "a") as f:
+            f.write("tamper\n")
+        man_lines = []
+        for ln in open(f"{pub}/MANIFEST.sha256", encoding="utf-8"):
+            if ln.strip():
+                h, _, name = ln.strip().partition("  ")
+                man_lines.append(f"{hashlib.sha256(open(f'{pub}/{name}', 'rb').read()).hexdigest()}  {name}")
+        open(f"{pub}/MANIFEST.sha256", "w").write("\n".join(man_lines) + "\n")
+        check("W4a 원문+MANIFEST 일관 변조(미커밋) → NO-GO", *nogo("--build", sha, why="originals-baseline"))
+        for n in ("Y-24.md", "MANIFEST.sha256"):
+            shutil.copy(f"{ROOT}/tests/tc/public/{n}", f"{pub}/{n}")
+            os.chmod(f"{pub}/{n}", 0o644)
+        open(f"{pub}/notes.txt", "w").write("x\n")
+        check("W4b tests/tc/public에 추적 안 된 파일 → NO-GO", *nogo("--build", sha, why="추적 안 된"))
+        os.remove(f"{pub}/notes.txt")
+        # clean 필터로 git diff·status를 속여도(마지막 줄 숨김) 기준 blob과 디스크 바이트 직접 비교로 잡는다
+        open(f"{t}/.git/info/attributes", "w").write("Y-24.md filter=hide\n")
+        g("config", "filter.hide.clean", "sed '$d'")
+        with open(f"{pub}/Y-24.md", "a") as f:
+            f.write("tamper\n")
+        hidden = g("diff", "--quiet", "originals-baseline", "--", "tests/tc/public").returncode == 0
+        check("W4d clean 필터로 diff를 속인 변조 → NO-GO(blob 직접 비교)",
+              hidden and nogo("--build", sha, why="blob과 다름")[0], f"diff 은닉={hidden}")
+        os.remove(f"{t}/.git/info/attributes")
+        g("config", "--unset", "filter.hide.clean")
+        shutil.copy(f"{ROOT}/tests/tc/public/Y-24.md", f"{pub}/Y-24.md")
+        os.chmod(f"{pub}/Y-24.md", 0o644)
+        g("tag", "-d", "originals-baseline")
+        check("W4c originals-baseline 태그 없음 → NO-GO(명확한 메시지)", *nogo("--build", sha, why="'originals-baseline'가 없음"))
+        g("tag", "originals-baseline", base_full)
+        check("W4r 원상복구 후 GO", *go("--build", sha))
         os.remove(f"{t}/tests/tc/public/Y-24.md")
-        check("G5 원문 누락 → NO-GO", c("tc", "check", "--build", sha)[0] == 1)
+        check("G5 원문 누락 → NO-GO", *nogo("--build", sha))
         shutil.copy(f"{ROOT}/tests/tc/public/Y-24.md", f"{t}/tests/tc/public/Y-24.md")
         subprocess.run(["chmod", "u+w", f"{t}/tests/tc/public/Y-24.md"])
         with open(f"{t}/tests/tc/public/Y-24.md", "a") as f:
             f.write("tamper\n")
-        check("G6 원문 변조(MANIFEST 불일치) → NO-GO", c("tc", "check", "--build", sha)[0] == 1)
+        check("G6 원문 변조(MANIFEST 불일치) → NO-GO", *nogo("--build", sha))
         shutil.copy(f"{ROOT}/tests/tc/public/Y-24.md", f"{t}/tests/tc/public/Y-24.md")
-        check("G7 원상복구 후 GO 재현", c("tc", "check", "--build", sha)[0] == 0)
+        check("G7 원상복구 후 GO 재현", *go("--build", sha))
+        # 보드 쓰기(coord) 후 444 확인을 위해 tc set을 한 번 더 거친다(put_row가 644로 바꿨을 수 있음)
+        restore("L-03")
         check("B1 coord 저장 후 보드는 읽기 전용(444)", (os.stat(f"{t}/SHARED_BOARD.md").st_mode & 0o222) == 0)
         os.chmod(f"{t}/SHARED_BOARD.md", 0o644)
         b = open(f"{t}/SHARED_BOARD.md", encoding="utf-8").read()
         b = b.replace("| L-03 | 배송지 변경 요청 |", "| L-05 | 배송지 변경 요청 |", 1)
         open(f"{t}/SHARED_BOARD.md", "w", encoding="utf-8").write(b)
-        check("G8 매트릭스 중복 ID → NO-GO", c("tc", "check", "--build", sha)[0] == 1)
+        check("G8 매트릭스 중복 ID → NO-GO", *nogo("--build", sha, why="중복 ID"))
     finally:
         shutil.rmtree(t, ignore_errors=True)
     failed = [r for r in results if not r[1]]

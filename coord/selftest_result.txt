@@ -4,6 +4,7 @@
 [PASS] H4 필독 전 쓰기 deny
 [PASS] H5 필독 후 소유 경로 허용
 [PASS] H6 남의 경로 deny
+[PASS] H7 훅 내부 오류 시 fail-closed(deny)
 [PASS] T1 새 이벤트 additionalContext 주입
 [PASS] T2 같은 버전은 1회만 주입
 [PASS] T3 동시 post 30건 seq 무중복
@@ -26,4 +27,4 @@
 [PASS] B1 coord 저장 후 보드는 읽기 전용(444)
 [PASS] G8 매트릭스 중복 ID → NO-GO
 
-합계 27건 / 실패 0건
+합계 28건 / 실패 0건

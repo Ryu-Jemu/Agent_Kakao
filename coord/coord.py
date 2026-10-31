@@ -20,8 +20,29 @@ import re
 import subprocess
 import sys
 import time
+import unicodedata
 
-ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # realpath: 심볼릭 링크 경로 우회 방지
+
+def truecase(p: str) -> str:
+    """realpath 후 각 성분을 디스크상 실제 표기로 바꾼다. APFS는 대소문자·유니코드 정규화를 무시하므로
+    문자열 비교만으로는 같은 파일을 다른 표기(/USERS/…, docs/Contest/…)로 우회할 수 있다."""
+    p = os.path.realpath(p)
+    out = os.sep
+    for comp in p.split(os.sep)[1:]:
+        if not comp:
+            continue
+        try:
+            names = os.listdir(out)
+        except OSError:
+            names = []
+        if comp not in names:
+            key = unicodedata.normalize("NFC", comp).casefold()
+            comp = next((n for n in names if unicodedata.normalize("NFC", n).casefold() == key), comp)
+        out = os.path.join(out, comp)
+    return out
+
+
+ROOT = os.path.dirname(os.path.dirname(truecase(__file__)))  # realpath+실제 표기: 심볼릭·대소문자 우회 방지
 BOARD = os.path.join(ROOT, "SHARED_BOARD.md")
 STATE = os.path.join(ROOT, ".coord")
 OWNERS = os.path.join(ROOT, "coord", "owners.json")
@@ -43,8 +64,12 @@ def now_full() -> str:
     return dt.datetime.now().strftime("%Y-%m-%d %H:%M KST")
 
 
+def nomark(s: str) -> str:
+    return s.replace("<!--", "&lt;!--")  # 자유 텍스트로 <!-- SEC:…--> / BOARD_VERSION 표식을 주입하지 못하게 한다
+
+
 def esc(s) -> str:
-    return str(s if s not in (None, "") else "-").replace("|", "¦").replace("\r", "").replace("\n", " / ").strip()
+    return nomark(str(s if s not in (None, "") else "-").replace("|", "¦").replace("\r", "").replace("\n", " / ")).strip()
 
 
 def die(msg: str, code: int = 2):
@@ -85,7 +110,7 @@ def read_int(path: str, default: int = 0) -> int:
 
 
 def write_text(path: str, text: str):
-    tmp = path + ".tmp"
+    tmp = f"{path}.{os.getpid()}.tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         f.write(text)
     os.replace(tmp, path)
@@ -118,6 +143,8 @@ def sec_bounds(text: str, name: str):
     i, j = text.find(b), text.find(e)
     if i < 0 or j < 0:
         die(f"보드에 섹션 {name}이 없습니다")
+    if text.count(b) != 1 or text.count(e) != 1 or j < i:
+        die(f"보드 섹션 {name}의 경계 표식이 중복·역순입니다(표식 주입 의심 — A0 수동 복구 필요)")
     return i + len(b), j
 
 
@@ -327,6 +354,7 @@ def cmd_section(a):
     body = open(a.file, encoding="utf-8").read() if a.file else a.set
     if body is None:
         die("--set 또는 --file 필요")
+    body = nomark(body)
 
     def fn(text):
         cur = get_sec(text, name)
@@ -347,8 +375,8 @@ def cmd_handoff(a):
     missing = [k for k in HANDOFF_REQ if k not in body]
     if missing:
         die(f"HANDOFF 필수 항목 누락: {missing} (AGENTS.md §4 형식)")
-    block = f"### HANDOFF {a.wu} {now_full()} {a.agent}\n" + "\n".join(
-        ln for ln in body.strip().split("\n") if not ln.startswith("### HANDOFF"))
+    block = nomark(f"### HANDOFF {a.wu} {now_full()} {a.agent}\n" + "\n".join(
+        ln for ln in body.strip().split("\n") if not ln.startswith("### HANDOFF")))
     name = f"STATUS:{a.agent}"
 
     def fn(text):
@@ -371,13 +399,14 @@ def cmd_read(a):
             die(f"파일 없음: {pat}")
         files += hits
     rec_path = state_path("read", f"{a.agent}.json")
-    try:
-        rec = json.load(open(rec_path))
-    except (FileNotFoundError, json.JSONDecodeError):
-        rec = {}
-    for f in files:
-        rec[rel(f)] = sha256(f)
-    write_text(rec_path, json.dumps(rec, ensure_ascii=False, indent=1))
+    with locked():  # 같은 에이전트의 병렬 read가 서로의 기록을 덮어쓰지 않게 한다
+        try:
+            rec = json.load(open(rec_path))
+        except (FileNotFoundError, json.JSONDecodeError):
+            rec = {}
+        for f in files:
+            rec[rel(f)] = sha256(f)
+        write_text(rec_path, json.dumps(rec, ensure_ascii=False, indent=1))
     summary = ", ".join(f"{os.path.basename(k)}:{v[:8]}" for k, v in sorted(rec.items()))
 
     def fn(text):
@@ -413,7 +442,7 @@ def missing_reading(agent: str):
 def cmd_log_add(a):
     if a.result not in RESULT:
         die("--result는 ok|fail|partial")
-    if a.result == "fail" and (not a.issue or not a.fix):
+    if a.result == "fail" and (not (a.issue or "").strip() or not (a.fix or "").strip()):
         die("실패 기록에는 --issue(원인)와 --fix(조치·재시도 금지사항)가 필수입니다(R2)")
     box = {}
 
@@ -424,7 +453,7 @@ def cmd_log_add(a):
             prev = next((c for _, c in rows if c[0] == a.retry_of), None)
             if prev is None:
                 die(f"{a.retry_of} 없음")
-            if "❌" in prev[4] and not a.change:
+            if "❌" in prev[4] and not (a.change or "").strip():
                 die(f"{a.retry_of}은 실패 건입니다. --change '달라진 점' 없이 같은 접근을 반복할 수 없습니다(R2)")
         n = max([int(c[0][2:]) for _, c in rows if c[0].startswith("R-") and c[0][2:].isdigit()] + [0]) + 1
         rid = f"R-{n:03d}"
@@ -449,23 +478,82 @@ def cmd_log_search(a):
         print("(이력 없음 — 새 작업)")
 
 
+# ───────────────────────── TC 게이트 보조 ─────────────────────────
+BASELINE_TAG = "originals-baseline"   # 공개 TC 원문 고정 커밋(이후 tests/tc/public 변경 금지)
+RELEASE_TAG = "release"               # A0가 최종 릴리스 커밋에 다는 태그
+PUB_REL = os.path.join("tests", "tc", "public")
+PIN_SEP = "#"                         # 증거 칸 형식: <tests/runs/… 경로>#<sha256 앞 16자>
+PIN_RE = re.compile(r"[0-9a-f]{16}")
+SHA_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9-])[0-9a-f]{7,64}(?![A-Za-z0-9-])")
+
+
+def git(*args, stdin: str | None = None) -> subprocess.CompletedProcess:
+    """ROOT 저장소에 대한 git 호출. GIT_DIR·GIT_WORK_TREE 등 GIT_* 환경변수로 다른 저장소를 보게 하는 우회를 막는다."""
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+    return subprocess.run(["git", "-C", ROOT, *args], capture_output=True, text=True, env=env, input=stdin)
+
+
+def git_commit(ref: str) -> str | None:
+    """ref → 전체 커밋 SHA(git rev-parse --verify). 없거나 모호하면 None."""
+    r = git("rev-parse", "--verify", "-q", f"{ref}^{{commit}}")
+    sha = r.stdout.strip()
+    return sha if r.returncode == 0 and re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", sha) else None
+
+
+def ev_root() -> str:
+    return os.path.join(ROOT, "tests", "runs") + os.sep
+
+
+def id_token(body: str, tid: str) -> bool:
+    """TC ID가 독립 토큰으로 있는가(L-033·XL-03·R-05-ab 같은 부분일치 불인정)."""
+    return re.search(rf"(?<![A-Za-z0-9-]){re.escape(tid)}(?![A-Za-z0-9-])", body) is not None
+
+
+def sha_token(body: str, full: str) -> bool:
+    """빌드 SHA가 독립 16진 토큰(7자 이상)으로 있고 그 토큰이 해석된 전체 커밋 SHA의 접두인가."""
+    return any(full.startswith(t) for t in SHA_TOKEN_RE.findall(body))
+
+
 def cmd_tc_set(a):
     if a.agent not in (owners()["tc_matrix_writer"], "SETUP"):
         die("TC_MATRIX는 A4만 갱신합니다")
     if a.result not in TC_RESULT:
         die("--result는 ok|fail|partial")
-    if a.result != "ok" and not a.why:
+    if a.result != "ok" and not (a.why or "").strip():
         die("실패·부분에는 --why(원인)가 필수입니다")
+    # PIN: 증거는 tests/runs/ 아래 실재 파일(심볼릭 링크·대소문자 해석 후)이어야 하며, 기록 시점 해시를 행에 고정한다
+    evp = truecase(os.path.join(ROOT, a.run))
+    if not evp.startswith(ev_root()) or not os.path.isfile(evp):
+        die(f"--run 증거는 tests/runs/ 아래 실재하는 파일이어야 합니다(저장소 루트 기준 경로, 링크 해석 후 판정): {a.run}")
+    with open(evp, "rb") as f:
+        data = f.read()  # 한 번만 읽어 해시와 내용 점검에 같은 바이트를 쓴다
+    if not data:
+        die(f"--run 증거 파일이 비어 있습니다: {a.run}")
+    relp = os.path.relpath(evp, ROOT)
+    if esc(relp) != relp or PIN_SEP in relp:
+        die(f"증거 경로에 '|'·'#'·줄바꿈·'<!--'·앞뒤 공백을 쓸 수 없습니다: {relp!r}")
+    cell = f"{relp}{PIN_SEP}{hashlib.sha256(data).hexdigest()[:16]}"
+    body = data.decode("utf-8", errors="replace")
+    warn = []
+    if not id_token(body, a.id):
+        warn.append(f"증거에 TC ID '{a.id}'가 독립 토큰으로 없음")
+    full = git_commit(a.build) if re.fullmatch(r"[0-9a-f]{7,40}", a.build or "") else None
+    if full is None:
+        warn.append(f"빌드 '{a.build}'가 이 저장소의 커밋으로 해석되지 않음")
+    elif not sha_token(body, full):
+        warn.append("증거에 빌드 SHA가 독립 16진 토큰으로 없음")
 
     def fn(text):
         sec = get_sec(text, "TC_MATRIX")
         header, row = find_row(sec, a.id)
         if row is None:
             die(f"TC {a.id}가 매트릭스에 없습니다")
-        row[3:8] = [TC_RESULT[a.result], a.build, now_hm(), a.why or "-", a.run]
+        row[3:8] = [TC_RESULT[a.result], a.build, now_hm(), a.why or "-", cell]
         return set_sec(text, "TC_MATRIX", replace_row(sec, a.id, row))
     mutate(fn)
-    print(f"{a.id} → {TC_RESULT[a.result]}")
+    print(f"{a.id} → {TC_RESULT[a.result]} (증거 {cell})")
+    for w in warn:
+        print(f"  경고: {w} — 이대로면 tc check에서 NO-GO", file=sys.stderr)
 
 
 TC_EXPECTED = 15  # 공개 TC 목록 페이지 기준(docs/contest/07_public_tc_index.md). 목록이 늘면 A0가 갱신한다.
@@ -487,6 +575,8 @@ def tc_source_ids() -> tuple[list[str], list[str]]:
     else:
         listed = set()
         for ln in open(man, encoding="utf-8"):
+            if not ln.strip():
+                continue
             h, _, name = ln.strip().partition("  ")
             listed.add(name)
             fp = os.path.join(pub, name)
@@ -498,14 +588,84 @@ def tc_source_ids() -> tuple[list[str], list[str]]:
     return ids, problems
 
 
+def release_problems(full: str | None, build: str, interim: bool) -> list[str]:
+    """W5·G09: --build는 HEAD와 같아야 하고(항상), 기본 모드에서는 release 태그와도 같아야 한다(전체 SHA 비교)."""
+    out = []
+    head = git_commit("HEAD")
+    if head is None:
+        out.append("HEAD 커밋을 확인할 수 없음(git 저장소·커밋 필요)")
+    elif full and full != head:
+        out.append(f"빌드 {build}({full[:12]}) ≠ HEAD({head[:12]}) — 릴리스 커밋을 체크아웃한 작업트리에서만 판정한다")
+    if interim:
+        return out
+    rel = git_commit(f"refs/tags/{RELEASE_TAG}")
+    if rel is None:
+        out.append(f"git 태그 '{RELEASE_TAG}'가 없음 — A0가 릴리스 커밋에 태그를 단 뒤 다시 검사(사전 점검은 --interim)")
+    elif full and rel != full:
+        out.append(f"'{RELEASE_TAG}' 태그({rel[:12]}) ≠ 빌드({full[:12]})")
+    return out
+
+
+def baseline_problems() -> list[str]:
+    """W4: tests/tc/public이 originals-baseline 태그 커밋과 바이트 단위로 같아야 한다(작업트리·미추적 파일 포함)."""
+    base = git_commit(f"refs/tags/{BASELINE_TAG}")
+    if base is None:
+        return [f"git 태그 '{BASELINE_TAG}'가 없음 — 원문 고정 기준이 없어 tests/tc/public 무결성을 판정할 수 없음(A0 복구 필요)"]
+    out = []
+    for ref, label in ((base, BASELINE_TAG), ("HEAD", "HEAD")):
+        r = git("diff", "--quiet", "--no-ext-diff", "--no-textconv", ref, "--", PUB_REL)
+        if r.returncode == 1:
+            out.append(f"tests/tc/public이 {label}와 다름(커밋·미커밋 변경 포함 — 원문 변조)")
+        elif r.returncode != 0:
+            out.append(f"git diff {label} 실패({r.returncode}): {r.stderr.strip()[:160]}")
+    r = git("status", "--porcelain", "--untracked-files=all", "--", PUB_REL)
+    if r.returncode != 0:
+        out.append(f"git status 실패({r.returncode}): {r.stderr.strip()[:160]}")
+    elif r.stdout.strip():
+        out.append("tests/tc/public에 미커밋·추적 안 된 변경: " + "; ".join(r.stdout.strip().splitlines()[:5]))
+    # 필터·속성(clean filter 등)으로 diff를 속이는 우회 방지: 기준 트리 blob 해시와 디스크 바이트를 직접 비교
+    r = git("ls-tree", "-r", "-z", base, "--", PUB_REL)
+    entries = [e for e in r.stdout.split("\0") if e] if r.returncode == 0 else []
+    if not entries:
+        return out + [f"{BASELINE_TAG}에 tests/tc/public이 없음 또는 ls-tree 실패"]
+    want = []
+    for e in entries:
+        meta, _, path = e.partition("\t")
+        mode, typ, sha = (meta.split() + ["", "", ""])[:3]
+        p = os.path.join(ROOT, path)
+        if typ != "blob" or mode == "120000" or os.path.islink(p) or not os.path.isfile(p):
+            out.append(f"{path}: 기준 커밋과 형식이 다르거나 파일 없음")
+        else:
+            want.append((p, path, sha))
+    if want:
+        r = git("hash-object", "--no-filters", "--stdin-paths", stdin="\n".join(p for p, _, _ in want) + "\n")
+        got = r.stdout.split()
+        if r.returncode != 0 or len(got) != len(want):
+            out.append(f"git hash-object 실패({r.returncode}): {r.stderr.strip()[:160]}")
+        else:
+            out += [f"{path}: 디스크 바이트가 {BASELINE_TAG} blob과 다름" for (_, path, sha), g in zip(want, got) if g != sha]
+    return out
+
+
 def cmd_tc_check(a):
-    """R3 제출 게이트. 하나라도 걸리면 NO-GO(exit 1). AGENTS.md U5: 예외 없음."""
+    """R3 제출 게이트. 하나라도 걸리면 NO-GO(exit 1). AGENTS.md U5: 예외 없음.
+    --interim: release 태그 요구만 생략한 중간 점검(제출 판정 아님). 나머지 검사는 동일하다."""
+    interim = bool(getattr(a, "interim", False))
+    if interim:
+        print("중간 점검: 제출 판정 아님 (--interim: release 태그 검사만 생략, 나머지 검사는 동일)")
     _, _, rows = table(get_sec(load(), "TC_MATRIX"))
     problems = []
-    # 1) 빌드 SHA는 실제 git 커밋이어야 한다
-    r = subprocess.run(["git", "-C", ROOT, "cat-file", "-e", f"{a.build}^{{commit}}"], capture_output=True)
-    if not re.fullmatch(r"[0-9a-f]{7,40}", a.build or "") or r.returncode != 0:
-        problems.append(f"빌드 '{a.build}'는 이 저장소의 git 커밋이 아님(릴리스 SHA 필요)")
+    # 1) 빌드 SHA는 실제 git 커밋이어야 한다(전체 SHA로 해석)
+    full = None
+    if re.fullmatch(r"[0-9a-f]{7,40}", a.build or ""):
+        if git("cat-file", "-e", f"{a.build}^{{commit}}").returncode == 0:
+            full = git_commit(a.build)
+    if full is None:
+        problems.append(f"빌드 '{a.build}'는 이 저장소의 git 커밋이 아님 또는 모호함(릴리스 SHA 필요)")
+    # 1-1) W5·G09: 빌드 = HEAD, (기본) 빌드 = release 태그
+    problems += release_problems(full, a.build, interim)
+    # 1-2) W4: 원문이 originals-baseline 이후 바뀌지 않았는가
+    problems += baseline_problems()
     # 2) 원문 ID 집합과 매트릭스 ID 집합의 양방향 일치·중복
     src, src_problems = tc_source_ids()
     problems += src_problems
@@ -519,27 +679,61 @@ def cmd_tc_check(a):
         problems.append(f"{i}: 원문은 있으나 매트릭스에 없음")
     for i in sorted(set(mids) - set(src)):
         problems.append(f"{i}: 매트릭스에만 있고 원문 없음")
-    # 3) 행별 결과·빌드·증거(파일 실재 + 내용에 TC ID와 빌드 SHA 포함)
+    # 3) 행별 결과·빌드·증거(파일 실재 + 해시 고정 + 내용에 TC ID와 빌드 SHA가 독립 토큰으로 포함)
+    evroot = ev_root()
+    shared: dict = {}  # W1: (종류, 키) → [TC] — 경로·inode·내용이 같은 증거를 여러 행이 쓰면 NO-GO
     for _, c in rows:
+        if len(c) < 8:
+            problems.append(f"{c[0] if c else '?'}: TC_MATRIX 행 형식 오류(열 {len(c)}개 < 8)")
+            continue
         tid, res, build, ev = c[0], c[3], c[4], c[7]
         if res != "✅":
             problems.append(f"{tid}: 결과 {res} {c[6]}")
             continue
         if build != a.build:
             problems.append(f"{tid}: 빌드 {build} ≠ 릴리스 {a.build}")
-        evp = ev if os.path.isabs(ev) else os.path.join(ROOT, ev)
-        if ev in ("-", "") or not os.path.isfile(evp) or os.path.getsize(evp) == 0:
-            problems.append(f"{tid}: 증거 파일 없음/빈 파일({ev})")
+        path, sep, pin = ev.rpartition(PIN_SEP)
+        if not sep or not PIN_RE.fullmatch(pin):
+            problems.append(f"{tid}: 증거 해시 없음(hash missing) — A4가 `tc set`으로 다시 기록해야 함({ev})")
+            path, pin = ev, None
+        evp = truecase(os.path.join(ROOT, path))
+        if path in ("-", "") or not evp.startswith(evroot) or not os.path.isfile(evp):
+            problems.append(f"{tid}: 증거 파일 없음/빈 파일/tests/runs/ 밖({ev})")
             continue
-        body = open(evp, encoding="utf-8", errors="replace").read()
+        with open(evp, "rb") as f:
+            data = f.read()  # 한 번만 읽어 해시 대조와 내용 검사에 같은 바이트를 쓴다(읽는 사이 교체 방지)
+        if not data:
+            problems.append(f"{tid}: 증거 파일 없음/빈 파일/tests/runs/ 밖({ev})")
+            continue
+        digest = hashlib.sha256(data).hexdigest()
+        if pin is not None and digest[:16] != pin:
+            problems.append(f"{tid}: 증거 해시 불일치(기록 {pin} ≠ 현재 {digest[:16]}) — tc set 이후 증거가 바뀜")
+        st = os.stat(evp)
+        for key in (("경로", evp), ("하드링크", (st.st_dev, st.st_ino)), ("내용", digest)):
+            shared.setdefault(key, []).append(tid)
+        body = data.decode("utf-8", errors="replace")
         if tid not in body or a.build not in body:
-            problems.append(f"{tid}: 증거({ev})에 TC ID 또는 빌드 SHA가 없음")
-    print(f"TC_MATRIX {len(mids)}행 / 원문 {len(src)}건 / 기대 {TC_EXPECTED}건 / 빌드 {a.build}")
+            problems.append(f"{tid}: 증거({path})에 TC ID 또는 빌드 SHA가 없음")
+            continue
+        if not id_token(body, tid):
+            problems.append(f"{tid}: 증거({path})에 TC ID가 독립 토큰으로 없음(L-033·R-05-ab 같은 부분일치 불인정)")
+        if full and not sha_token(body, full):
+            problems.append(f"{tid}: 증거({path})에 빌드 SHA가 독립 16진 토큰(7자 이상, 커밋 SHA의 접두)으로 없음")
+    reported = set()
+    for (kind, _), tids in shared.items():
+        if len(tids) > 1 and frozenset(tids) not in reported:
+            reported.add(frozenset(tids))
+            problems.append(f"증거 공유({kind} 동일): {', '.join(tids)} — TC마다 별도 증거 파일이 필요함")
+    print(f"TC_MATRIX {len(mids)}행 / 원문 {len(src)}건 / 기대 {TC_EXPECTED}건 / 빌드 {a.build}"
+          + (f" ({full[:12]})" if full else "") + (" / 중간 점검" if interim else ""))
     for p in problems:
         print("  ✗ " + p)
     if problems:
-        print("결과: NO-GO (R3 미충족 — 예외 없음, AGENTS.md U5)")
+        print("결과: NO-GO (R3 미충족 — 예외 없음, AGENTS.md U5)" + (" [중간 점검: 제출 판정 아님]" if interim else ""))
         sys.exit(1)
+    if interim:
+        print(f"결과: {TC_EXPECTED}/{TC_EXPECTED} ✅ — 중간 점검: 제출 판정 아님(release 태그 미검사, 제출 GO는 --interim 없이)")
+        return
     print(f"결과: {TC_EXPECTED}/{TC_EXPECTED} ✅ (R3 충족)")
 
 
@@ -728,22 +922,33 @@ def hook_out(event: str, ctx: str | None = None, deny: str | None = None):
     sys.exit(0)
 
 
-def cmd_hook_pre(_a):
+def cmd_hook_pre(a):
+    """예외가 나면 허용(fail-open)되지 않도록 차단(fail-closed)한다."""
+    try:
+        _hook_pre(a)
+    except SystemExit:
+        raise
+    except Exception as ex:  # noqa: BLE001
+        hook_out("PreToolUse", deny=f"coord 훅 내부 오류로 안전 차단: {type(ex).__name__}: {ex} — A0에게 BLOCKER로 알리세요(python3 coord/selftest.py).")
+
+
+def _hook_pre(_a):
     ag = os.environ.get("AGENT_ID")
     if not ag:
         sys.exit(0)
-    try:
-        data = json.load(sys.stdin)
-    except Exception:
-        sys.exit(0)
+    data = json.load(sys.stdin)  # 비JSON도 cmd_hook_pre 래퍼에서 거부(fail-closed)
     ti = data.get("tool_input") or {}
-    fp = ti.get("file_path") or ti.get("notebook_path")
-    if not fp:
-        sys.exit(0)
-    ap = os.path.realpath(os.path.join(data.get("cwd") or ROOT, fp))
-    if not ap.startswith(ROOT + os.sep):
-        sys.exit(0)  # 저장소 밖(스크래치 등)은 관여하지 않는다
-    path = os.path.relpath(ap, ROOT)
+    for k in ("file_path", "notebook_path"):  # 둘 다 있으면 둘 다 검사
+        if ti.get(k):
+            hook_pre_path(ag, data, ti[k])
+    sys.exit(0)
+
+
+def hook_pre_path(ag: str, data: dict, fp: str):
+    ap = truecase(os.path.join(data.get("cwd") or ROOT, os.path.expanduser(fp)))
+    if not ap.casefold().startswith((ROOT + os.sep).casefold()):
+        return  # 저장소 밖(스크래치 등)은 관여하지 않는다
+    path = ap[len(ROOT) + 1:]
     o = owners()
     if path == "SHARED_BOARD.md":
         hook_out("PreToolUse", deny="SHARED_BOARD.md는 직접 편집 금지입니다. `python3 coord/coord.py …`(post/wu/log/section/handoff 등)로만 수정하세요 (AGENTS.md U2).")
@@ -756,13 +961,23 @@ def cmd_hook_pre(_a):
     if not match(path, spec["write"]):
         owner = path_owner(path, o) or "A0(소유자 미지정)"
         hook_out("PreToolUse", deny=f"{path}는 {owner}의 소유입니다(AGENTS.md U1). `python3 coord/coord.py post --to {owner.split('(')[0]} --type REQUEST \"무엇을 왜\" --ref <근거>`로 요청하세요.")
-    sys.exit(0)
 
 
 def cmd_hook_post(_a):
     ag = os.environ.get("AGENT_ID")
     if not ag:
         sys.exit(0)
+    try:
+        hook_post_body(ag)
+    except SystemExit as ex:
+        if ex.code not in (0, None):
+            sys.exit(0)  # exit 2는 UserPromptSubmit에서 사용자 프롬프트를 차단·삭제한다 → 알림 훅은 절대 막지 않는다
+        raise
+    except Exception:
+        sys.exit(0)
+
+
+def hook_post_body(ag: str):
     try:
         data = json.load(sys.stdin)
     except Exception:
@@ -816,6 +1031,8 @@ def main():
     tset = ts.add_parser("set"); tset.add_argument("--id", required=True); tset.add_argument("--result", required=True)
     tset.add_argument("--build", required=True); tset.add_argument("--run", required=True); tset.add_argument("--why")
     tchk = ts.add_parser("check"); tchk.add_argument("--build", required=True)
+    tchk.add_argument("--interim", action="store_true",
+                      help="중간 점검: release 태그 요구만 생략(HEAD 일치 등 나머지는 동일). 제출 판정 아님")
     s = sub.add_parser("task"); s.add_argument("action", choices=["new", "claim", "review", "done", "block"])
     s.add_argument("--id"); s.add_argument("--owner"); s.add_argument("--title"); s.add_argument("--deps", default="-")
     s.add_argument("--out", default="-"); s.add_argument("--note")
