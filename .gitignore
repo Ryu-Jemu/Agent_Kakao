@@ -12,3 +12,6 @@ __pycache__/
 *.pyc
 .venv/
 .DS_Store
+# 대용량 원문 이미지(권한 위임표, 판독본은 kb/raw/sources/_text/에 커밋) — A0 D-022
+kb/raw/sources/authority_zip/
+kb/raw/sources/authority_files/
