@@ -65,7 +65,7 @@ def system_prompt(s: Session) -> str:
         "[케이스]",
         f"- 케이스 ID: {s.tc_id or '없음(조회·접수 불가)'}",
         f"- 상담일(오늘): {cal['today']} {cal['now_time']}" + ("" if s.now_known else " (인입 일시 미제공 — 세계관 기본일)"),
-        f"- 달력: 어제 {cal['yesterday']} / 내일 {cal['tomorrow']} / 모레 {cal['day_after_tomorrow']} / 다음 영업일 {cal['next_business_day']} / 영업일 3일 후(이관 회신 기한) {cal['reply_due_3bd']} / 7일 전 {cal['minus_7d']}",
+        f"- 달력: 어제 {cal['yesterday']} / 내일 {cal['tomorrow']} / 모레 {cal['day_after_tomorrow']} / 다음 영업일 {cal['next_business_day']} / 영업일 3일 후(이관 회신 기한) {cal['reply_due_3bd']} / 7일 전 {cal['minus_7d']} / 다음 정기 출고일(월·수·금, 휴무 회차 건너뜀) {cal['next_regular_ship']}",
         f"- 인입창구: {s.channel or '-'}",
         f"- 인입 계정: {'회원 로그인' if s.logged_in else ('비회원' if s.logged_in is False else '-')} · {s.account_name or '-'} · 전화 끝 {s.phone_last4 or '-'}"
         + (" (회원 확인됨)" if s.member_id else ""),

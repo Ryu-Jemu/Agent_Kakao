@@ -1,16 +1,20 @@
 """날짜·영업일·기간 계산(LLM 암산 금지 — A3_BRAIN 설계 5).
 
 기준일은 케이스의 '상담 인입 일시'다(docs/contest/05 FAQ: 시나리오의 문의 접수 날짜 기준).
-공휴일: 양력 고정 공휴일만 넣었다. 음력 공휴일(설·추석·석가탄신일)과 대체공휴일 전체는 '추가 확인 필요'.
-2037-06~07 평일에는 고정 공휴일이 없어(06-06은 토요일, 07-17 제헌절은 공휴일 아님) 세계관 기간의 영업일 계산에는 영향이 없다.
+공휴일: 2037년은 세계관 정본 「영업일·공휴일 달력」의 공휴일 표를 그대로 쓴다(HOLIDAYS_2037).
 """
 from __future__ import annotations
 
 from datetime import date, datetime, timedelta
 
 WEEKDAY_KO = "월화수목금토일"
-FIXED_HOLIDAYS = {(1, 1), (3, 1), (5, 5), (6, 6), (8, 15), (10, 3), (10, 9), (12, 25)}
-EXTRA_HOLIDAYS = {date(2037, 8, 17)}  # 광복절(토) 대체공휴일 — 추정
+# 정본: 「영업일·공휴일 달력」(kb/raw/sources/_text/영업일공휴일달력.txt '공휴일 표', 2037-03 개장 이후, KB D-120~123).
+# 주의: 이 세계관에서 2037-05-05(화)는 영업일이고 05-06(수)이 공휴일이다. 대체공휴일 포함.
+HOLIDAYS_2037 = {date(2037, 3, 1), date(2037, 5, 6), date(2037, 5, 25), date(2037, 6, 6), date(2037, 8, 15),
+                 date(2037, 8, 17), date(2037, 9, 23), date(2037, 9, 24), date(2037, 9, 25), date(2037, 10, 3),
+                 date(2037, 10, 5), date(2037, 10, 9), date(2037, 12, 25)}
+FIXED_HOLIDAYS = {(1, 1), (3, 1), (5, 5), (6, 6), (8, 15), (10, 3), (10, 9), (12, 25)}  # 2037 외 연도용(추정)
+SHIP_WEEKDAYS = (0, 2, 4)  # 산지 정기 출고 월·수·금, 휴무일이면 그 회차 건너뜀(달력 §1, D-120)
 
 
 def to_date(x) -> date | None:
@@ -32,7 +36,19 @@ def to_date(x) -> date | None:
 
 
 def is_business_day(d: date) -> bool:
-    return d.weekday() < 5 and (d.month, d.day) not in FIXED_HOLIDAYS and d not in EXTRA_HOLIDAYS
+    if d.weekday() >= 5:
+        return False
+    if d.year == 2037:
+        return d not in HOLIDAYS_2037
+    return (d.month, d.day) not in FIXED_HOLIDAYS
+
+
+def next_ship_day(d) -> date:
+    """d 다음 날부터 가장 빠른 정기 출고일(월·수·금 중 영업일). 개별 주문의 출고 확정이 아니다."""
+    cur = to_date(d) + timedelta(days=1)
+    while not (cur.weekday() in SHIP_WEEKDAYS and is_business_day(cur)):
+        cur += timedelta(days=1)
+    return cur
 
 
 def add_business_days(d, n: int) -> date:
@@ -82,6 +98,7 @@ def case_calendar(now: datetime) -> dict:
         "reply_due_3bd": iso_ko(add_business_days(today, 3)),
         "next_business_day": iso_ko(add_business_days(today, 1)),
         "minus_7d": iso_ko(today - timedelta(days=7)),
+        "next_regular_ship": iso_ko(next_ship_day(today)),
     }
 
 

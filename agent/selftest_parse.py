@@ -92,6 +92,18 @@ def main() -> int:
                     (date(2037, 6, 6), date(2037, 6, 11)), (date(2037, 6, 29), date(2037, 7, 2))]:
         if dates.add_business_days(d0, 3) != exp:
             fails.append(f"bd {d0}->{dates.add_business_days(d0, 3)} != {exp}")
+    # 정본 달력 예시(영업일공휴일달력.txt §4·§5): 07-20→07-23, 07-24→07-29, 08-14→08-20(08-17 대체), 09-22→09-30(연휴)
+    for d0, exp in [(date(2037, 7, 20), date(2037, 7, 23)), (date(2037, 7, 24), date(2037, 7, 29)),
+                    (date(2037, 8, 14), date(2037, 8, 20)), (date(2037, 9, 22), date(2037, 9, 30))]:
+        if dates.add_business_days(d0, 3) != exp:
+            fails.append(f"calendar {d0}->{dates.add_business_days(d0, 3)} != {exp}")
+    # 05-05(화)는 영업일, 05-06(수)은 공휴일 / 정기 출고: 06-30(화)→07-01(수), 08-14(금)→08-19(수, 08-17 대체), 09-21(월)→09-28(월)
+    if not dates.is_business_day(date(2037, 5, 5)) or dates.is_business_day(date(2037, 5, 6)):
+        fails.append("05-05/05-06")
+    for d0, exp in [(date(2037, 6, 30), date(2037, 7, 1)), (date(2037, 8, 14), date(2037, 8, 19)),
+                    (date(2037, 9, 21), date(2037, 9, 28))]:
+        if dates.next_ship_day(d0) != exp:
+            fails.append(f"ship {d0}->{dates.next_ship_day(d0)} != {exp}")
     if dates.days_between("2037-06-26T14:00:00+09:00", datetime(2037, 6, 30, 10, 22)) != 4:
         fails.append("days_between Y-07-b")
     if date(2037, 6, 30).weekday() != 1 or date(2037, 6, 26).weekday() != 4 or date(2037, 6, 6).weekday() != 5:
