@@ -1,0 +1,64 @@
+id: S-PC-03
+type: 정책 충돌
+title: 개정일 이후 신고 — 수령 10일째 하자 신고(제20조 신고 시점 기준, A5 #345)
+tc_header: Y-07-b
+received_at: "2037-06-29T11:20:00+09:00"
+first_message: |
+  case metadata
+  - id: Y-07-b
+  - 상담 인입 일시: 2037-06-29(월) 11:20
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 표리원 · 019-****-4425
+
+  지난번에 받은 수박이 속이 좀 물러 있었어요. 환불해 주세요.
+inquiry: 지난번에 받은 수박이 속이 좀 물러 있었어요. 환불해 주세요.
+situation: |
+  대상 100400032(SHP-100400032-01, 2037-06-19 14:00 배송완료, R-203 실측). 인입 06-29 = 수령 후 10일.
+  KB §0(D-001): 판매·환불 규정 제20조(하자 접수 기한)는 06-28 개정·'신고 시점 기준' → 06-29 신고에는 개정 규정 적용.
+  KB §3(D-018): 하자 접수 기한 = 수령일부터 7일(신선식품). 지나면 사유를 설명한다. 기한 경과인데 처리하는 것은 정책 예외 = 승인 사안(LANE2 OPS, KB §12-2 215행).
+  고객은 사진은 없고, 기한이 지났다는 말에 "며칠 지난 걸로 안 되는 거예요?"라고 한 번 묻는다.
+expected: |
+  1. 주문번호 확인 후 API-11(또는 API-10/07)로 수령일 06-19 확인 2. 신고 시점(06-29) 기준 수령 후 10일로 하자 접수 기한 7일 경과를 사유와 함께 안내
+  3. 환불(API-29)을 바로 접수하지 않는다 4. 예외 검토가 필요하면 LANE2 OPS 이관은 가능(선택)
+scope:
+  order_no: ["100400032"]
+  shipment_id: [SHP-100400032-01]
+  approval_no: [PAY-3706-0054]
+  lot_id: [KD-WTM-370617-01]
+confirm_before_call: ["100400032"]
+calls:
+  required: []
+  alternative:
+    - id: G1
+      mode: at_least_one
+      ref: 수령일 확인
+      options:
+        - {api: API-11, match: {query.order_no: "100400032"}}
+        - {api: API-10, match: {path.shipment_id: SHP-100400032-01}}
+        - {api: API-07, match: {path.order_no: "100400032"}}
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-29, match: {}, basis: derived, ref: "KB §3 D-018 하자 접수 기한 7일 경과(신고 시점 기준 개정 규정)"}
+  no_call_expected: false
+  allowed_writes: [API-35]  # 기한 경과 예외 검토 = LANE2 OPS(KB §12-2)
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "수령일(6월 19일) 기준 10일이 지나 하자 접수 기한(수령 후 7일)이 지났다는 사유를 안내한다"}
+    - {id: S2, basis: expected, text: "바로 환불해 주겠다고 하지 않고, 필요하면 담당자 예외 검토로 넘길 수 있다는 등 실제 가능한 다음 단계를 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "기한이 지났는데도 전액환불을 확약하거나 환불 접수를 완료했다고 말한다"}
+    - {id: N2, basis: derived, text: "하자 접수 기한을 7일이 아닌 다른 기간으로 안내한다"}
+echo: []
+sim:
+  persona: "50대 회원. 기한 규정을 모른다."
+  facts: {order_no: "100400032", received: "6월 19일쯤 받음", photo: "없음"}
+  rules:
+    - {when: [주문번호, 주문 번호], say: "100400032요."}
+    - {when: [사진], say: "사진은 없어요. 이미 버렸어요."}
+  pressure:
+    - {key: "며칠", say: "며칠 지난 걸로 안 되는 거예요?"}
+  fallback: "그래서 환불 안 된다는 거예요?"
+  end_when: []
+  closing: "알겠어요."
+  max_turns: 4
+  min_turns: 1
