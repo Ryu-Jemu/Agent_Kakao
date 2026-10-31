@@ -33,6 +33,10 @@ try:  # 토큰 등 비밀값은 환경으로만 넘긴다(출력 금지). 커밋
 except Exception:
     pass
 
+if os.environ.get("A4_ALLOW_VERTEX") != "1":  # D-031: Vertex 폴백 끄기(BRAIN·하네스 모두 키 경로 고정, import 전에 설정)
+    os.environ["AGENT_VERTEX_FALLBACK"] = "0"
+    os.environ["A4_LLM_BACKEND"] = "apikey"
+
 from tests import scoring as S  # noqa: E402
 from tests.sim import Simulator  # noqa: E402
 
@@ -318,7 +322,17 @@ async def amain(args) -> int:
         print(f"세트 {args.set}에 시나리오 없음" + (" — redteam은 A6 러너 release/redteam_run.py 사용" if args.set == "redteam" else ""))
         return 2
     ids = [x.strip() for x in args.tc.split(",")] if args.tc else all_ids
+    if args.exclude:  # D-027: 인젝션·욕설 등 민감 입력을 빼고 돌릴 때(공개 15건 게이트 기록은 전수일 때만)
+        ex = {x.strip() for x in args.exclude.split(",")}
+        ids = [i for i in ids if i not in ex]
     full = args.set == "public" and set(ids) == set(all_ids) and args.handler == "agent" and not args.out
+    from tests.llm_util import api_key
+    uses_llm = args.handler == "agent" or args.judge or args.sim == "llm"
+    if uses_llm and not api_key() and os.environ.get("A4_ALLOW_VERTEX") != "1":
+        # D-027·#396: 키가 없으면 BRAIN·시뮬·판정이 차단된 Vertex 프로젝트로 감 → 실행 거부
+        print("[run] 거부: Gemini API 키(AGENT_GEMINI_API_KEY 등) 없음 — Vertex 폴백 금지(D-027). "
+              "LLM 없는 건식은 --handler echo --sim scripted --no-judge, Vertex 허용 시 A4_ALLOW_VERTEX=1")
+        return 2
     if CALLER != "A4" and (args.reset or (args.record and full)):
         print(f"[run] 거부: reset·TC_MATRIX 기록은 A4 전용(호출자 {CALLER}) — --no-reset 와 --out(또는 --no-record)로 실행")
         return 2
@@ -335,6 +349,15 @@ async def amain(args) -> int:
         build = build_info(bot_root, bot_root.name)
     else:
         build = build_info()
+    if args.handler == "agent" and os.environ.get("A4_ALLOW_VERTEX") != "1":
+        # D-030: 실행할 빌드의 agent/llm.py가 읽는 API 키 이름 중 하나라도 있어야 함(없으면 BRAIN이 Vertex로 폴백)
+        import re as _re
+        llm_src = ((bot_root if args.build else ROOT) / "agent" / "llm.py").read_text(encoding="utf-8")
+        names = sorted(set(_re.findall(r'environ\.get\(\s*"([A-Z0-9_]*API_KEY)"', llm_src)))
+        if not any(os.environ.get(n) for n in names):
+            print(f"[run] 거부: 빌드 {build['label'][:7]}의 agent/llm.py가 읽는 키 {names or '(없음)'}가 환경에 없음 → BRAIN이 Vertex로 폴백(D-027). 키 별칭 포함 빌드로 실행")
+            return 2
+        print(f"[run] BRAIN 키 경로 확인: {[n for n in names if os.environ.get(n)]}")
     print(f"[run] {ts} build={build['label']} tc={len(ids)} sim={args.sim} judge={args.judge}")
     acm = install_trace_hook()
     if args.reset:
@@ -442,11 +465,15 @@ def main():
     ap.add_argument("--no-record", dest="record", action="store_false")
     ap.add_argument("--build", help="커밋 sha(D-009). 지정 시 그 커밋의 봇 경로를 추출해 실행·기록(미지정=작업 트리, 수정 있으면 -dirty)")
     ap.add_argument("--judge-n", type=int, default=3, help="LLM 판정 다수결 횟수(동률은 엄격 쪽)")
+    ap.add_argument("--exclude", help="쉼표 구분 제외 ID(예: S-SF-02). 공개 세트에서 쓰면 전수가 아니므로 TC_MATRIX 미기록")
+    ap.add_argument("--lite", action="store_true", help="하네스 Vertex 사용 최소화: --sim scripted --judge-n 1 (D-027 이후 저부하)")
     ap.add_argument("--label", default="")
     ap.add_argument("--out", help="산출 디렉터리(기본 tests/runs/<ts>). 다른 소유자는 자기 경로로(A5: analysis/runs/…). 지정 시 TC_MATRIX 기록 안 함")
     ap.add_argument("--handler", default="agent", choices=["agent", "echo"], help="echo = 파이프라인 건식 점검(채점 무의미)")
     args = ap.parse_args()
     sys.stdout.reconfigure(line_buffering=True)  # 파일로 리다이렉트해도 진행 로그가 바로 보이게
+    if args.lite:
+        args.sim, args.judge_n = "scripted", 1
     sys.exit(asyncio.run(amain(args)))
 
 

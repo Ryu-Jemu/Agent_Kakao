@@ -41,6 +41,10 @@ def main():
         jd = r.get("judge")
         if a.rejudge:
             import asyncio
+            import os as _os
+            from tests.llm_util import api_key
+            if not api_key() and _os.environ.get("A4_ALLOW_VERTEX") != "1":
+                sys.exit("--rejudge 거부: API 키 없음(D-027 Vertex 폴백 금지)")
             from tests.judge import judge_votes
             from tests.run import kb_hint
             hist = []

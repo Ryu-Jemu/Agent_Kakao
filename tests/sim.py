@@ -128,9 +128,8 @@ class Simulator:
             try:
                 reply, end = await self._llm(history)
                 path = "llm"
-                if end and len(self.turns) - 1 < int(self.sim.get("min_turns", 1)):  # 너무 이른 종료 방지
-                    reply, end = self._scripted(bot_text)
-                    path = "llm→scripted(min_turns)"
+                # min_turns는 규칙 모드 전용(R-255: LLM 모드에서 규칙 응답으로 대체하면 이미 한 말을 반복해 말풍선만 늘었음).
+                # LLM 모드의 조기 종료 방지는 아래 pressure(원문 상황 발화 미소진 시 계속)로만 한다.
             except Exception as e:  # LLM 불가 → 규칙 기반 대체
                 reply, end = self._scripted(bot_text)
                 path = f"scripted(llm 실패: {type(e).__name__})"

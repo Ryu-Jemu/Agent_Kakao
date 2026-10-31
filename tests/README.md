@@ -6,6 +6,7 @@ uv run --with pyyaml python tests/run.py --set public                  # 15건 �
 uv run --with pyyaml python tests/run.py --set public --tc L-03 --no-reset   # 부분(매트릭스 미갱신)
 uv run --with pyyaml python tests/run.py --set synthetic --no-reset    # 합성 16건
 옵션: --sim llm|scripted  --jobs 3  --no-judge  --no-record  --out <dir>  --handler echo(건식)
+      --build <sha>(커밋 추출 실행, D-009)  --exclude S-SF-02,…(민감 입력 제외)  --lite(시뮬 규칙 기반+판정 1회, D-027 저부하)
 ```
 - reset·15건 전수 기록은 A4만 한다. 다른 세션은 `--no-reset --no-record --out <자기 경로>`.
 - redteam은 A6 러너 `release/redteam_run.py`를 쓴다(중복 구현 안 함).
