@@ -155,8 +155,11 @@ def run(coord_src):
         shutil.copy(f"{ROOT}/SHARED_BOARD.md", f"{t}/SHARED_BOARD.md"); writable(t)
         case("N", "N1 현 보드 TC_MATRIX 그대로", *E.check(sha))
         # N2 대문자 SHA(같은 커밋) → NO-GO(정규식)
-        E.set_matrix(E.good_rows(sha.upper()))
-        case("N", "N2 대문자 SHA", *E.check(sha.upper()))
+        if sha.upper() != sha:  # 7자 SHA가 숫자뿐이면 대문자 변환이 같은 문자열이 되어 시험 불가(약 3.7%, 1321 실행에서 오탐)
+            E.set_matrix(E.good_rows(sha.upper()))
+            case("N", "N2 대문자 SHA", *E.check(sha.upper()))
+        else:
+            print(f"[SKIP] N2 대문자 SHA — 이번 SHA {sha}가 숫자뿐이라 해당 없음")
         # N3 'HEAD'·태그 이름 → NO-GO
         E.set_matrix(E.good_rows("HEAD"))
         case("N", "N3 빌드='HEAD'", *E.check("HEAD"))

@@ -23,3 +23,9 @@ docs/INTERVIEW_AUTOMATION.md
 inbox/images/auto/
 # 대용량 상품 상세 원문 html(25.8MB, 판독본 _text/상품상세.txt만 커밋) — A0 D-022 확장
 kb/raw/sources/product_html/
+# 제출 후 커밋 제외(5MB+ 원문 이미지·zip, 판독 텍스트는 _text/에 커밋) — A0 D-050
+inbox/sources/experience/B55-01.png
+inbox/sources/experience/B55-02.png
+inbox/sources/mD9Z9ob30jaT111iWMF4fg.zip
+**/node_modules/
+**/node_modules

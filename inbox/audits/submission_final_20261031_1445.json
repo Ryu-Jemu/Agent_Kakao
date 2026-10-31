@@ -1,0 +1,21 @@
+{
+  "time": "2026-10-31T14:45:02.182550+09:00",
+  "head": "48de01f1b0bfc15923b904d284b5591cfb8feedc",
+  "release": "48de01f1b0bfc15923b904d284b5591cfb8feedc",
+  "debrief_sha256": "26b136d59dea345136751c22f7453e07bda29845c05c1ece053fa407f47dea51",
+  "chars": 7184,
+  "snapshot_matches": true,
+  "app_id_file": "1627085",
+  "runtime_diff": "",
+  "vm_checked_at_kst": "2026-10-31 14:45:03 KST",
+  "vm_service": "active/running",
+  "vm_restarts": 0,
+  "vm_release": "48de01f1b0bf",
+  "vm_last_alive_kst": "14:40:10 connected=true msgs=3",
+  "vm_last_warmup_kst": "14:41:35 ok=true 1367ms",
+  "user_form_logged_in": true,
+  "gate": "A6 final GO maintained; 3 detailed quality risks acknowledged in D-049",
+  "tc_gate_verified": "14:34 15/15 exit0; offline independent check0problems",
+  "external_submission_executed": false,
+  "remaining_human_actions": "제출직전인터뷰실행기중지,14:50에AppID와본문입력/제출,완료알림"
+}

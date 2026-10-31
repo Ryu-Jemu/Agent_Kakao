@@ -1,0 +1,19 @@
+{
+  "cells_compared": 169,
+  "differences": [],
+  "nonempty_cells": 164,
+  "source_hash_unchanged": true,
+  "source_sha256": "c73daeaecc243664ad320f409e863836da60cd0b55d33eb32b890598e8427a6a",
+  "rendered_and_viewed_sheets": 4,
+  "image_parts": 0,
+  "no_macro_or_external_execution": true,
+  "weekday_checks": {
+    "2037-03-21": "Saturday",
+    "2037-04-18": "Saturday",
+    "2037-05-16": "Saturday",
+    "2037-06-13": "Saturday",
+    "2037-05-30": "Saturday",
+    "2037-06-23": "Tuesday",
+    "2037-06-25": "Thursday"
+  }
+}

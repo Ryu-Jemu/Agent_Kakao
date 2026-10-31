@@ -1,0 +1,22 @@
+{
+  "source_url": "https://t1.kakaocdn.net/aitop100/aitop100/dist/5qStcfJN45yTNkUI8SYD0w.zip",
+  "bytes": 40964,
+  "sha256": "1daf9c36e27edd2895e2570a51b5d10ef8e920b818087cb83baba04a7ce4c6ff",
+  "crc_first_bad": null,
+  "members": [
+    {
+      "name": "로트원장.html",
+      "bytes": 33255,
+      "compressed": 9191,
+      "crc32": "719bc9f0",
+      "mode": "0o644"
+    },
+    {
+      "name": "출고검사성적서_팩스사본_KD-HGL-370624-01.pdf",
+      "bytes": 31932,
+      "compressed": 31455,
+      "crc32": "dc4262af",
+      "mode": "0o644"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "recorded_at": "2026-10-31 13:45:28 KST",
+  "metrics": {
+    "L-20": {
+      "user_reported_approx_seconds": 7,
+      "server_receive_to_callback_ms": 5146,
+      "bubbles": 1,
+      "characters": 231,
+      "utf16_units": 231,
+      "response_sha256": "0917ef9e402e660eb40f752d24a87fa974b9697bdedbf809b853782a485ac72f"
+    },
+    "Y-24": {
+      "user_reported_approx_seconds": 7,
+      "server_receive_to_callback_ms": 5976,
+      "bubbles": 1,
+      "characters": 302,
+      "utf16_units": 302,
+      "response_sha256": "6e0c328ef4617f594e75ba079f01e2f0463986c17a78fd74f2e577a8c60e378c"
+    },
+    "L-23": {
+      "user_reported_approx_seconds": 7,
+      "server_receive_to_callback_ms": 14767,
+      "bubbles": 1,
+      "characters": 234,
+      "utf16_units": 234,
+      "response_sha256": "212ed4643fa8d27cadce9a86ba8a21a1b77c10f280a99ffdeda74d4d55ffedf5"
+    }
+  },
+  "seller_fields_match": 7,
+  "max_chars": 302,
+  "basis": [
+    "사용자 직접 전달 결과",
+    "A2 R-366",
+    "A6 R-367"
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "time": "06-24 11:00",
+    "temp_c": "-19.1",
+    "flag": "정상",
+    "source_range": "A6:E6"
+  },
+  {
+    "time": "06-24 11:30",
+    "temp_c": "-16.8",
+    "flag": "주의",
+    "source_range": "A7:E7"
+  },
+  {
+    "time": "06-24 12:00",
+    "temp_c": "-13.2",
+    "flag": "이탈 후보",
+    "source_range": "A8:E8"
+  },
+  {
+    "time": "06-24 12:30",
+    "temp_c": "-10.5",
+    "flag": "이탈",
+    "source_range": "A9:E9"
+  },
+  {
+    "time": "06-24 13:00",
+    "temp_c": "-8.6",
+    "flag": "이탈",
+    "source_range": "A10:E10"
+  },
+  {
+    "time": "06-24 13:30",
+    "temp_c": "-9.4",
+    "flag": "이탈",
+    "source_range": "A11:E11"
+  },
+  {
+    "time": "06-24 14:00",
+    "temp_c": "-12.7",
+    "flag": "이탈",
+    "source_range": "A12:E12"
+  },
+  {
+    "time": "06-24 14:30",
+    "temp_c": "-16.1",
+    "flag": "주의",
+    "source_range": "A13:E13"
+  },
+  {
+    "time": "06-24 15:00",
+    "temp_c": "-18.3",
+    "flag": "정상",
+    "source_range": "A14:E14"
+  },
+  {
+    "time": "06-24 15:30",
+    "temp_c": "-19",
+    "flag": "정상",
+    "source_range": "A15:E15"
+  }
+]

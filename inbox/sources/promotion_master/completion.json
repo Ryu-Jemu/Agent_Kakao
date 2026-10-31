@@ -1,0 +1,23 @@
+{
+  "completed_at": "2026-10-31T14:23:05.727958",
+  "zip_sha256": "f7f8f86a226704279ae233e718a0812ca3178e0ca6acf8b4b9c0cea9d70366f1",
+  "zip_unchanged": true,
+  "members_unchanged": {
+    "프로모션원장.html": true,
+    "할인중복_보상쿠폰_기준.pdf": true
+  },
+  "html_tables": 6,
+  "code_ledger_rows": 6,
+  "pdf_pages_read_and_viewed": 2,
+  "xslx_files": 0,
+  "scripts_external_resources_images_attachments_actions": 0,
+  "cross_extractor_keyterms": 9,
+  "coupon_boundary_examples": 12,
+  "cmap_nonfatal_warnings": true,
+  "failed_commands": 0,
+  "retries": 0,
+  "writes_scope": "inbox/sources/promotion_master/ only",
+  "conflict_to_handoff": "K-123 가격차액 전용·안내지연 예외 일반화 vs PDF §6 안내지연 CARE3000 상시발급",
+  "unresolved": "금액 차감 순서, 개별 발급 승인/자격/이력, 등록 시각 등",
+  "reference_documents": 14
+}

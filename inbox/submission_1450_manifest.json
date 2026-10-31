@@ -1,0 +1,15 @@
+{
+  "prepared_at": "2026-10-31T14:42:20.990335+09:00",
+  "app_id": "1627085",
+  "debrief_sha256": "26b136d59dea345136751c22f7453e07bda29845c05c1ece053fa407f47dea51",
+  "debrief_chars": 7184,
+  "limit": 16000,
+  "release": "48de01f1b0bfc15923b904d284b5591cfb8feedc",
+  "approval": "A0 #650 / A6 #651; GO retained #700",
+  "user_confirmed_logged_in_form": true,
+  "target": "14:50 KST",
+  "submitted": false,
+  "note": "payload is exact byte-copy of approved canonical; verify again at14:45~49",
+  "final_verified_at": "2026-10-31 14:45:03 KST",
+  "final_state": "ready; ongoing read-only monitoring A2/A6 until submission confirmation"
+}

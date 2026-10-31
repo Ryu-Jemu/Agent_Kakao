@@ -1,0 +1,20 @@
+{
+  "all_depth_members": [
+    {
+      "path": "로트원장.html",
+      "bytes": 33255,
+      "sha256": "f63d610b21a166a30e8b0c9e3659f9fa6d136eff02c44175f651ebc17105eb62",
+      "depth": 0,
+      "raw_bytes_unchanged": true
+    },
+    {
+      "path": "출고검사성적서_팩스사본_KD-HGL-370624-01.pdf",
+      "bytes": 31932,
+      "sha256": "f6fd7f9ffac2a710f8f3ba72d7f3ac8cad78d1a4bd63e4d9144d26199e9d5782",
+      "depth": 0,
+      "raw_bytes_unchanged": true
+    }
+  ],
+  "file_count": 2,
+  "nested_archive_count": 0
+}

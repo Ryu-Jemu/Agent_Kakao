@@ -1,0 +1,18 @@
+{
+  "file": "inbox/sources/mD9Z9ob30jaT111iWMF4fg.zip",
+  "sha256": "2559b422f63b9a5f6d2f8d1e51e5169bc301fd7a8b1d5c59634bdaf8e1f655d0",
+  "bytes": 12902588,
+  "expanded_bytes": 12898467,
+  "entries": [
+    {
+      "name": "B55-01.png",
+      "bytes": 6405684,
+      "compressed": 6407616
+    },
+    {
+      "name": "B55-02.png",
+      "bytes": 6492783,
+      "compressed": 6494758
+    }
+  ]
+}

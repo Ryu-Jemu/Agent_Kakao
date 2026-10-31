@@ -1,0 +1,4310 @@
+{
+  "tag_counts": {
+    "html": 1,
+    "head": 1,
+    "meta": 2,
+    "title": 1,
+    "style": 1,
+    "body": 1,
+    "div": 7,
+    "h1": 1,
+    "span": 2,
+    "label": 4,
+    "input": 4,
+    "section": 7,
+    "h2": 7,
+    "table": 9,
+    "thead": 9,
+    "tr": 113,
+    "th": 52,
+    "tbody": 9,
+    "td": 745,
+    "p": 12,
+    "pre": 1,
+    "h3": 1
+  },
+  "styles": [
+    "\n*{box-sizing:border-box}body{margin:0;font-family:\"Apple SD Gothic Neo\",\"Malgun Gothic\",\"Noto Sans KR\",sans-serif;font-size:13px;color:#222;background:#eef1f4}\n.top{background:#1f3a5f;color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center}\n.top .sys{font-weight:700;letter-spacing:.02em}.top .user{font-size:12px;opacity:.85}\n.crumb{background:#fff;border-bottom:1px solid #d5dbe2;padding:8px 20px;font-size:12px;color:#556}\n.wrap{max-width:1280px;margin:16px auto;padding:0 16px}\nh1{font-size:20px;margin:6px 0 12px}h2{font-size:15px;margin:22px 0 8px;padding-left:8px;border-left:4px solid #1f3a5f}\nh3{font-size:13px;margin:14px 0 6px;color:#1f3a5f}\n.bar{background:#fff;border:1px solid #d5dbe2;border-radius:4px;padding:10px 14px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px}\n.bar label{color:#556}.bar input,.bar select{border:1px solid #c8cfd8;border-radius:3px;padding:3px 6px;font-size:12px;background:#fafbfc}\n.bar .btn{background:#1f3a5f;color:#fff;border:0;border-radius:3px;padding:5px 12px}\n.card{background:#fff;border:1px solid #d5dbe2;border-radius:4px;padding:14px 16px;margin-top:12px}\np{margin:6px 0;line-height:1.55;color:#333}blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid #9fb3c8;background:#f6f8fa;color:#334}\npre{background:#f6f8fa;border:1px solid #e1e5ea;padding:8px 10px;font-size:12px;overflow:auto}\ntable.tbl{border-collapse:collapse;width:100%;margin:8px 0 10px;font-size:12px}\ntable.tbl th{background:#f0f3f7;border:1px solid #d5dbe2;padding:6px 8px;text-align:left;white-space:nowrap;position:sticky;top:0}\ntable.tbl td{border:1px solid #e1e5ea;padding:5px 8px;vertical-align:top;line-height:1.45}\ntable.tbl tbody tr:nth-child(even){background:#fafbfc}\n.meta{color:#667;font-size:12px}.foot{color:#889;font-size:11px;text-align:center;padding:24px 0}\n@media print{body{background:white}.top,.crumb,.bar{display:none}.wrap{max-width:none;margin:0;padding:0}.card{border:0;break-inside:auto}table.tbl th{position:static}tr{break-inside:avoid}.foot{padding:8px}}\nul{margin:6px 0 6px 18px;padding:0}li{margin:3px 0;line-height:1.5}\n"
+  ],
+  "scripts": [],
+  "images": [],
+  "links": [],
+  "comments": [],
+  "inline_hidden": [],
+  "tables": [
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "측정 항목"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "재는 사람"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "문의 창구"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "조회 경로"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도(브릭스) · 중량 · 등급"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "해당 품목 생산자"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복(공급자 대표 — 타 생산자 건은 물어 전달)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "시스템 조회로 수치 대조"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "냉동·냉장 출고 품온"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "냉동 탑차 담당"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박민아 (냉동 온도만)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "시스템 조회 · 구간 시계열은 「콜드체인 온도 로그」"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "로트↔주문·배송 연결"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "시스템"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "— (창구 없음)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "시스템 조회 전용"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "로트 단위 조사 기록 — 신고 원문은 티켓"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "시스템"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "— (창구 없음)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "시스템 조회 전용"
+          }
+        ]
+      ]
+    },
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "자리"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "값"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "규칙"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "마을코드"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD 교동마을(직판) · GM 갯마을(위탁)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상품 소유·품질 책임의 소재와 같다 → 「조직 관계도(조합·갯마을·택배사·인플루언서)」 §2"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "품목코드"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "3자리 영문 대문자"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "아래 코드표에 등재된 품목만 쓴다. 취급 품목이 늘면 코드표를 증보한다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고일"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "YYMMDD"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "정기 출고일 월·수·금 + 성수기 추가 출고. 수확일이 아니라 출고일이다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "순번"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "같은 마을·품목·출고일 안의 포장 회차 01부터"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "회차가 곧 선별·포장 배치 단위"
+          }
+        ]
+      ]
+    },
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "품목"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "코드"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "품목"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "코드"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "WTM"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "감자"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "PTT"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하우스감귤"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "HGL"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "고구마"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "SWP"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "노지감귤"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "NGL"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "참다래"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KIW"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "만감류(한라봉·천혜향)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "MDR"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "절임배추"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "SLC"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "애플망고"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "MNG"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갈치"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "GAL"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "멜론"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "MLN"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "옥돔"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "OKD"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "제철 채소(꾸러미)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "VEG"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": ""
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": ""
+          }
+        ]
+      ]
+    },
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "항목"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "형식"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "필수"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "비고"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "로트번호"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "위 체계"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "기록의 식별번호"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고일"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "날짜"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "월·수·금 영업일만(「영업일·공휴일 달력」 §8). 토·일·공휴일 출고 로트는 존재할 수 없다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수확일"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "날짜"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "조건부"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고일과 별도의 확인 사항이다. 성수기 상시 수확 구간에서는 출고일 직전 1~2일이고, 초입·시즌 말에는 간격이 벌어진다(「교동마을 농산 시즌 캘린더」) — \"가장 최근 수확분\" 문의의 대조값"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "품목/SKU"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "SKU 코드 + 표기명"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "SKU 정의는 「품목별 SKU 카탈로그(1차 6종 + 수산물)」"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "검사결과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "합격 / 기준미달 배제"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "「판매 환불 규정집」 제7조(출고 배제)가 실제로 작동한 기록. 기준미달 배제인 로트는 고객에게 나가지 않았으므로 §5 주문 연결이 없다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도(브릭스)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "로트 평균 / 표본 최저"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "조건부"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도보장 표기 SKU와 과실류만. 감자·수산물 미적용"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "표기 중량 / 실측 중량"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "kg 소수 둘째 자리"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "판정선은 표기 방식별이다(「품목별 SKU 카탈로그(1차 6종 + 수산물)」 §3.2) — 정량표기는 허용오차 ±5%(「판매 환불 규정집」 제6조), 이상표기는 표기값이 절대 하한이고 오차를 적용하지 아니한다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "등급"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "특 · 상 · 보통 · 등외"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "등외는 출고하지 아니한다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 품온"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "℃ 소수 첫째 자리"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "조건부"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "냉동·냉장 유통 품목만. 상온 농산은 기록하지 아니한다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "측정자"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "실명"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "연락처·주소는 이 대장에 적지 않는다(「제3자 정보 보호 조항(공급자·직원·수령인)」)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "측정일시"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "날짜 + 시:분"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 당일 오전 측정이 기본"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "표본 위치·수"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "텍스트"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "✅"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박스 단위 상품의 검사 범위를 남기는 칸"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 사유"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "텍스트"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "조건부"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "재배송·교환 출고일 때만. 예: 당도 재측정"
+          }
+        ]
+      ]
+    },
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "로트번호"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "출고일"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "품목/SKU"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "당도 평균/최저"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "표기/실측 중량(kg)"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "등급"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "출고 품온"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "측정자"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "측정일시"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "표본"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "비고"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370622-03"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "10.9 / 10.6"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 7.94"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "등외"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22 08:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "로트 평균이 출고 배제선(11브릭스) 미달 — 출고하지 않았다(기준미달 배제). 주문 연결 없음"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370622-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.9 / 11.4"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.35"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22 07:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 공동과는 절단 전 외관 판별 불가"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370622-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.7 / 11.3"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.12"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22 07:35"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 신선도 문의는 출고→수령 경과를 함께 본다(§5)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370624-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.2 / 10.1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 06:50"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "표본 최저가 출고 배제선(11브릭스) 미달인데 등급 상으로 출고 — 선별 누락"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370624-03"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.6 / 11.2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.22"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 07:20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 동일 로트 신고 여부는 신고 원문(티켓)을 센다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370626-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하우스감귤 5kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.4 / 11.1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.16"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "문귀남"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 08:20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상단 3 · 중단 2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 곰팡이 신고 접수분 — 주문·배송·로트 연결 정합(§5)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "12.1 / 11.7"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.31"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "특"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 06:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 포장 규격은 §5"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.8 / 11.3"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.18"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 07:00"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 선별·포장 라인은 §5"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-03"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.5 / 11.1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 07:25"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고·포장 정상 · 파손 신고 접수분 → 배송 구간 클레임(「택배사 계약서」 제11조)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370629-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-29"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하우스감귤 5kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.5 / 11.3"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "문귀남"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-29 08:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상단 3 · 중단 2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 출고 완료, 인도 전(배송 상태 §5)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-MLN-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "멜론 4.5kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "4.5 / 4.62"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복(대리 확인)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 07:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 로트 품목이 주문 품목과 불일치 — 오배송 확인분(§5)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370619-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과 WTM-SEL-8 · 당도보장 11브릭스 표기"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.0 / 10.2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19 07:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "표기 기준(11브릭스) 미달 — 교환 대상. 재발송분 KD-WTM-370626-04"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-04"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과 WTM-SEL-8 · 당도보장 11브릭스 표기"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "12.3 / 11.9"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "특"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 08:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "교환 재발송분 · 출고 사유 당도 재측정 기재"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370619-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "봄감자 저장분 5kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.22"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "최덕만"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19 09:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5구"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "합주문 분리 처리 — 신고 접수 품목 쪽(§5 100400030)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370619-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.8 / 11.4"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.16"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19 07:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "합주문 분리 처리 — 같은 주문의 신고 없는 품목 쪽"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370610-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.8 / 11.5"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-10 07:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "동일 고객 교환 출고 1/3 — 검사 정상 · 신고 접수 없음"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370617-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-17"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.9 / 11.6"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-17 07:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "동일 고객 교환 출고 2/3 — 검사 정상 · 신고 접수 없음"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370624-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "12.0 / 11.7"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.30"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 06:30"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "동일 고객 교환 출고 3/3 — 검사 정상 · 신고 접수 없음"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370624-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하우스감귤 10kg 박스"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.7 / 11.2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "10.0 / 10.42"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "문귀남"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 08:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상단 3 · 중단 2 (하단 미포함)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "표본이 상단·중단에 한정 — 하단 미검사"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하우스감귤 5kg HGL-SEL-5 · 당도보장 12브릭스 표기"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "12.4 / 12.1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.18"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "특"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "문귀남"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 08:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상단 3 · 중단 2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도보장 표기값 12브릭스 기준 · 실측 최저 12.1 → 표기 기준 충족"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370624-03"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하우스감귤 5kg HGL-SEL-5 · 당도보장 12브릭스 표기"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.3 / 10.8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.14"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "문귀남"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 08:35"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상단 3 · 중단 2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "표기 기준(12브릭스) 미달인데 출고 — 선별 누락. 당도 불만 문의 접수분(§5)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370624-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하우스감귤 5kg HGL-STD-5 · 당도 표기 없음"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.3 / 11.0"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.12"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "문귀남"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 08:20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상단 3 · 중단 2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 당도 불만 문의 접수분(§5) — 비표기 라인이라 이 당도값은 판정 근거가 아니다(§8)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "GM-GAL-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갈치 1kg 중량 판매"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "1.00 / 1.03"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "-18.6℃"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갯마을 출하장(위탁 계량) · 품온 박민아"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 05:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "전량 계량"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "표기 대비 +3.0% · 위탁 계량분 · 자연감량 허용치는 「수산물 중량·자연감량 허용치(빙장수·드립)」"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "GM-GAL-370624-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갈치 1kg 중량 판매"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "1.00 / 1.02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "-18.3℃"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갯마을 출하장(위탁 계량) · 품온 박민아"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 05:50"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "전량 계량"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "표기 대비 +2.0% · 중량 신고 접수분 — 판정은 출고 실측 + 유통 감량(「수산물 중량·자연감량 허용치(빙장수·드립)」)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370622-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "봄감자 저장분 5kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.15"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "최덕만"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22 09:00"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5구"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "출고 검사 정상 · 흑색심부는 절단 전 판별 불가 · 동일 로트 신고 다수 — 원문은 티켓 · 조사는 §6"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370619-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "봄감자 저장분 5kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.08"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "최덕만"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19 09:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5구"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "조사 진행 중 · 결론 미확정(§6)"
+          }
+        ]
+      ]
+    },
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "로트번호"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "출고일"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "품목/SKU"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "당도 평균/최저"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "표기/실측 중량(kg)"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "등급"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "출고 품온"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "측정자"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "측정일시"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "표본"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "비고"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370316-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "03-16"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "봄감자 5kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.21"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "최덕만"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "03-16 09:00"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5구"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "개장 첫 시즌 정상 출고 — 봄 작형"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370518-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "05-18"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "봄감자 5kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5.0 / 5.34"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "최덕만"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "05-18 09:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5구"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "봄 작형 마감분 — 이후 저장분 판매로 전환(「교동마을 농산 시즌 캘린더」)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-MNG-370601-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "애플망고 2kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "15.2 / 14.8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "2.0 / 2.05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "특"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하동철"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-01 08:20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "초물 — 물량 소량 · 개체별 숙도 도달 순 출고"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-MNG-370605-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "애플망고 3kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "14.6 / 14.0"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "3.0 / 3.12"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하동철"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-05 08:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "강풍 운송편 결항 — 저온 보관 · 재선별 후 차기 운송편 재출고"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-MNG-370615-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-15"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "애플망고 2kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "16.1 / 15.6"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "2.0 / 2.08"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "특"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하동철"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-15 08:15"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "성출하 — 제철 물량 원활"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370619-04"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.4 / 11.1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.60"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19 08:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-18 호우 구간 수확분(「교동마을 작황·재해 기록」) — 하한 근접이나 배제선 충족"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "GM-OKD-370619-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "옥돔 1kg (2마리)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "1.00 / 1.04"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "-18.4℃"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갯마을 출하장(위탁 계량) · 품온 박민아"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19 05:35"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "전량 계량"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "냉동 정상"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "GM-GAL-370624-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갈치 1kg 중량 판매"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "1.00 / 1.02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "-18.1℃"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갯마을 출하장(위탁 계량) · 품온 박민아"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 05:45"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "전량 계량"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "조업 부분 재개 첫 소량 입고분(「갯마을 조업·입고 기록」 06-24) — 예약 순 발송"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-06"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.6 / 11.2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.14"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 08:25"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "성수기 물량 로트 — 부분 출고 · 잔여 재고 보유"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-07"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.5 / 11.1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.08"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 08:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "성수기 물량 로트"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370629-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-29"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.7 / 11.3"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.12"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-29 07:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "성수기 물량 로트"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370701-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "07-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.6 / 11.4"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.15"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-30 07:10"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "성수기 예비 물량(전일 검사 · 익일 출고 대기) — 가용 재고 보유 · 신고 없음"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "봄감자 저장분 10kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "10.0 / 10.31"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "최덕만"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 09:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5구"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "저장분 정상 출고"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "GM-GAL-370626-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갈치 1kg 중량 판매"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "1.00 / 1.01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "-18.5℃"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갯마을 출하장(위탁 계량) · 품온 박민아"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 05:55"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "전량 계량"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "부분 재개 후속 입고분 — 예약 순 발송"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370624-05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "12.0 / 11.6"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.28"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "특"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 07:50"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "성수기 물량 로트"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "수박 8kg 단과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "11.9 / 11.5"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "8.0 / 8.24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박수복"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 07:55"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5과"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "성수기 물량 로트"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370624-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "봄감자 저장분 10kg"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미적용"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "10.0 / 10.24"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "—"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "최덕만"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 09:15"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "5구"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "저장분 정상 출고"
+          }
+        ]
+      ]
+    },
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "로트번호"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "주문번호"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "포장 규격"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "선별·포장 라인"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "송장 등록"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "비고"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370622-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400025"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22 15:30"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "절단 후 공동과 신고 접수분 · 출고 검사 정상(§4)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370622-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400028"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22 15:30"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "과육 변색 신고 접수분 — 경과일은 배송 원장(수령일)과 접수 시각으로 센다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370624-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400026"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 15:35"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미숙과 신고 접수분 — 출고 표본 최저 10.1 로트(§4)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370624-03"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100100016"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 15:35"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "곰팡이 신고 접수분 — 동일 로트 신고 여부는 신고 원문(티켓)을 센다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100100018"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8(수박 8kg 단과 전용)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 15:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "박스 훼손 신고 접수분 — 포장 규격 대조 필요"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400027"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 15:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "이물 신고 접수분 — 원인 조사 대상 라인 LN-KD-2"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-03"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100100024"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 16:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "파손 신고 접수분 — 출고 정상 · 배송 구간"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-MLN-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400024 (주문 SKU = 수박 8kg 단과)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-2"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 16:05"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "오배송 확인분 — 주문 품목 ≠ 출고 로트 품목"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370619-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400029"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19 15:30"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도 미달 교환 대상"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370626-04"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400029(재배송 · 사유 당도 재측정)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 16:20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "교환 재발송분(동일 주문번호)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370619-01 · KD-WTM-370619-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400030 (한 주문 · 두 품목)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-PTT-5 · BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-3 · LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-19 15:20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "합주문 분리 처리 — 품목별로 로트가 갈린다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370626-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100300020"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-HGL-5"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-4"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 16:20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "하자(곰팡이) 신고 접수분 · 주문·배송·로트 연결 정합"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370629-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100300022"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-HGL-5"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-4"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-29 15:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미인도 로트 — 수령 전제 문의는 배송 상태 확인이 선행"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370622-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400034"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-PTT-5"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-3"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-22 15:25"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "흑색심부 신고 접수분 — 경과일은 배송 원장과 접수 시각으로 센다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370624-03"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100300009 · 100300010 (같은 로트 · 두 주문)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-HGL-5"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-4"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 15:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도 불만 문의 접수분 — 표기 기준(12브릭스) 미달 로트(§4)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100300011"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-HGL-5"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-4"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 16:20"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도 불만 문의 접수분 — 당도보장 표기(12브릭스) 충족 로트(§4)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-HGL-370624-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100300025"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-HGL-5"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-4"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 15:40"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도 불만 문의 접수분 — 당도 비표기 라인(HGL-STD-5) · 로트 당도는 판정 근거 아님(§8)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "GM-GAL-370624-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100300023"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-GAL-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갯마을 출하장(위탁 포장)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 15:50"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "중량 신고 접수분 — 유통 감량이 허용치를 넘는 쪽(§4)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "GM-GAL-370626-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100300024"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-GAL-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "갯마을 출하장(위탁 포장)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-26 15:50"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "중량 신고 접수분 — 자연 감량·허용오차 범위 안(§4)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370610-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400031"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-10 15:30"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "동일 고객 교환 출고 1/3 — 검사 정상 · 신고 접수 없음"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370617-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400032"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-17 15:30"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "동일 고객 교환 출고 2/3 — 검사 정상 · 신고 접수 없음"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-WTM-370624-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "100400033"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "BX-WTM-8"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "LN-KD-1"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "06-24 15:35"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "동일 고객 교환 출고 3/3 — 검사 정상 · 신고 접수 없음"
+          }
+        ]
+      ]
+    },
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "로트번호"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "동일 증상"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "귀책 판정"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "조사 상태"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "결론"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "대외 공개"
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "비고"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370622-01"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "흑색심부"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "유통 귀책 확정"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "종결"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "저장·유통 구간 저온장해"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "해당 없음"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "귀책 확정 로트 — 추가 접수분은 개별 증빙 없이 처리"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "KD-PTT-370619-02"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "흑색심부"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미확정"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "진행 중"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "(공란)"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "미승인 — 조합장 승인 사안"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "조사 진행 중 — 대외 답변은 조합장 승인 후"
+          }
+        ]
+      ]
+    },
+    {
+      "attrs": {
+        "class": "tbl"
+      },
+      "rows": [
+        [
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": ""
+          },
+          {
+            "tag": "th",
+            "attrs": {},
+            "text": "규약"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "정합이 맞을 때"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "통상 하자는 추가 증빙 없이 처리한다. 관성적 재촬영·영수증 요구는 하지 아니한다(「증빙 권위 서열 조항(당사자 제출물 < 제3자 발행물)」 제7조)"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "정합이 어긋날 때"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "근거로 제시하는 것은 감정 결과가 아니라 대조 결과다(「증빙 권위 서열 조항(당사자 제출물 < 제3자 발행물)」 제8조). 재촬영 요청은 로트번호가 함께 보이도록"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도 문의"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도는 사진에 나오지 않는다 — 표기 확인 + 이 기록 조회가 유일한 읽기 경로다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "당도 비표기 라인"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "이 대장의 당도값을 판정 근거로 쓰지 않는다. 표기가 없는 라인(「품목별 SKU 카탈로그(1차 6종 + 수산물)」 §3.1 없음)은 애초에 약속한 수치가 없으므로, 로트 기록의 당도가 낮게 나왔다는 사실은 하자 판정으로 이어지지 않는다 — 대조 기준은 표기값이고 표기가 없으면 기준이 없다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "중량 문의"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "고객 저울 사진 단독으로 판정하지 아니한다 — 실측 중량 + 허용오차 + 자연감량을 함께 본다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "재배송 출고"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "재배송 로트에는 출고 사유를 남긴다. 사유가 없으면 같은 실패가 반복된다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "배제 로트"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "기준미달 배제 행은 고객에게 도달한 적이 없다. 고객 문의의 대조 대상이 아니고, 「출고 전 측정으로 미달을 걸러 낸다」가 말뿐이 아니라는 근거로만 쓴다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "기록에 없는 것"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "상온 농산의 출고 품온, 하단 표본, 조사 결론. 미기재 항목을 추정으로 보완하지 아니한다"
+          }
+        ],
+        [
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "로트 ↔ 문의"
+          },
+          {
+            "tag": "td",
+            "attrs": {},
+            "text": "한 로트를 두 건의 대조에 겹쳐 쓰지 않는다. 같은 로트가 두 판정의 근거가 되면 한쪽 값이 다른 쪽 결론을 뒤집는다 — 대조가 필요한 건마다 로트를 따로 둔다"
+          }
+        ]
+      ]
+    }
+  ]
+}

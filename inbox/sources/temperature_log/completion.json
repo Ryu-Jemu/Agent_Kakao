@@ -1,0 +1,36 @@
+{
+  "completed_at": "2026-10-31T14:35:31.354201",
+  "zip_sha256": "fc21e0d7eff66e5dbf3912010d1ca018e989af5757e754351af2e4c433cefe67",
+  "members_unchanged": {
+    "온도기록계_관측기록.xlsx": true,
+    "온도기록계_조회.html": true
+  },
+  "sheets": 7,
+  "stored_cells": 213,
+  "nonempty_cells": 203,
+  "hidden_sheets_rows_columns": 0,
+  "hidden_filter_names": 6,
+  "formulas_images_comments_external_active_content_in_xlsx": 0,
+  "html_tables": 6,
+  "inline_svg": 1,
+  "svg_and_sheets_directly_viewed": 8,
+  "ooxml_artifact_differences": 0,
+  "html_xlsx_differences": 0,
+  "intervals_checked": 9,
+  "all_interval_minutes": 30,
+  "above_minus15_samples": 5,
+  "first_last_above_sample_minutes": 120,
+  "highest_observation_c": -8.6,
+  "first_recorded_normal_return": "2037-06-24 15:00 -18.3℃",
+  "normative_boundary": "temperature > -15℃ sustained >= 30min",
+  "warnings": [
+    "부품은전체23행이라설명하나10행발췌만제공",
+    "30분표본만으로사이매순간연속온도독립입증불가",
+    "적재함센서정의와품온표현혼재",
+    "13:30수치하강vs14:00하강시작비고"
+  ],
+  "failed_commands": 0,
+  "download_retries": 0,
+  "preview_only_rerender": 1,
+  "writes_scope": "inbox/sources/temperature_log/ only"
+}

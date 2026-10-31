@@ -1,0 +1,1232 @@
+{
+  "files": [
+    {
+      "name": "결항집하기록.xlsx",
+      "bytes": 12698,
+      "sha256": "bcff6e21ce3737c6c113c91006464269fe0c8685bb58b3c5aa050ec95acc4960"
+    },
+    {
+      "name": "기기촬영/C54_01.png",
+      "bytes": 1448613,
+      "sha256": "43adfe7605b258f70774512593204d53768cfbb74b9ce0be40909d6392daf2b1"
+    },
+    {
+      "name": "기기촬영/C54_02.png",
+      "bytes": 1454096,
+      "sha256": "a7b0eac56264047359e55002d4968d8d6001f9478cc85aeae56f8a7b79988a64"
+    },
+    {
+      "name": "기기촬영/C54_03.png",
+      "bytes": 1445586,
+      "sha256": "74909645bfa72d140c610ae1e857082f295b444f49bce544dddd14e5dbd2ec71"
+    },
+    {
+      "name": "기기촬영/C54_04.png",
+      "bytes": 1470941,
+      "sha256": "923dea87afda585d8c3a51640b473d8c933d299c1b39af70e7825f006163e728"
+    },
+    {
+      "name": "기기촬영/C54_05.png",
+      "bytes": 1492039,
+      "sha256": "eccea5f43d053564b4ad23a41cf51cba1f0e855dee8be384f939701cdbde02bf"
+    }
+  ],
+  "sheets": [
+    {
+      "name": "개요",
+      "state": "visible",
+      "dimension": {
+        "ref": "A1:B12"
+      },
+      "rows": [
+        [
+          {
+            "cell": "A1",
+            "value": "시원배송 결항·집하 기록",
+            "type": "inlineStr",
+            "style": "1"
+          }
+        ],
+        [
+          {
+            "cell": "A3",
+            "value": "문서",
+            "type": "inlineStr",
+            "style": "2"
+          },
+          {
+            "cell": "B3",
+            "value": "시원배송 결항·집하 기록",
+            "type": "inlineStr",
+            "style": "3"
+          }
+        ],
+        [
+          {
+            "cell": "A4",
+            "value": "기준일",
+            "type": "inlineStr",
+            "style": "2"
+          },
+          {
+            "cell": "B4",
+            "value": "2037-06-30",
+            "type": "inlineStr",
+            "style": "3"
+          }
+        ],
+        [
+          {
+            "cell": "A5",
+            "value": "관리",
+            "type": "inlineStr",
+            "style": "2"
+          },
+          {
+            "cell": "B5",
+            "value": "구방만",
+            "type": "inlineStr",
+            "style": "3"
+          }
+        ],
+        [
+          {
+            "cell": "A6",
+            "value": "발행",
+            "type": "inlineStr",
+            "style": "2"
+          },
+          {
+            "cell": "B6",
+            "value": "교동마을 산지직송",
+            "type": "inlineStr",
+            "style": "3"
+          }
+        ],
+        [
+          {
+            "cell": "A8",
+            "value": "시트",
+            "type": "inlineStr",
+            "style": "2"
+          },
+          {
+            "cell": "B8",
+            "value": "내용",
+            "type": "inlineStr",
+            "style": "2"
+          }
+        ],
+        [
+          {
+            "cell": "A9",
+            "value": "2. 기재 항목 및 작성 기준",
+            "type": "inlineStr",
+            "style": "3"
+          }
+        ],
+        [
+          {
+            "cell": "A10",
+            "value": "3. 기록 확인 기준",
+            "type": "inlineStr",
+            "style": "3"
+          }
+        ],
+        [
+          {
+            "cell": "A11",
+            "value": "4. 기상·운송 이력",
+            "type": "inlineStr",
+            "style": "3"
+          },
+          {
+            "cell": "B11",
+            "value": "06-02 예보 행의 —는 결항이 확정되지 않았다는 기록이며 정상 판정이 아니다. 06-04의 사전 통보도 지연 가능성이다. 같은 날짜 농산 작황의 미확정 상태는 「교동마을 작황·재해 기록」에서 별도로 읽는다.",
+            "type": "inlineStr",
+            "style": "4"
+          }
+        ],
+        [
+          {
+            "cell": "A12",
+            "value": "5. 운송편 결항 상세 (2037-06-05 태풍 구간)",
+            "type": "inlineStr",
+            "style": "3"
+          },
+          {
+            "cell": "B12",
+            "value": "수확·포장이 끝난 뒤 택배 인수 전 구간에서 결항이 일어난 시각순 사실이다. 배송 단계 명칭은 「택배사 계약서」 제3조 승계.",
+            "type": "inlineStr",
+            "style": "4"
+          }
+        ]
+      ],
+      "formulas": [],
+      "hidden_rows": [],
+      "hidden_cols": [],
+      "hyperlinks": [],
+      "merges": []
+    },
+    {
+      "name": "2. 기재 항목 및 작성 기준",
+      "state": "visible",
+      "dimension": {
+        "ref": "A1:C9"
+      },
+      "rows": [
+        [
+          {
+            "cell": "A1",
+            "value": "2. 기재 항목 및 작성 기준",
+            "type": "inlineStr",
+            "style": "1"
+          }
+        ],
+        [
+          {
+            "cell": "A3",
+            "value": "항목",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "B3",
+            "value": "값 형식",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "C3",
+            "value": "설명",
+            "type": "inlineStr",
+            "style": "5"
+          }
+        ],
+        [
+          {
+            "cell": "A4",
+            "value": "일자",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B4",
+            "value": "YYYY-MM-DD",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C4",
+            "value": "관측·발표 일자",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A5",
+            "value": "단계",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B5",
+            "value": "예보 / 예비특보 / 특보 발효 / 특보 지속 / 특보 해제 / 사후 확인",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C5",
+            "value": "구분값",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A6",
+            "value": "기상 사실",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B6",
+            "value": "서술",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C6",
+            "value": "기상청 발표·현장 관측의 해당 날짜 배경. 추정·전망은 예보 단계에만",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A7",
+            "value": "집하·간선",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B7",
+            "value": "서술 / — / 정상",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C7",
+            "value": "시원배송 통보 및 담당 구간의 확인 결과. 산지 대기 상태는 생산 측 전달 기록",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A8",
+            "value": "대상 품목",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B8",
+            "value": "품목명 + 품목코드 3자리",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C8",
+            "value": "해당 기록에서 확인한 운송 대상. (전 품목)은 전체 취급 품목이며 코드·표기 정본은 「품목별 SKU 카탈로그(1차 6종 + 수산물)」",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A9",
+            "value": "출처",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B9",
+            "value": "달력·날씨 이력 / 자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C9",
+            "value": "기존 기록의 출처를 유지한다. 달력·날씨 이력에서 옮겨 온 사실의 문안을 바꾸지 않는다",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ]
+      ],
+      "formulas": [],
+      "hidden_rows": [],
+      "hidden_cols": [],
+      "hyperlinks": [],
+      "merges": []
+    },
+    {
+      "name": "3. 기록 확인 기준",
+      "state": "visible",
+      "dimension": {
+        "ref": "A1:B10"
+      },
+      "rows": [
+        [
+          {
+            "cell": "A1",
+            "value": "3. 기록 확인 기준",
+            "type": "inlineStr",
+            "style": "1"
+          }
+        ],
+        [
+          {
+            "cell": "B3",
+            "value": "규칙",
+            "type": "inlineStr",
+            "style": "5"
+          }
+        ],
+        [
+          {
+            "cell": "A4",
+            "value": "①",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B4",
+            "value": "작황과 운송은 별개의 확인 대상이다. 운송 결항만으로 농산 피해나 갯마을 조업 중단을 단정하지 아니한다. 각 기록(「교동마을 작황·재해 기록」·「갯마을 조업·입고 기록」)에서 확인한다",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A5",
+            "value": "②",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B5",
+            "value": "—는 그 시점에 관측·확정된 사실이 없다는 뜻이다. 지연 없음도 결항 발생도 아니다. 예보 단계의 미확정 상태를 뒤에 발생한 결과로 채워 읽지 않는다",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A6",
+            "value": "③",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B6",
+            "value": "정상은 확인 결과 지연이 없다는 판정으로 —와 다르다. 지연 가능성 사전 통보도 실제 결항과 다르다",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A7",
+            "value": "④",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B7",
+            "value": "일지는 사후에 채워진다. 뒤 날짜에 확인한 결과를 예보 행에 소급해 덮어쓰지 않는다",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A8",
+            "value": "⑤",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B8",
+            "value": "간선 재개와 집하 재개는 다른 시점일 수 있다. 일요일에 간선이 풀려도 집하는 다음 영업일부터이고, 재개 후에도 밀린 물량을 순차 처리한다",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A9",
+            "value": "⑥",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B9",
+            "value": "경미한 지연은 하자가 아니다. 오전 지연 후 정상화처럼 회복된 사건도 남기지만, 행의 존재만으로 배상 사유를 확정하지 아니한다",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A10",
+            "value": "⑦",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B10",
+            "value": "송장 등록은 택배 인수가 아니다. 집하 전후 책임 구간과 배송 단계는 택배사 계약서(「택배사 계약서」) 제3조에 따라 구분한다",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ]
+      ],
+      "formulas": [],
+      "hidden_rows": [],
+      "hidden_cols": [],
+      "hyperlinks": [],
+      "merges": []
+    },
+    {
+      "name": "4. 기상·운송 이력",
+      "state": "visible",
+      "dimension": {
+        "ref": "A1:F17"
+      },
+      "rows": [
+        [
+          {
+            "cell": "A1",
+            "value": "4. 기상·운송 이력",
+            "type": "inlineStr",
+            "style": "1"
+          }
+        ],
+        [
+          {
+            "cell": "A3",
+            "value": "일자",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "B3",
+            "value": "단계",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "C3",
+            "value": "기상 사실",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "D3",
+            "value": "집하·간선",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "E3",
+            "value": "대상 품목",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "F3",
+            "value": "출처",
+            "type": "inlineStr",
+            "style": "5"
+          }
+        ],
+        [
+          {
+            "cell": "A4",
+            "value": "2037-03-28",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B4",
+            "value": "사후 확인",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C4",
+            "value": "봄비",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D4",
+            "value": "감자 출고 일부 오전 지연 후 정상화",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E4",
+            "value": "감자 PTT",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F4",
+            "value": "달력·날씨 이력",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A5",
+            "value": "2037-06-02",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B5",
+            "value": "예보",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C5",
+            "value": "기상청 태풍(제3호) 예보 발표 — 예상 진로 제주 서쪽 해상, 최근접 06-05 전후",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D5",
+            "value": "—",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E5",
+            "value": "(전 품목)",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F5",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A6",
+            "value": "2037-06-04",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B6",
+            "value": "예비특보",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C6",
+            "value": "강풍·풍랑 예비특보",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D6",
+            "value": "시원배송 간선 지연 가능성 사전 통보",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E6",
+            "value": "(전 품목)",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F6",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A7",
+            "value": "2037-06-05",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B7",
+            "value": "특보 발효",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C7",
+            "value": "강풍경보·풍랑경보 발효",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D7",
+            "value": "여객·화물선 결항 · 항공 결항 → 택배 간선 중단, 집하 물량 인수 보류",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E7",
+            "value": "애플망고 MNG · 수박 WTM · 감자 PTT",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F7",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A8",
+            "value": "2037-06-06",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B8",
+            "value": "특보 지속",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C8",
+            "value": "강풍경보 유지",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D8",
+            "value": "결항 지속 — 포장 완료분 산지 냉장 대기(택배 인수 전)",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E8",
+            "value": "애플망고 MNG",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F8",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A9",
+            "value": "2037-06-07",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B9",
+            "value": "특보 해제",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C9",
+            "value": "태풍 통과 · 특보 해제",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D9",
+            "value": "간선 재개(15:00) — 집하는 다음 영업일(06-08)부터",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E9",
+            "value": "애플망고 MNG · 하우스감귤 HGL",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F9",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A10",
+            "value": "2037-06-08",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B10",
+            "value": "사후 확인",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C10",
+            "value": "특이 기상 없음",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D10",
+            "value": "정상",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E10",
+            "value": "수박 WTM · 감자 PTT",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F10",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A11",
+            "value": "2037-06-18",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B11",
+            "value": "사후 확인",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C11",
+            "value": "교동마을 집중호우",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D11",
+            "value": "정상",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E11",
+            "value": "수박 WTM",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F11",
+            "value": "달력·날씨 이력",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A12",
+            "value": "2037-06-25",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B12",
+            "value": "특보 발효",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C12",
+            "value": "정체전선 북상 — 호우주의보 발효",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D12",
+            "value": "정상",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E12",
+            "value": "(전 품목)",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F12",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A13",
+            "value": "2037-06-27",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B13",
+            "value": "특보 지속",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C13",
+            "value": "정체전선 정체 — 06-25~06-27 누적 강수 310mm, 일조시간 평년 대비 부족",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D13",
+            "value": "정상",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E13",
+            "value": "애플망고 MNG · 하우스감귤 HGL",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F13",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A14",
+            "value": "2037-06-29",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B14",
+            "value": "특보 해제",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C14",
+            "value": "정체전선 남하 · 호우주의보 해제",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D14",
+            "value": "정상",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E14",
+            "value": "애플망고 MNG",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F14",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A15",
+            "value": "2037-06-30",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B15",
+            "value": "사후 확인",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C15",
+            "value": "특이 기상 없음 · 특보 없음",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "D15",
+            "value": "정상",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "E15",
+            "value": "(전 품목)",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "F15",
+            "value": "자체 관측",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A17",
+            "value": "06-02 예보 행의 —는 결항이 확정되지 않았다는 기록이며 정상 판정이 아니다. 06-04의 사전 통보도 지연 가능성이다. 같은 날짜 농산 작황의 미확정 상태는 「교동마을 작황·재해 기록」에서 별도로 읽는다.",
+            "type": "inlineStr",
+            "style": "7"
+          }
+        ]
+      ],
+      "formulas": [],
+      "hidden_rows": [],
+      "hidden_cols": [],
+      "hyperlinks": [],
+      "merges": [
+        {
+          "ref": "A17:F17"
+        }
+      ]
+    },
+    {
+      "name": "5. 운송편 결항 상세 (2037-06-05 태풍 구간)",
+      "state": "visible",
+      "dimension": {
+        "ref": "A1:F14"
+      },
+      "rows": [
+        [
+          {
+            "cell": "A1",
+            "value": "5. 운송편 결항 상세 (2037-06-05 태풍 구간)",
+            "type": "inlineStr",
+            "style": "1"
+          }
+        ],
+        [
+          {
+            "cell": "A3",
+            "value": "수확·포장이 끝난 뒤 택배 인수 전 구간에서 결항이 일어난 시각순 사실이다. 배송 단계 명칭은 「택배사 계약서」 제3조 승계.",
+            "type": "inlineStr",
+            "style": "7"
+          }
+        ],
+        [
+          {
+            "cell": "A5",
+            "value": "시각",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "B5",
+            "value": "사실",
+            "type": "inlineStr",
+            "style": "5"
+          },
+          {
+            "cell": "C5",
+            "value": "배송 단계",
+            "type": "inlineStr",
+            "style": "5"
+          }
+        ],
+        [
+          {
+            "cell": "A6",
+            "value": "2037-06-04 14:00",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B6",
+            "value": "애플망고 예약분 수확 완료",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C6",
+            "value": "물품 준비",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A7",
+            "value": "2037-06-04 18:30",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B7",
+            "value": "선별·포장 완료 · 다음날 집하 예약",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C7",
+            "value": "물품 준비",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A8",
+            "value": "2037-06-05 09:10",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B8",
+            "value": "운송장 번호 생성 (송장 등록)",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C8",
+            "value": "송장 등록",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A9",
+            "value": "2037-06-05 11:40",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B9",
+            "value": "강풍경보 발효 → 시원배송 간선 결항 통보 · 당일 집하 취소",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C9",
+            "value": "송장 등록 (집하 전)",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A10",
+            "value": "2037-06-06 종일",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B10",
+            "value": "결항 지속 · 산지 냉장 보관 유지",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C10",
+            "value": "송장 등록 (집하 전)",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A11",
+            "value": "2037-06-07 15:00",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B11",
+            "value": "간선(택배사) 재개 — 일요일이라 집하는 다음 영업일부터",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C11",
+            "value": "송장 등록 (집하 전)",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A12",
+            "value": "2037-06-08 09:00",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "B12",
+            "value": "집하 재개(밀린 물량 순차) — 월요일 · 정기 출고일",
+            "type": "inlineStr",
+            "style": "6"
+          },
+          {
+            "cell": "C12",
+            "value": "집하(출고)",
+            "type": "inlineStr",
+            "style": "6"
+          }
+        ],
+        [
+          {
+            "cell": "A14",
+            "value": "운송 상태 확인 사항 — 06-05 11:40 이후 06-08 09:00 전까지 물품은 송장만 등록된 상태이고 집하되지 않았다. 송장 존재는 배송 개시의 증거가 아니다.",
+            "type": "inlineStr",
+            "style": "7"
+          }
+        ]
+      ],
+      "formulas": [],
+      "hidden_rows": [],
+      "hidden_cols": [],
+      "hyperlinks": [],
+      "merges": [
+        {
+          "ref": "A3:F3"
+        },
+        {
+          "ref": "A14:F14"
+        }
+      ]
+    }
+  ],
+  "defined_names": [
+    {
+      "attr": {
+        "name": "_xlnm._FilterDatabase",
+        "localSheetId": "1",
+        "hidden": "1"
+      },
+      "text": "'2. 기재 항목 및 작성 기준'!$A$3:$C$9"
+    },
+    {
+      "attr": {
+        "name": "_xlnm._FilterDatabase",
+        "localSheetId": "2",
+        "hidden": "1"
+      },
+      "text": "'3. 기록 확인 기준'!$A$3:$B$10"
+    },
+    {
+      "attr": {
+        "name": "_xlnm._FilterDatabase",
+        "localSheetId": "3",
+        "hidden": "1"
+      },
+      "text": "'4. 기상·운송 이력'!$A$3:$F$15"
+    },
+    {
+      "attr": {
+        "name": "_xlnm._FilterDatabase",
+        "localSheetId": "4",
+        "hidden": "1"
+      },
+      "text": "'5. 운송편 결항 상세 (2037-06-05 태풍 구간)'!$A$5:$C$12"
+    }
+  ],
+  "external_links": [],
+  "comment_parts": [],
+  "comments": {}
+}

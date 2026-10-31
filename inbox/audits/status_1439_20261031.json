@@ -1,0 +1,84 @@
+{
+  "captured_at": "2026-10-31T14:42:20.990335+09:00",
+  "displayed_time": "2026-10-31 14:39 KST",
+  "source": "user_attached_composite_screenshot",
+  "independent_visual_read_match": true,
+  "rows": [
+    {
+      "name": "고길동",
+      "questions": 30,
+      "discovery_pct": 46,
+      "previous_1406_questions": 19,
+      "previous_1406_discovery_pct": 34,
+      "delta_pp": 12,
+      "observed_delta_pp_per_question": "1.090909090909090909090909091"
+    },
+    {
+      "name": "박수복",
+      "questions": 26,
+      "discovery_pct": 29,
+      "previous_1406_questions": 14,
+      "previous_1406_discovery_pct": 24,
+      "delta_pp": 5,
+      "observed_delta_pp_per_question": "0.4166666666666666666666666667"
+    },
+    {
+      "name": "이민준",
+      "questions": 40,
+      "discovery_pct": 35,
+      "previous_1406_questions": 29,
+      "previous_1406_discovery_pct": 33,
+      "delta_pp": 2,
+      "observed_delta_pp_per_question": "0.1818181818181818181818181818"
+    },
+    {
+      "name": "박민아",
+      "questions": 24,
+      "discovery_pct": null,
+      "previous_1406_questions": 12,
+      "previous_1406_discovery_pct": 43,
+      "delta_pp": null,
+      "observed_delta_pp_per_question": null
+    },
+    {
+      "name": "홍보라",
+      "questions": 35,
+      "discovery_pct": 49,
+      "previous_1406_questions": 23,
+      "previous_1406_discovery_pct": 34,
+      "delta_pp": 15,
+      "observed_delta_pp_per_question": "1.25"
+    },
+    {
+      "name": "김청년",
+      "questions": 27,
+      "discovery_pct": 65,
+      "previous_1406_questions": 15,
+      "previous_1406_discovery_pct": 60,
+      "delta_pp": 5,
+      "observed_delta_pp_per_question": "0.4166666666666666666666666667"
+    },
+    {
+      "name": "홍이장",
+      "questions": 27,
+      "discovery_pct": 54,
+      "previous_1406_questions": 15,
+      "previous_1406_discovery_pct": 42,
+      "delta_pp": 12,
+      "observed_delta_pp_per_question": "1"
+    },
+    {
+      "name": "구방만",
+      "questions": 29,
+      "discovery_pct": 50,
+      "previous_1406_questions": 17,
+      "previous_1406_discovery_pct": 29,
+      "delta_pp": 21,
+      "observed_delta_pp_per_question": "1.75"
+    }
+  ],
+  "question_sum_8": 238,
+  "visible_7_equal_weight_mean": "46.85714285714285714285714286",
+  "official_overall_score": false,
+  "missing": "박민아 14:39 발굴률은다른창에가려확인불가,14:06값43을대입하지않음"
+}

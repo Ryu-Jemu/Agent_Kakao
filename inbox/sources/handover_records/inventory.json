@@ -1,0 +1,305 @@
+{
+  "recursive_inventory_complete": true,
+  "archive_count": 1,
+  "file_count": 2,
+  "nested_archive_count": 0,
+  "members": [
+    {
+      "path": "C31_driver-notebook.png",
+      "depth": 0,
+      "bytes": 1386891,
+      "sha256": "56179414a5d30d1d02e01008baf66f98d61c697372e5453a0c9f064ccc7e373b",
+      "format": "PNG",
+      "dimensions": [
+        1076,
+        1462
+      ],
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13,
+          "crc_ok": true
+        },
+        {
+          "type": "caBX",
+          "bytes": 23617,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 52245,
+          "crc_ok": true
+        },
+        {
+          "type": "IEND",
+          "bytes": 0,
+          "crc_ok": true
+        }
+      ],
+      "text_metadata": [],
+      "png_signature_IHDR_all_chunk_CRC": "ok",
+      "extract_bytes_identical": true
+    },
+    {
+      "path": "C31_handover-ledger.png",
+      "depth": 0,
+      "bytes": 1677200,
+      "sha256": "ed7a66a5edebc10743cf680baeee9ff107bcfcb85ff61d9518e37bca00e5e566",
+      "format": "PNG",
+      "dimensions": [
+        1476,
+        1066
+      ],
+      "png_chunks": [
+        {
+          "type": "IHDR",
+          "bytes": 13,
+          "crc_ok": true
+        },
+        {
+          "type": "caBX",
+          "bytes": 23617,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 65536,
+          "crc_ok": true
+        },
+        {
+          "type": "IDAT",
+          "bytes": 14814,
+          "crc_ok": true
+        },
+        {
+          "type": "IEND",
+          "bytes": 0,
+          "crc_ok": true
+        }
+      ],
+      "text_metadata": [],
+      "png_signature_IHDR_all_chunk_CRC": "ok",
+      "extract_bytes_identical": true
+    }
+  ]
+}

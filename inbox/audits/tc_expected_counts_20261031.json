@@ -1,0 +1,17 @@
+{
+  "expected_total": 68,
+  "verdict_counts": {
+    "met": 67,
+    "na": 1
+  },
+  "na": [
+    {
+      "tc": "L-33",
+      "id": "S4",
+      "text": "정기 출고 요일을 말하더라도 이 주문 잔여분은 확인 전이라고 밝힌다(출고 요일을 언급한 경우에만 해당)"
+    }
+  ],
+  "published_ratio": 0.9852941176470589,
+  "excludes_na_met_ratio": 1.0,
+  "not_overall_accuracy": true
+}

@@ -1,0 +1,24 @@
+{
+  "source_url": "https://t1.kakaocdn.net/aitop100/aitop100/dist/B-ulVcMRgNHbtfLjVugzvw.zip",
+  "captured_at_utc": "2026-10-31T05:17:23.153626+00:00",
+  "bytes": 67727,
+  "sha256": "f7f8f86a226704279ae233e718a0812ca3178e0ca6acf8b4b9c0cea9d70366f1",
+  "zip_crc_error": null,
+  "uncompressed_bytes": 83871,
+  "items": [
+    {
+      "name": "프로모션원장.html",
+      "bytes": 12429,
+      "compressed_bytes": 4535,
+      "crc32": "b7e00172",
+      "sha256": "43b6c5826ae80f3890e4e39388957c3250dcda2d78a638a3cfc43a20354a4f30"
+    },
+    {
+      "name": "할인중복_보상쿠폰_기준.pdf",
+      "bytes": 71442,
+      "compressed_bytes": 62900,
+      "crc32": "0b0674e6",
+      "sha256": "7e009f70c2d69df7913b1883790ecc1ac6d3bc0e0262eb179069446074977c0f"
+    }
+  ]
+}

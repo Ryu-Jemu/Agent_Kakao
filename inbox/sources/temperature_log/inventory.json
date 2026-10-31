@@ -1,0 +1,2818 @@
+{
+  "source_url": "https://t1.kakaocdn.net/aitop100/aitop100/dist/tHHClVffN4f8jvA_vuOtuQ.zip#온도기록계_관측기록.xlsx",
+  "captured_at_utc": "2026-10-31T05:29:25.109103+00:00",
+  "bytes": 14921,
+  "sha256": "bf263ea0c72209b8cdd4299719ffb82dd72d65d784fdf527d27bfb91458f9f38",
+  "zip_crc_error": null,
+  "members": [
+    {
+      "part": "[Content_Types].xml",
+      "bytes": 1791,
+      "compressed_bytes": 306,
+      "crc32": "8a4a86e4",
+      "sha256": "e560514c6f2afaacaa392f06870cf6b8870febd411a8d4e09d342460d3c7b630"
+    },
+    {
+      "part": "_rels/.rels",
+      "bytes": 531,
+      "compressed_bytes": 192,
+      "crc32": "1cbb8a97",
+      "sha256": "c545941ba36c15fcdce4ae4568c663f3ced1a2226ad5082d3fd66b178bfac11a"
+    },
+    {
+      "part": "docProps/app.xml",
+      "bytes": 205,
+      "compressed_bytes": 149,
+      "crc32": "484dc746",
+      "sha256": "209fca6b00afe72a5029754b94be5953d8f16d96f67130325566b9366ad4ccc5"
+    },
+    {
+      "part": "docProps/core.xml",
+      "bytes": 636,
+      "compressed_bytes": 289,
+      "crc32": "824ca338",
+      "sha256": "4fc698c9b1be0580ac1f6041801135613c7fbe40170f7e2ccb5883255801e189"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "bytes": 1374,
+      "compressed_bytes": 209,
+      "crc32": "6e09aabf",
+      "sha256": "cbc71e6b29e3e4d9374d8a486bae2be049d5da9807502018fafa7ff52b4ec757"
+    },
+    {
+      "part": "xl/styles.xml",
+      "bytes": 3965,
+      "compressed_bytes": 807,
+      "crc32": "360afae7",
+      "sha256": "7b4213354607d17c7eacfff2bf2f833f2edfdbe9e77fab621952f48203181183"
+    },
+    {
+      "part": "xl/theme/theme1.xml",
+      "bytes": 10140,
+      "compressed_bytes": 1552,
+      "crc32": "239c5c99",
+      "sha256": "d15e8ebf78ef7b9720839d7ae8fdc81a7df5bc24706d8e137df61a5683c358d9"
+    },
+    {
+      "part": "xl/workbook.xml",
+      "bytes": 2221,
+      "compressed_bytes": 630,
+      "crc32": "fdd27552",
+      "sha256": "9147abaeb748181034e43bb4d85a419e2f8b4236a462eeceec8e0815dd700e8d"
+    },
+    {
+      "part": "xl/worksheets/sheet1.xml",
+      "bytes": 3388,
+      "compressed_bytes": 1051,
+      "crc32": "ff05a82c",
+      "sha256": "df97b64c6d9ad28f3bcd87a5a7ac6f84b480b3dd2d0acd113193bd381386ffaa"
+    },
+    {
+      "part": "xl/worksheets/sheet2.xml",
+      "bytes": 3752,
+      "compressed_bytes": 1161,
+      "crc32": "ca45d72e",
+      "sha256": "8a774c2779c2de3ca9a178e031eb6eae8156080df4bd59ef6dfa55a700b8f441"
+    },
+    {
+      "part": "xl/worksheets/sheet3.xml",
+      "bytes": 5965,
+      "compressed_bytes": 1581,
+      "crc32": "9a8ba5a4",
+      "sha256": "b8104d4660d5e5c42925ff99d11c807ac51431823eacf635e41e90ab0990ee05"
+    },
+    {
+      "part": "xl/worksheets/sheet4.xml",
+      "bytes": 7246,
+      "compressed_bytes": 1772,
+      "crc32": "fbf49c23",
+      "sha256": "8db18dde091499ba60504d6d08e3a5a318ccba3b15192e580c7032238c3b9488"
+    },
+    {
+      "part": "xl/worksheets/sheet5.xml",
+      "bytes": 6933,
+      "compressed_bytes": 1654,
+      "crc32": "7cd7e873",
+      "sha256": "5c904d1bff596ca420c2ad14294fa34bb07dd4a47b4413d9d09de1c1c41499a6"
+    },
+    {
+      "part": "xl/worksheets/sheet6.xml",
+      "bytes": 2560,
+      "compressed_bytes": 931,
+      "crc32": "d1932536",
+      "sha256": "296951bd111e737b700c3bb431bbcd3ec859372bad89efbeacd9bfc70d83f167"
+    },
+    {
+      "part": "xl/worksheets/sheet7.xml",
+      "bytes": 2336,
+      "compressed_bytes": 867,
+      "crc32": "7c1109b8",
+      "sha256": "69f7ab6dcafb2b1ce66d2ddb393b5ac7f9e7c823e63594a0b7dcde603ac9aa08"
+    }
+  ],
+  "workbook_properties": [
+    "<ns0:workbookPr xmlns:ns0=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" />",
+    "<ns0:workbookProtection xmlns:ns0=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" />",
+    "<ns0:bookViews xmlns:ns0=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><ns0:workbookView visibility=\"visible\" minimized=\"0\" showHorizontalScroll=\"1\" showVerticalScroll=\"1\" showSheetTabs=\"1\" tabRatio=\"600\" firstSheet=\"0\" activeTab=\"0\" autoFilterDateGrouping=\"1\" /></ns0:bookViews>",
+    "<ns0:definedNames xmlns:ns0=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><ns0:definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"1\" hidden=\"1\">'2. 임계·기록 규약'!$A$3:$C$9</ns0:definedName><ns0:definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"2\" hidden=\"1\">'3. 기재 항목 및 작성 기준'!$A$3:$D$12</ns0:definedName><ns0:definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"3\" hidden=\"1\">'4. 구간 요약'!$A$3:$I$7</ns0:definedName><ns0:definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"4\" hidden=\"1\">'5. 이탈 구간 상세'!$A$5:$E$15</ns0:definedName><ns0:definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"5\" hidden=\"1\">'6. 연결 기록의 결번'!$A$3:$B$7</ns0:definedName><ns0:definedName name=\"_xlnm._FilterDatabase\" localSheetId=\"6\" hidden=\"1\">'7. 조회 기준'!$A$3:$B$6</ns0:definedName></ns0:definedNames>",
+    "<ns0:calcPr xmlns:ns0=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" calcId=\"124519\" fullCalcOnLoad=\"1\" />"
+  ],
+  "defined_names": [
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "1",
+      "hidden": "1",
+      "text": "'2. 임계·기록 규약'!$A$3:$C$9"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "2",
+      "hidden": "1",
+      "text": "'3. 기재 항목 및 작성 기준'!$A$3:$D$12"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "3",
+      "hidden": "1",
+      "text": "'4. 구간 요약'!$A$3:$I$7"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "4",
+      "hidden": "1",
+      "text": "'5. 이탈 구간 상세'!$A$5:$E$15"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "5",
+      "hidden": "1",
+      "text": "'6. 연결 기록의 결번'!$A$3:$B$7"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "6",
+      "hidden": "1",
+      "text": "'7. 조회 기준'!$A$3:$B$6"
+    }
+  ],
+  "relationships": [
+    {
+      "part": "_rels/.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
+      "Target": "xl/workbook.xml",
+      "Id": "rId1"
+    },
+    {
+      "part": "_rels/.rels",
+      "Type": "http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties",
+      "Target": "docProps/core.xml",
+      "Id": "rId2"
+    },
+    {
+      "part": "_rels/.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties",
+      "Target": "docProps/app.xml",
+      "Id": "rId3"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
+      "Target": "/xl/worksheets/sheet1.xml",
+      "Id": "rId1"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
+      "Target": "/xl/worksheets/sheet2.xml",
+      "Id": "rId2"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
+      "Target": "/xl/worksheets/sheet3.xml",
+      "Id": "rId3"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
+      "Target": "/xl/worksheets/sheet4.xml",
+      "Id": "rId4"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
+      "Target": "/xl/worksheets/sheet5.xml",
+      "Id": "rId5"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
+      "Target": "/xl/worksheets/sheet6.xml",
+      "Id": "rId6"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
+      "Target": "/xl/worksheets/sheet7.xml",
+      "Id": "rId7"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles",
+      "Target": "styles.xml",
+      "Id": "rId8"
+    },
+    {
+      "part": "xl/_rels/workbook.xml.rels",
+      "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme",
+      "Target": "theme/theme1.xml",
+      "Id": "rId9"
+    }
+  ],
+  "external_relationships": [],
+  "styles_xml": "<styleSheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><numFmts count=\"0\"/><fonts count=\"5\"><font><name val=\"Calibri\"/><family val=\"2\"/><color theme=\"1\"/><sz val=\"11\"/><scheme val=\"minor\"/></font><font><name val=\"맑은 고딕\"/><b val=\"1\"/><sz val=\"14\"/></font><font><name val=\"맑은 고딕\"/><b val=\"1\"/><sz val=\"10\"/></font><font><name val=\"맑은 고딕\"/><sz val=\"10\"/></font><font><name val=\"맑은 고딕\"/><color rgb=\"00444444\"/><sz val=\"10\"/></font></fonts><fills count=\"3\"><fill><patternFill/></fill><fill><patternFill patternType=\"gray125\"/></fill><fill><patternFill patternType=\"solid\"><fgColor rgb=\"00DDE7D6\"/></patternFill></fill></fills><borders count=\"2\"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style=\"thin\"><color rgb=\"00BBBBBB\"/></left><right style=\"thin\"><color rgb=\"00BBBBBB\"/></right><top style=\"thin\"><color rgb=\"00BBBBBB\"/></top><bottom style=\"thin\"><color rgb=\"00BBBBBB\"/></bottom></border></borders><cellStyleXfs count=\"1\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\"/></cellStyleXfs><cellXfs count=\"8\"><xf numFmtId=\"0\" fontId=\"0\" fillId=\"0\" borderId=\"0\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"/><xf numFmtId=\"0\" fontId=\"1\" fillId=\"0\" borderId=\"0\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"/><xf numFmtId=\"0\" fontId=\"2\" fillId=\"0\" borderId=\"0\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"/><xf numFmtId=\"0\" fontId=\"3\" fillId=\"0\" borderId=\"0\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"/><xf numFmtId=\"0\" fontId=\"4\" fillId=\"0\" borderId=\"0\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"/><xf numFmtId=\"0\" fontId=\"2\" fillId=\"2\" borderId=\"1\" applyAlignment=\"1\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"><alignment vertical=\"center\" wrapText=\"1\"/></xf><xf numFmtId=\"0\" fontId=\"3\" fillId=\"0\" borderId=\"1\" applyAlignment=\"1\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"><alignment vertical=\"top\" wrapText=\"1\"/></xf><xf numFmtId=\"0\" fontId=\"4\" fillId=\"0\" borderId=\"0\" applyAlignment=\"1\" pivotButton=\"0\" quotePrefix=\"0\" xfId=\"0\"><alignment vertical=\"top\" wrapText=\"1\"/></xf></cellXfs><cellStyles count=\"1\"><cellStyle name=\"Normal\" xfId=\"0\" builtinId=\"0\" hidden=\"0\"/></cellStyles><tableStyles count=\"0\" defaultTableStyle=\"TableStyleMedium9\" defaultPivotStyle=\"PivotStyleLight16\"/><colors><indexedColors><rgbColor rgb=\"00000000\"/><rgbColor rgb=\"00FFFFFF\"/><rgbColor rgb=\"00FF0000\"/><rgbColor rgb=\"0000FF00\"/><rgbColor rgb=\"000000FF\"/><rgbColor rgb=\"00FFFF00\"/><rgbColor rgb=\"00FF00FF\"/><rgbColor rgb=\"0000FFFF\"/><rgbColor rgb=\"00000000\"/><rgbColor rgb=\"00FFFFFF\"/><rgbColor rgb=\"00FF0000\"/><rgbColor rgb=\"0000FF00\"/><rgbColor rgb=\"000000FF\"/><rgbColor rgb=\"00FFFF00\"/><rgbColor rgb=\"00FF00FF\"/><rgbColor rgb=\"0000FFFF\"/><rgbColor rgb=\"00800000\"/><rgbColor rgb=\"00008000\"/><rgbColor rgb=\"00000080\"/><rgbColor rgb=\"00808000\"/><rgbColor rgb=\"00800080\"/><rgbColor rgb=\"00008080\"/><rgbColor rgb=\"00C0C0C0\"/><rgbColor rgb=\"00808080\"/><rgbColor rgb=\"009999FF\"/><rgbColor rgb=\"00993366\"/><rgbColor rgb=\"00FFFFCC\"/><rgbColor rgb=\"00CCFFFF\"/><rgbColor rgb=\"00660066\"/><rgbColor rgb=\"00FF8080\"/><rgbColor rgb=\"000066CC\"/><rgbColor rgb=\"00CCCCFF\"/><rgbColor rgb=\"00000080\"/><rgbColor rgb=\"00FF00FF\"/><rgbColor rgb=\"00FFFF00\"/><rgbColor rgb=\"0000FFFF\"/><rgbColor rgb=\"00800080\"/><rgbColor rgb=\"00800000\"/><rgbColor rgb=\"00008080\"/><rgbColor rgb=\"000000FF\"/><rgbColor rgb=\"0000CCFF\"/><rgbColor rgb=\"00CCFFFF\"/><rgbColor rgb=\"00CCFFCC\"/><rgbColor rgb=\"00FFFF99\"/><rgbColor rgb=\"0099CCFF\"/><rgbColor rgb=\"00FF99CC\"/><rgbColor rgb=\"00CC99FF\"/><rgbColor rgb=\"00FFCC99\"/><rgbColor rgb=\"003366FF\"/><rgbColor rgb=\"0033CCCC\"/><rgbColor rgb=\"0099CC00\"/><rgbColor rgb=\"00FFCC00\"/><rgbColor rgb=\"00FF9900\"/><rgbColor rgb=\"00FF6600\"/><rgbColor rgb=\"00666699\"/><rgbColor rgb=\"00969696\"/><rgbColor rgb=\"00003366\"/><rgbColor rgb=\"00339966\"/><rgbColor rgb=\"00003300\"/><rgbColor rgb=\"00333300\"/><rgbColor rgb=\"00993300\"/><rgbColor rgb=\"00993366\"/><rgbColor rgb=\"00333399\"/><rgbColor rgb=\"00333333\"/></indexedColors></colors></styleSheet>",
+  "special_parts": {
+    "comments": [],
+    "drawings": [],
+    "charts": [],
+    "media": [],
+    "external_links": [],
+    "macros_active_content": [],
+    "tables_pivots": []
+  },
+  "comments": [],
+  "sheets": [
+    {
+      "name": "개요",
+      "sheet_id": "1",
+      "state": "visible",
+      "part": "xl/worksheets/sheet1.xml",
+      "dimension": "A1:B14",
+      "cell_count": 23,
+      "nonempty_cells": 19,
+      "cells": [
+        {
+          "address": "A1",
+          "type": "inlineStr",
+          "style": "1",
+          "value": "콜드체인 온도 로그",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A3",
+          "type": "inlineStr",
+          "style": "2",
+          "value": "문서",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B3",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "콜드체인 온도 로그",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A4",
+          "type": "inlineStr",
+          "style": "2",
+          "value": "기준일",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B4",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "2037-06-30",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A5",
+          "type": "inlineStr",
+          "style": "2",
+          "value": "관리",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B5",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "박민아",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A6",
+          "type": "inlineStr",
+          "style": "2",
+          "value": "발행",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B6",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "교동마을 산지직송",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A8",
+          "type": "inlineStr",
+          "style": "2",
+          "value": "시트",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B8",
+          "type": "inlineStr",
+          "style": "2",
+          "value": "내용",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A9",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "2. 임계·기록 규약",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B9",
+          "type": "inlineStr",
+          "style": "4",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A10",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "3. 기재 항목 및 작성 기준",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B10",
+          "type": "inlineStr",
+          "style": "4",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A11",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "4. 구간 요약",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B11",
+          "type": "inlineStr",
+          "style": "4",
+          "value": "조회 기준가 어긋나 있다. 공식 배송 기록에 남은 그날의 담당·차량은 구방만 · TR-KD-01이고(인계가 기록되지 않았다 — 「업무 인계·부재 기록(구방만 → 박민아)」 §3), 그 차량으로 이 로그를 조회하면 해",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A12",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "5. 이탈 구간 상세",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B12",
+          "type": "inlineStr",
+          "style": "4",
+          "value": "운송 구간 전체(23행) 중 이탈 판정이 만들어진 구간만 옮긴다.",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A13",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "6. 연결 기록의 결번",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B13",
+          "type": "inlineStr",
+          "style": "4",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A14",
+          "type": "inlineStr",
+          "style": "3",
+          "value": "7. 조회 기준",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B14",
+          "type": "inlineStr",
+          "style": "4",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        }
+      ],
+      "rows": [
+        {
+          "r": "1"
+        },
+        {
+          "r": "3"
+        },
+        {
+          "r": "4"
+        },
+        {
+          "r": "5"
+        },
+        {
+          "r": "6"
+        },
+        {
+          "r": "8"
+        },
+        {
+          "r": "9"
+        },
+        {
+          "r": "10"
+        },
+        {
+          "r": "11"
+        },
+        {
+          "r": "12"
+        },
+        {
+          "r": "13"
+        },
+        {
+          "r": "14"
+        }
+      ],
+      "columns": [
+        {
+          "width": "14",
+          "customWidth": "1",
+          "min": "1",
+          "max": "1"
+        },
+        {
+          "width": "90",
+          "customWidth": "1",
+          "min": "2",
+          "max": "2"
+        }
+      ],
+      "hidden_rows": [],
+      "hidden_columns": [],
+      "merged_cells": [],
+      "hyperlinks": [],
+      "drawing_references": [],
+      "header_footer": [],
+      "auto_filters": [],
+      "sheet_protection": [],
+      "validations": [],
+      "conditional_formatting": [],
+      "top_level_elements": [
+        "sheetPr",
+        "dimension",
+        "sheetViews",
+        "sheetFormatPr",
+        "cols",
+        "sheetData",
+        "pageMargins"
+      ]
+    },
+    {
+      "name": "2. 임계·기록 규약",
+      "sheet_id": "2",
+      "state": "visible",
+      "part": "xl/worksheets/sheet2.xml",
+      "dimension": "A1:C9",
+      "cell_count": 22,
+      "nonempty_cells": 20,
+      "cells": [
+        {
+          "address": "A1",
+          "type": "inlineStr",
+          "style": "1",
+          "value": "2. 임계·기록 규약",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "항목",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "값",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "근거",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "유지 기준",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "-18℃ 이하",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "「위탁 계약서(갯마을 조합 ↔ 교동 조합)」 위탁 품질 조건의 냉동 경계",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "기록 간격",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "30분",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "탑차 온도 기록계 자동 기록",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈 임계",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "-15℃ 초과가 30분 이상 지속",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "순간 문 개방 상승을 이탈로 세지 않기 위한 지속 조건",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈 플래그",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "정상 · 주의(-18 초과 ~ -15 이하) · 이탈(-15℃ 초과 30분 이상)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "해동·재냉동 판정",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈 구간 뒤 다시 -18℃ 이하로 복귀한 이력이 있으면 해동 후 재냉동으로 본다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "「판매 환불 규정집」 제17조의 사실 요건",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈 알림",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "없다. 기록계는 저장만 하고 경보를 내보내지 않는다 — 이탈은 사후 열람으로만 발견된다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        }
+      ],
+      "rows": [
+        {
+          "r": "1"
+        },
+        {
+          "r": "3"
+        },
+        {
+          "r": "4"
+        },
+        {
+          "r": "5"
+        },
+        {
+          "r": "6"
+        },
+        {
+          "r": "7"
+        },
+        {
+          "r": "8"
+        },
+        {
+          "r": "9"
+        }
+      ],
+      "columns": [
+        {
+          "width": "16.4",
+          "customWidth": "1",
+          "min": "1",
+          "max": "1"
+        },
+        {
+          "width": "70",
+          "customWidth": "1",
+          "min": "2",
+          "max": "2"
+        },
+        {
+          "width": "66",
+          "customWidth": "1",
+          "min": "3",
+          "max": "3"
+        }
+      ],
+      "hidden_rows": [],
+      "hidden_columns": [],
+      "merged_cells": [],
+      "hyperlinks": [],
+      "drawing_references": [],
+      "header_footer": [],
+      "auto_filters": [
+        {
+          "ref": "A3:C9"
+        }
+      ],
+      "sheet_protection": [],
+      "validations": [],
+      "conditional_formatting": [],
+      "top_level_elements": [
+        "sheetPr",
+        "dimension",
+        "sheetViews",
+        "sheetFormatPr",
+        "cols",
+        "sheetData",
+        "autoFilter",
+        "pageMargins"
+      ]
+    },
+    {
+      "name": "3. 기재 항목 및 작성 기준",
+      "sheet_id": "3",
+      "state": "visible",
+      "part": "xl/worksheets/sheet3.xml",
+      "dimension": "A1:D12",
+      "cell_count": 41,
+      "nonempty_cells": 41,
+      "cells": [
+        {
+          "address": "A1",
+          "type": "inlineStr",
+          "style": "1",
+          "value": "3. 기재 항목 및 작성 기준",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "항목",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "형식",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "필수",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "비고",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "배송건 조회번호",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "주문번호 + 로트번호",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "「로트·출고 검사 기록(당도·중량·온도·로트번호)」의 로트번호와 같은 표기",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "차량",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "탑차 식별 코드",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "기사 개인 연락처·주소를 적는 항목가 없다 (「조합 규정집」 제15조 · 「제3자 정보 보호 조항(공급자·직원·수령인)」)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "구간",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "집하(산지→탑차) · 운송(탑차 운행) · 간선 인계(탑차→간선 배송)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "⚠ 구간명에 인도를 쓰지 않는다 — 「위탁 계약서(갯마을 조합 ↔ 교동 조합)」 제2조2호의 계약상 '인도'(적재 완료 시점)와 다른 시점을 가리키게 되어 품질 책임 구간을 잘못 판단할 수 있다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "기록 시각",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "날짜 + 시:분",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "30분 간격",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "온도",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "℃ 소수 첫째 자리",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "탑차 적재함 내 센서값",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "임계 초과 플래그",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "정상 · 주의 · 이탈",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "§2 정의",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A10",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "기록 방식",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B10",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동(기록계) · 수기",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C10",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D10",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "수기 보정 여부를 남기는 칸",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A11",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "담당자",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B11",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "실명",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C11",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D11",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "그 구간을 실제로 운행·인계한 사람",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A12",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "공식 배송 기록 연결",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B12",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "연결 · 미연결",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C12",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "✅",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D12",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "미연결이면 주문 조회로는 보이지 않는다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        }
+      ],
+      "rows": [
+        {
+          "r": "1"
+        },
+        {
+          "r": "3"
+        },
+        {
+          "r": "4"
+        },
+        {
+          "r": "5"
+        },
+        {
+          "r": "6"
+        },
+        {
+          "r": "7"
+        },
+        {
+          "r": "8"
+        },
+        {
+          "r": "9"
+        },
+        {
+          "r": "10"
+        },
+        {
+          "r": "11"
+        },
+        {
+          "r": "12"
+        }
+      ],
+      "columns": [
+        {
+          "width": "19.6",
+          "customWidth": "1",
+          "min": "1",
+          "max": "1"
+        },
+        {
+          "width": "64.40000000000001",
+          "customWidth": "1",
+          "min": "2",
+          "max": "2"
+        },
+        {
+          "width": "8",
+          "customWidth": "1",
+          "min": "3",
+          "max": "3"
+        },
+        {
+          "width": "70",
+          "customWidth": "1",
+          "min": "4",
+          "max": "4"
+        }
+      ],
+      "hidden_rows": [],
+      "hidden_columns": [],
+      "merged_cells": [],
+      "hyperlinks": [],
+      "drawing_references": [],
+      "header_footer": [],
+      "auto_filters": [
+        {
+          "ref": "A3:D12"
+        }
+      ],
+      "sheet_protection": [],
+      "validations": [],
+      "conditional_formatting": [],
+      "top_level_elements": [
+        "sheetPr",
+        "dimension",
+        "sheetViews",
+        "sheetFormatPr",
+        "cols",
+        "sheetData",
+        "autoFilter",
+        "pageMargins"
+      ]
+    },
+    {
+      "name": "4. 구간 요약",
+      "sheet_id": "4",
+      "state": "visible",
+      "part": "xl/worksheets/sheet4.xml",
+      "dimension": "A1:I11",
+      "cell_count": 48,
+      "nonempty_cells": 48,
+      "cells": [
+        {
+          "address": "A1",
+          "type": "inlineStr",
+          "style": "1",
+          "value": "4. 구간 요약 — 건별",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "배송건",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "차량",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "구간",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "시작~종료",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "최저",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "F3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "최고",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "G3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "플래그",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "H3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "담당자",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "I3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "공식 기록 연결",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "100400001 · GM-OKD-370624-01 (냉동 옥돔)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "TR-GM-02(냉동 탑차)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "집하",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 05:30~06:30",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E4",
+          "type": "n",
+          "style": "6",
+          "value": "-19.4",
+          "raw_value": "-19.4",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "F4",
+          "type": "n",
+          "style": "6",
+          "value": "-19",
+          "raw_value": "-19",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "G4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "정상",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "H4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "박민아",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "I4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "미연결",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "〃",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "〃",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "운송",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 06:30~18:00",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E5",
+          "type": "n",
+          "style": "6",
+          "value": "-19.2",
+          "raw_value": "-19.2",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "F5",
+          "type": "n",
+          "style": "6",
+          "value": "-8.6",
+          "raw_value": "-8.6",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "G5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "H5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "박민아",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "I5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "미연결",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "〃",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "〃",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "간선 인계",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 18:00",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E6",
+          "type": "n",
+          "style": "6",
+          "value": "-18.6",
+          "raw_value": "-18.6",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "F6",
+          "type": "n",
+          "style": "6",
+          "value": "-18.6",
+          "raw_value": "-18.6",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "G6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "정상",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "H6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "박민아 입회 검침",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "I6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "연결(인계 사실만)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "100400001 (공식 기록상 담당·차량)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "TR-KD-01(교동 집하 차량)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "—",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "—",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "F7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "—",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "G7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "—",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "H7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "구방만(공식 기록상)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "I7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "연결",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A9",
+          "type": "inlineStr",
+          "style": "7",
+          "value": "조회 기준가 어긋나 있다. 공식 배송 기록에 남은 그날의 담당·차량은 구방만 · TR-KD-01이고(인계가 기록되지 않았다 — 「업무 인계·부재 기록(구방만 → 박민아)」 §3), 그 차량으로 이 로그를 조회하면 해당 일자 운행 기록이 없다. 기록이 없는 사유는 조회 오류가 아니라 그 차량이 실제로 운행하지 않았다는 사실이며, 이탈 기록은 실제 운행 차량 TR-GM-02에 남아 있다.",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A11",
+          "type": "inlineStr",
+          "style": "7",
+          "value": "이 표의 세 구간은 모두 계약상 '인도' 이후다. 「위탁 계약서(갯마을 조합 ↔ 교동 조합)」 제2조2호의 인도는 갯마을 출하장에서 적재가 완료된 때 (06-24 05:30 집하 구간의 시작점)이고, 06:30~18:00 운송 구간의 -8.6℃ 이탈은 인도 이후에 발생한 것이라 품질 책임은 갑(교동) 구간이다(「위탁 계약서(갯마을 조합 ↔ 교동 조합)」 제7조②·⑤). 18:00의 간선 인계를 '인도'로 읽으면 이탈이 인도 전이 되어 책임 구간을 갯마을로 잘못 판단하게 된다.",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        }
+      ],
+      "rows": [
+        {
+          "r": "1"
+        },
+        {
+          "r": "3"
+        },
+        {
+          "r": "4"
+        },
+        {
+          "r": "5"
+        },
+        {
+          "r": "6"
+        },
+        {
+          "r": "7"
+        },
+        {
+          "r": "9",
+          "ht": "45",
+          "customHeight": "1"
+        },
+        {
+          "r": "11",
+          "ht": "45",
+          "customHeight": "1"
+        }
+      ],
+      "columns": [
+        {
+          "width": "59.6",
+          "customWidth": "1",
+          "min": "1",
+          "max": "1"
+        },
+        {
+          "width": "30.8",
+          "customWidth": "1",
+          "min": "2",
+          "max": "2"
+        },
+        {
+          "width": "10",
+          "customWidth": "1",
+          "min": "3",
+          "max": "3"
+        },
+        {
+          "width": "29.2",
+          "customWidth": "1",
+          "min": "4",
+          "max": "4"
+        },
+        {
+          "width": "10",
+          "customWidth": "1",
+          "min": "5",
+          "max": "5"
+        },
+        {
+          "width": "10",
+          "customWidth": "1",
+          "min": "6",
+          "max": "6"
+        },
+        {
+          "width": "8",
+          "customWidth": "1",
+          "min": "7",
+          "max": "7"
+        },
+        {
+          "width": "19.6",
+          "customWidth": "1",
+          "min": "8",
+          "max": "8"
+        },
+        {
+          "width": "18",
+          "customWidth": "1",
+          "min": "9",
+          "max": "9"
+        }
+      ],
+      "hidden_rows": [],
+      "hidden_columns": [],
+      "merged_cells": [
+        {
+          "ref": "A9:I9"
+        },
+        {
+          "ref": "A11:I11"
+        }
+      ],
+      "hyperlinks": [],
+      "drawing_references": [],
+      "header_footer": [],
+      "auto_filters": [
+        {
+          "ref": "A3:I7"
+        }
+      ],
+      "sheet_protection": [],
+      "validations": [],
+      "conditional_formatting": [],
+      "top_level_elements": [
+        "sheetPr",
+        "dimension",
+        "sheetViews",
+        "sheetFormatPr",
+        "cols",
+        "sheetData",
+        "autoFilter",
+        "mergeCells",
+        "pageMargins"
+      ]
+    },
+    {
+      "name": "5. 이탈 구간 상세",
+      "sheet_id": "5",
+      "state": "visible",
+      "part": "xl/worksheets/sheet5.xml",
+      "dimension": "A1:F19",
+      "cell_count": 59,
+      "nonempty_cells": 56,
+      "cells": [
+        {
+          "address": "A1",
+          "type": "inlineStr",
+          "style": "1",
+          "value": "5. 이탈 구간 상세 — 30분 간격 발췌",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A3",
+          "type": "inlineStr",
+          "style": "7",
+          "value": "운송 구간 전체(23행) 중 이탈 판정이 만들어진 구간만 옮긴다.",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A5",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "기록 시각",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B5",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "온도",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C5",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "플래그",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D5",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "기록 방식",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E5",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "비고",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 11:00",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B6",
+          "type": "n",
+          "style": "6",
+          "value": "-19.1",
+          "raw_value": "-19.1",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "정상",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 11:30",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B7",
+          "type": "n",
+          "style": "6",
+          "value": "-16.8",
+          "raw_value": "-16.8",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "주의",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "상승 시작",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 12:00",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B8",
+          "type": "n",
+          "style": "6",
+          "value": "-13.2",
+          "raw_value": "-13.2",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈 후보",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E8",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "-15℃ 초과 진입",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 12:30",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B9",
+          "type": "n",
+          "style": "6",
+          "value": "-10.5",
+          "raw_value": "-10.5",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E9",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "초과 30분 지속 → 이탈 확정",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A10",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 13:00",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B10",
+          "type": "n",
+          "style": "6",
+          "value": "-8.6",
+          "raw_value": "-8.6",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C10",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D10",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E10",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "최고점",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A11",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 13:30",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B11",
+          "type": "n",
+          "style": "6",
+          "value": "-9.4",
+          "raw_value": "-9.4",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C11",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D11",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E11",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A12",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 14:00",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B12",
+          "type": "n",
+          "style": "6",
+          "value": "-12.7",
+          "raw_value": "-12.7",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C12",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D12",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E12",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "하강 시작",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A13",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 14:30",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B13",
+          "type": "n",
+          "style": "6",
+          "value": "-16.1",
+          "raw_value": "-16.1",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C13",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "주의",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D13",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E13",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A14",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 15:00",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B14",
+          "type": "n",
+          "style": "6",
+          "value": "-18.3",
+          "raw_value": "-18.3",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C14",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "정상",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D14",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E14",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "-18℃ 이하 복귀 → 재냉동 시점",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A15",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "06-24 15:30",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B15",
+          "type": "n",
+          "style": "6",
+          "value": "-19",
+          "raw_value": "-19",
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "C15",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "정상",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "D15",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "자동",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "E15",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이후 간선 인계까지 정상 유지",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A17",
+          "type": "inlineStr",
+          "style": "7",
+          "value": "이탈 지속 2~3시간 · 최고 -8.6℃ · 복귀 확인 → §2의 판정 규약대로 해동 후 재냉동이다. 인계 시점 품온이 -18.6℃였다는 사실은 이탈 이력의 반증이 아니다.",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A19",
+          "type": "inlineStr",
+          "style": "7",
+          "value": "이탈 길이는 한 값으로 확정되지 않는다. -15℃를 넘은 기록점은 12:00~14:00의 5행이라 기록점만 세면 2시간인데, 넘어선 시각은 11:30(-16.8)과 12:00(-13.2) 사이, 내려온 시각은 14:00(-12.7)과 14:30(-16.1) 사이여서 표본 간격(30분)만큼 양쪽이 열려 최대 3시간이다. 30분 자동 기록계로는 경계 시각이 특정되지 않는다. 11:30·14:30 두 점은 주의이므로 이탈 길이에 넣지 않는다.",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        }
+      ],
+      "rows": [
+        {
+          "r": "1"
+        },
+        {
+          "r": "3",
+          "ht": "15",
+          "customHeight": "1"
+        },
+        {
+          "r": "5"
+        },
+        {
+          "r": "6"
+        },
+        {
+          "r": "7"
+        },
+        {
+          "r": "8"
+        },
+        {
+          "r": "9"
+        },
+        {
+          "r": "10"
+        },
+        {
+          "r": "11"
+        },
+        {
+          "r": "12"
+        },
+        {
+          "r": "13"
+        },
+        {
+          "r": "14"
+        },
+        {
+          "r": "15"
+        },
+        {
+          "r": "17",
+          "ht": "30",
+          "customHeight": "1"
+        },
+        {
+          "r": "19",
+          "ht": "45",
+          "customHeight": "1"
+        }
+      ],
+      "columns": [
+        {
+          "width": "19.6",
+          "customWidth": "1",
+          "min": "1",
+          "max": "1"
+        },
+        {
+          "width": "10",
+          "customWidth": "1",
+          "min": "2",
+          "max": "2"
+        },
+        {
+          "width": "10",
+          "customWidth": "1",
+          "min": "3",
+          "max": "3"
+        },
+        {
+          "width": "10",
+          "customWidth": "1",
+          "min": "4",
+          "max": "4"
+        },
+        {
+          "width": "32.40000000000001",
+          "customWidth": "1",
+          "min": "5",
+          "max": "5"
+        }
+      ],
+      "hidden_rows": [],
+      "hidden_columns": [],
+      "merged_cells": [
+        {
+          "ref": "A3:F3"
+        },
+        {
+          "ref": "A19:F19"
+        },
+        {
+          "ref": "A17:F17"
+        }
+      ],
+      "hyperlinks": [],
+      "drawing_references": [],
+      "header_footer": [],
+      "auto_filters": [
+        {
+          "ref": "A5:E15"
+        }
+      ],
+      "sheet_protection": [],
+      "validations": [],
+      "conditional_formatting": [],
+      "top_level_elements": [
+        "sheetPr",
+        "dimension",
+        "sheetViews",
+        "sheetFormatPr",
+        "cols",
+        "sheetData",
+        "autoFilter",
+        "mergeCells",
+        "pageMargins"
+      ]
+    },
+    {
+      "name": "6. 연결 기록의 결번",
+      "sheet_id": "6",
+      "state": "visible",
+      "part": "xl/worksheets/sheet6.xml",
+      "dimension": "A1:B7",
+      "cell_count": 11,
+      "nonempty_cells": 11,
+      "cells": [
+        {
+          "address": "A1",
+          "type": "inlineStr",
+          "style": "1",
+          "value": "6. 연결 기록의 결번",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "무엇이 없나",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "결과",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "집하·운송 구간 로그의 주문 건 연결",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "주문 조회만으로는 이상이 보이지 않는다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "냉동장치 이상 사실의 공식 기록 등재",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "담당자가 보낸 메시지(「업무 인계·부재 기록(구방만 → 박민아)」 §5)에만 남았고 배송 기록에는 없다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "공식 기록의 담당·차량이 실제와 다르다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "그 차량으로 조회하면 빈 결과다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "이탈 발생 시 자동 알림",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B7",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "규약이 없다 (§2)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        }
+      ],
+      "rows": [
+        {
+          "r": "1"
+        },
+        {
+          "r": "3"
+        },
+        {
+          "r": "4"
+        },
+        {
+          "r": "5"
+        },
+        {
+          "r": "6"
+        },
+        {
+          "r": "7"
+        }
+      ],
+      "columns": [
+        {
+          "width": "35.6",
+          "customWidth": "1",
+          "min": "1",
+          "max": "1"
+        },
+        {
+          "width": "70",
+          "customWidth": "1",
+          "min": "2",
+          "max": "2"
+        }
+      ],
+      "hidden_rows": [],
+      "hidden_columns": [],
+      "merged_cells": [],
+      "hyperlinks": [],
+      "drawing_references": [],
+      "header_footer": [],
+      "auto_filters": [
+        {
+          "ref": "A3:B7"
+        }
+      ],
+      "sheet_protection": [],
+      "validations": [],
+      "conditional_formatting": [],
+      "top_level_elements": [
+        "sheetPr",
+        "dimension",
+        "sheetViews",
+        "sheetFormatPr",
+        "cols",
+        "sheetData",
+        "autoFilter",
+        "pageMargins"
+      ]
+    },
+    {
+      "name": "7. 조회 기준",
+      "sheet_id": "7",
+      "state": "visible",
+      "part": "xl/worksheets/sheet7.xml",
+      "dimension": "A1:B6",
+      "cell_count": 9,
+      "nonempty_cells": 8,
+      "cells": [
+        {
+          "address": "A1",
+          "type": "inlineStr",
+          "style": "1",
+          "value": "7. 조회 기준",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B3",
+          "type": "inlineStr",
+          "style": "5",
+          "value": "값",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "진입 경로",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B4",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "배송건 조회번호(주문번호 또는 로트번호). 차량·기사 이름은 검색 기준가 아니다",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "빈 결과의 두 원인",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B5",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "⑴ 그 구간에 로그가 없다 ⑵ 조회 기준가 틀렸다. 공식 기록의 담당·차량이 실제와 다를 수 있다(§4·§6)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "A6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "로그가 없는 품목",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        },
+        {
+          "address": "B6",
+          "type": "inlineStr",
+          "style": "6",
+          "value": "상온 농산에는 이 로그가 애초에 없다 (「로트·출고 검사 기록(당도·중량·온도·로트번호)」 §3)",
+          "raw_value": null,
+          "formula": null,
+          "formula_attributes": null
+        }
+      ],
+      "rows": [
+        {
+          "r": "1"
+        },
+        {
+          "r": "3"
+        },
+        {
+          "r": "4"
+        },
+        {
+          "r": "5"
+        },
+        {
+          "r": "6"
+        }
+      ],
+      "columns": [
+        {
+          "width": "18",
+          "customWidth": "1",
+          "min": "1",
+          "max": "1"
+        },
+        {
+          "width": "70",
+          "customWidth": "1",
+          "min": "2",
+          "max": "2"
+        }
+      ],
+      "hidden_rows": [],
+      "hidden_columns": [],
+      "merged_cells": [],
+      "hyperlinks": [],
+      "drawing_references": [],
+      "header_footer": [],
+      "auto_filters": [
+        {
+          "ref": "A3:B6"
+        }
+      ],
+      "sheet_protection": [],
+      "validations": [],
+      "conditional_formatting": [],
+      "top_level_elements": [
+        "sheetPr",
+        "dimension",
+        "sheetViews",
+        "sheetFormatPr",
+        "cols",
+        "sheetData",
+        "autoFilter",
+        "pageMargins"
+      ]
+    }
+  ]
+}

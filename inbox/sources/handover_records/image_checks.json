@@ -1,0 +1,68 @@
+{
+  "reviewed_at": "2026-10-31T14:22:25.666591+09:00",
+  "images_directly_viewed": [
+    "C31_driver-notebook.png",
+    "C31_handover-ledger.png"
+  ],
+  "direct_view_count": 2,
+  "all_archive_photos_viewed": true,
+  "rotation_or_crop_needed": false,
+  "full_document_context_transcribed": true,
+  "notebook_lot": "GM-OKD-370624-01",
+  "notebook_vehicle": "TR-GM-02",
+  "notebook_times": [
+    "06:30 출발",
+    "15시쯤 다시 내려옴",
+    "18:00 간선 인계 / 온도 정상",
+    "19:52 구방만에게 문자 발송 메모",
+    "21:15 인계 대장 기재 메모"
+  ],
+  "ledger_rows_transcribed": 3,
+  "ledger_columns_transcribed": 10,
+  "calendar_check_2037_all_wednesdays": [
+    "04-15",
+    "05-20",
+    "06-24"
+  ],
+  "calendar_check_0417_friday": true,
+  "cross_source_agreement": [
+    "6/24 구방만 대행",
+    "전화 업무 인계/서면 없음",
+    "교동 농산+갯마을 냉동 1건",
+    "21:15 대장 기재"
+  ],
+  "notebook_only_new_detail": [
+    "옥돔 로트 GM-OKD-370624-01",
+    "15시쯤 다시 내려옴",
+    "집하 등록 밀림",
+    "18:00 온도 정상이라는 정성 메모"
+  ],
+  "ledger_only_detail": [
+    "4/15 질병 반일 부재/대행 없음/4/17순연/사후 시각없음/공식 반영",
+    "5/20 박민아 정기교육 종일 부재/구방만 대행/서면인계서1부/5/18 17:40사전기재/공식 반영",
+    "6/24행 공식 배송 기록 미반영"
+  ],
+  "uncertain": [
+    "경고음 발생 정확 시각 없음",
+    "구간별 온도 숫자 없음",
+    "15시쯤은 대략 시각이며 정상복귀 임계값 불명",
+    "18시 정상은 정성 메모로 검침 수치 없음",
+    "문자 원본/수신/읽음 증거는 ZIP에 없음",
+    "승인 기록 없음이라는 전사적 결론 불가: 사진에 승인란/승인 표식이 안 보이는 것만 확인",
+    "통합운송 결정자 및 승인 여부 불명",
+    "농산물 세부품목/상자 수/고객/주문번호 없음",
+    "05:30 집하 시작·6/25 고객 도착 등 진술은 이 사진에 없음"
+  ],
+  "forbidden_extrapolations": [
+    "15시쯤 정상으로 돌아왔다는 수치 확정",
+    "경고음 시작·온도이탈 지속시간 계산",
+    "수첩만으로 문자 실제 발송·수신·읽음 확인",
+    "구방만에게 화물 물리인계를 했다고 해석",
+    "같은 작성자의 수첩과 대장을 독립 제3자 2명 증언으로 해석",
+    "책임·환불·원인·허용된 합배송 여부 확정"
+  ],
+  "external_messages": 0,
+  "kakao_actions": 0,
+  "llm_or_action_api_calls": 0,
+  "original_images_unchanged_after_view": true
+}

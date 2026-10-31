@@ -1,0 +1,68 @@
+{
+  "checked_at_utc": "2026-10-31T05:19:38.555003+00:00",
+  "key_terms_both_extractors": {
+    "REFER5000": {
+      "poppler": true,
+      "pypdf": true
+    },
+    "CARE3000": {
+      "poppler": true,
+      "pypdf": true
+    },
+    "CARE5000": {
+      "poppler": true,
+      "pypdf": true
+    },
+    "CARE10000": {
+      "poppler": true,
+      "pypdf": true
+    },
+    "90일": {
+      "poppler": true,
+      "pypdf": true
+    },
+    "12개월": {
+      "poppler": true,
+      "pypdf": true
+    },
+    "결제 완료": {
+      "poppler": true,
+      "pypdf": true
+    },
+    "1인": {
+      "poppler": true,
+      "pypdf": true
+    },
+    "부분환불": {
+      "poppler": true,
+      "pypdf": true
+    }
+  },
+  "html_tables": 6,
+  "html_table_rows": [
+    13,
+    7,
+    4,
+    2,
+    6,
+    4
+  ],
+  "ledger_code_count": 6,
+  "ledger_codes": [
+    "DANGOL5",
+    "WELCOME3000",
+    "REFER5000",
+    "GAMJA10",
+    "MANGO10",
+    "SUBAK15"
+  ],
+  "pdf_pages_rendered_viewed": 2,
+  "pdf_page_image_count": 0,
+  "html_images": 0,
+  "html_scripts": 0,
+  "hidden_html_elements": 0,
+  "external_resources": 0,
+  "pdf_annotations": 0,
+  "pdf_attachments": 0,
+  "zip_source_sha256": "f7f8f86a226704279ae233e718a0812ca3178e0ca6acf8b4b9c0cea9d70366f1"
+}

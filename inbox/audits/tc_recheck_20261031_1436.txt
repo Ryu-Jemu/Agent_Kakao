@@ -1,0 +1,22 @@
+run tests/runs/20261031-130815 · TC 15건
+| TC | A4 판정 | A6 독립 판정 | 호출 |
+|---|---|---|---|
+| L-03 | ok | OK | API-07, API-11, API-24 |
+| L-05 | ok | OK | API-07, API-17, API-32 |
+| L-11 | ok | OK | API-07, API-11, API-06, API-04, API-03, API-35, API-29 |
+| L-20 | ok | OK | - |
+| L-23 | ok | OK | API-07, API-13, API-35 |
+| L-32 | ok | OK | API-11, API-07, API-06, API-03, API-04, API-35 |
+| L-33 | ok | OK | API-07, API-11, API-35 |
+| L-34 | ok | OK | API-11, API-07, API-27, API-35 |
+| L-40 | ok | OK | API-13, API-13, API-08 |
+| L-47 | ok | OK | API-07, API-01, API-13, API-33 |
+| L-60 | ok | OK | API-20 |
+| R-05-a | ok | OK | API-07, API-11, API-03, API-06, API-04, API-28 |
+| Y-07-b | ok | OK | API-07, API-11 |
+| Y-16 | ok | OK | API-11, API-07, API-10, API-28 |
+| Y-24 | ok | OK | - |
+
+형식·성능: 턴 44 · 턴당 말풍선 1.00 · 말풍선당 글자 216.6 · 최대 364자 · 500자 초과 0 · 지연 p50 6972ms p95 16093ms 최대 22178ms
+A6 독립 판정 문제 TC 0건 · 출처 불명 식별자 0건 (must_say는 A4 LLM 판정 인용·미검증)
+

@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import sharp from 'sharp';
+const dir=path.dirname(fileURLToPath(import.meta.url));
+const text=await fs.readFile(path.join(dir,'extracted','온도기록계_조회.html'),'utf8');
+const source=text.match(/<svg\b[\s\S]*?<\/svg>/)[0];
+const svg=source.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" ');
+await fs.writeFile(path.join(dir,'recorded_curve.svg'),svg);
+await sharp(Buffer.from(svg)).resize({width:1520}).flatten({background:'#ffffff'}).png().toFile(path.join(dir,'recorded_curve.png'));
+console.log(JSON.stringify({source:'inline SVG from unchanged HTML',svgCount:(text.match(/<svg\b/g)||[]).length,rendered:'recorded_curve.png'}));

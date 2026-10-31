@@ -1,0 +1,24 @@
+{
+  "url": "https://t1.kakaocdn.net/aitop100/aitop100/dist/tHHClVffN4f8jvA_vuOtuQ.zip",
+  "downloaded_at_utc": "2026-10-31T05:29:05.609157+00:00",
+  "bytes": 19011,
+  "sha256": "fc21e0d7eff66e5dbf3912010d1ca018e989af5757e754351af2e4c433cefe67",
+  "zip_crc_error": null,
+  "uncompressed_bytes": 29794,
+  "items": [
+    {
+      "name": "온도기록계_관측기록.xlsx",
+      "bytes": 14921,
+      "compressed_bytes": 13815,
+      "crc32": "ad3b234a",
+      "sha256": "bf263ea0c72209b8cdd4299719ffb82dd72d65d784fdf527d27bfb91458f9f38"
+    },
+    {
+      "name": "온도기록계_조회.html",
+      "bytes": 14873,
+      "compressed_bytes": 4902,
+      "crc32": "7331de71",
+      "sha256": "a1e5949b82c849c507cf60882e5fefe99afd62e491c039cdbd848ff06f9c680e"
+    }
+  ]
+}

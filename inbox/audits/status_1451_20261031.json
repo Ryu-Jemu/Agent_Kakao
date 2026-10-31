@@ -1,0 +1,57 @@
+{
+  "displayed_time": "2026-10-31 14:51",
+  "source": "user_attached_composite_screenshot",
+  "read_by": "parent visual",
+  "rows": [
+    {
+      "name": "이민준",
+      "questions": 42,
+      "discovery_pct": 41,
+      "note": "visible"
+    },
+    {
+      "name": "박민아",
+      "questions": 26,
+      "discovery_pct": 62,
+      "note": "visible"
+    },
+    {
+      "name": "홍보라",
+      "questions": 38,
+      "discovery_pct": 49,
+      "note": "visible"
+    },
+    {
+      "name": "김청년",
+      "questions": 30,
+      "discovery_pct": 70,
+      "note": "visible"
+    },
+    {
+      "name": "홍이장",
+      "questions": 30,
+      "discovery_pct": 58,
+      "note": "visible"
+    },
+    {
+      "name": "구방만",
+      "questions": 32,
+      "discovery_pct": 50,
+      "note": "visible"
+    },
+    {
+      "name": "고길동",
+      "questions": 33,
+      "discovery_pct": null,
+      "note": "percent occluded"
+    },
+    {
+      "name": "박수복",
+      "questions": 27,
+      "discovery_pct": null,
+      "note": "percent occluded"
+    }
+  ],
+  "not_submission_confirmation": true,
+  "user_submission_state_at_1452": "not submitted"
+}

@@ -1,0 +1,30 @@
+{
+  "notebook_source": "kb/raw/sources/_text/박민아수첩.txt (기존 시각 판독본)",
+  "recorded_events": [
+    {
+      "time": "15시쯤",
+      "statement": "다시 내려옴",
+      "comparison": "15:00 -18.3 정상복귀와 시각상 부합 가능. 수치상 첫 하강관측은13:30이며14:00 하강시작이라는 로그 비고는 수치와 정밀도가 다름."
+    },
+    {
+      "time": "18:00",
+      "statement": "간선 인계 / 온도 정상",
+      "comparison": "구간요약18:00 -18.6 정상과 부합. 이전 이탈 없음 또는품온정상증거로확장하지않음."
+    },
+    {
+      "time": "19:52",
+      "statement": "구방만에게 온도 오른 것 같고 옥돔 확인 부탁 문자",
+      "comparison": "문자발송시각이지온도관측시각이아님. 로그에19:52측정없음. 새 상승/재이탈·원인·수신/열람·과실은확정불가."
+    }
+  ],
+  "first_observed_decline": {
+    "from_time": "06-24 13:00",
+    "to_time": "06-24 13:30",
+    "delta_c": "-0.8"
+  },
+  "logged_note_decline_start": "14:00",
+  "decline_note_discrepancy": "13:00 -8.6→13:30 -9.4로 이미0.8℃하강. 표의14:00하강시작비고를물리적최초하강시각으로단정불가.",
+  "minutes_normal_return_to_handover": 180,
+  "minutes_handover_to_message": 112,
+  "continuous_temperature_caution": "점별30분표본은중간매순간측정증거가아님. 전체23행원자료미제공."
+}

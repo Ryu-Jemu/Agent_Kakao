@@ -1,0 +1,13 @@
+HTTP/2 200 
+server: nginx
+date: Sat, 31 Oct 2026 05:28:57 GMT
+content-type: application/zip
+content-length: 19011
+expires: Sat, 31 Oct 2026 07:46:29 GMT
+accept-ranges: bytes
+cache-control: max-age=21600
+last-modified: Thu, 17 Sep 2026 04:21:06 GMT
+age: 13347
+report-to: {"group":"kakao-nel","max_age":86400,"endpoints":[{"url":"https://nel.onkakao.net/upload/"}],"include_subdomains":true}
+nel: {"report_to":"kakao-nel","max_age":86400,"include_subdomains":true}
+

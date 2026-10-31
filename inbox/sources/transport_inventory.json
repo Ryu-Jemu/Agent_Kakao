@@ -1,0 +1,38 @@
+{
+  "file": "inbox/sources/hlI1ZFiRXl4sgzAw6HF52Q.zip",
+  "sha256": "4fda862d5da27d33c7296e9c747240f9b146c1c0107cdab44ccb05c83da4fe12",
+  "bytes": 7259735,
+  "expanded_bytes": 7323973,
+  "entries": [
+    {
+      "name": "결항집하기록.xlsx",
+      "bytes": 12698,
+      "compressed": 11791
+    },
+    {
+      "name": "기기촬영/C54_01.png",
+      "bytes": 1448613,
+      "compressed": 1435426
+    },
+    {
+      "name": "기기촬영/C54_02.png",
+      "bytes": 1454096,
+      "compressed": 1440980
+    },
+    {
+      "name": "기기촬영/C54_03.png",
+      "bytes": 1445586,
+      "compressed": 1433267
+    },
+    {
+      "name": "기기촬영/C54_04.png",
+      "bytes": 1470941,
+      "compressed": 1458681
+    },
+    {
+      "name": "기기촬영/C54_05.png",
+      "bytes": 1492039,
+      "compressed": 1478836
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://aitop100.org/contest/docs/test-cases",
+  "final_url": "https://aitop100.org/login?redirect_path=/contest/docs/test-cases",
+  "http_status": 200,
+  "bytes": 31776,
+  "sha256": "599cc24f75e84d2430ae78a4a68c9faa2526ab08b9c3787f90c29c2d81aa40e2",
+  "page_class": "login redirect",
+  "public_case_count_verified": false,
+  "reason": "로그인 페이지로 리디렉션되어 최신 공개 TC 목록이 없음. 200 응답을 목록 확인 성공으로 취급하지 않음."
+}

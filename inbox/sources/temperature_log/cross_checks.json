@@ -1,0 +1,201 @@
+{
+  "checked_at": "2026-10-31T14:32:45.527526",
+  "ooxml_artifact_cells": 213,
+  "ooxml_artifact_differences": [],
+  "nonempty_cells": 203,
+  "html_xlsx_cells_compared": 179,
+  "html_xlsx_differences": [],
+  "recorded_excerpt_rows": 10,
+  "interval_minutes": [
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30
+  ],
+  "above_minus15_rows": [
+    {
+      "time": "06-24 12:00",
+      "temp_c": "-13.2",
+      "flag": "이탈 후보",
+      "source_range": "A8:E8"
+    },
+    {
+      "time": "06-24 12:30",
+      "temp_c": "-10.5",
+      "flag": "이탈",
+      "source_range": "A9:E9"
+    },
+    {
+      "time": "06-24 13:00",
+      "temp_c": "-8.6",
+      "flag": "이탈",
+      "source_range": "A10:E10"
+    },
+    {
+      "time": "06-24 13:30",
+      "temp_c": "-9.4",
+      "flag": "이탈",
+      "source_range": "A11:E11"
+    },
+    {
+      "time": "06-24 14:00",
+      "temp_c": "-12.7",
+      "flag": "이탈",
+      "source_range": "A12:E12"
+    }
+  ],
+  "above_threshold_first_last_minutes": 120,
+  "excerpt_peak_c": "-8.6",
+  "svg_matches_10_points_within_c": 0.02,
+  "svg_points": [
+    {
+      "time": "06-24 11:00",
+      "y": "192.9",
+      "source_temp_c": "-19.1",
+      "svg_inferred_temp_c": "-19.10747663551401869158878505",
+      "error_c": "0.00747663551401869158878505"
+    },
+    {
+      "time": "06-24 11:30",
+      "y": "160.0",
+      "source_temp_c": "-16.8",
+      "svg_inferred_temp_c": "-16.80140186915887850467289720",
+      "error_c": "0.00140186915887850467289720"
+    },
+    {
+      "time": "06-24 12:00",
+      "y": "108.6",
+      "source_temp_c": "-13.2",
+      "svg_inferred_temp_c": "-13.19859813084112149532710280",
+      "error_c": "0.00140186915887850467289720"
+    },
+    {
+      "time": "06-24 12:30",
+      "y": "70.0",
+      "source_temp_c": "-10.5",
+      "svg_inferred_temp_c": "-10.49299065420560747663551402",
+      "error_c": "0.00700934579439252336448598"
+    },
+    {
+      "time": "06-24 13:00",
+      "y": "42.9",
+      "source_temp_c": "-8.6",
+      "svg_inferred_temp_c": "-8.593457943925233644859813084",
+      "error_c": "0.006542056074766355140186916"
+    },
+    {
+      "time": "06-24 13:30",
+      "y": "54.3",
+      "source_temp_c": "-9.4",
+      "svg_inferred_temp_c": "-9.392523364485981308411214953",
+      "error_c": "0.007476635514018691588785047"
+    },
+    {
+      "time": "06-24 14:00",
+      "y": "101.4",
+      "source_temp_c": "-12.7",
+      "svg_inferred_temp_c": "-12.69392523364485981308411215",
+      "error_c": "0.00607476635514018691588785"
+    },
+    {
+      "time": "06-24 14:30",
+      "y": "150.0",
+      "source_temp_c": "-16.1",
+      "svg_inferred_temp_c": "-16.10046728971962616822429906",
+      "error_c": "0.00046728971962616822429906"
+    },
+    {
+      "time": "06-24 15:00",
+      "y": "181.4",
+      "source_temp_c": "-18.3",
+      "svg_inferred_temp_c": "-18.30140186915887850467289720",
+      "error_c": "0.00140186915887850467289720"
+    },
+    {
+      "time": "06-24 15:30",
+      "y": "191.4",
+      "source_temp_c": "-19",
+      "svg_inferred_temp_c": "-19.00233644859813084112149533",
+      "error_c": "0.00233644859813084112149533"
+    }
+  ],
+  "threshold_boundary_checks": [
+    {
+      "temp_c": -18,
+      "assumed_continuous_minutes": 0,
+      "classification": "정상"
+    },
+    {
+      "temp_c": -17.9,
+      "assumed_continuous_minutes": 60,
+      "classification": "주의"
+    },
+    {
+      "temp_c": -15,
+      "assumed_continuous_minutes": 60,
+      "classification": "주의"
+    },
+    {
+      "temp_c": -14.9,
+      "assumed_continuous_minutes": 29,
+      "classification": "이탈 후보"
+    },
+    {
+      "temp_c": -14.9,
+      "assumed_continuous_minutes": 30,
+      "classification": "이탈"
+    },
+    {
+      "temp_c": -14.9,
+      "assumed_continuous_minutes": 31,
+      "classification": "이탈"
+    }
+  ],
+  "source_xlsx_unchanged": true,
+  "defined_names": [
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "1",
+      "hidden": "1",
+      "text": "'2. 임계·기록 규약'!$A$3:$C$9"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "2",
+      "hidden": "1",
+      "text": "'3. 기재 항목 및 작성 기준'!$A$3:$D$12"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "3",
+      "hidden": "1",
+      "text": "'4. 구간 요약'!$A$3:$I$7"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "4",
+      "hidden": "1",
+      "text": "'5. 이탈 구간 상세'!$A$5:$E$15"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "5",
+      "hidden": "1",
+      "text": "'6. 연결 기록의 결번'!$A$3:$B$7"
+    },
+    {
+      "name": "_xlnm._FilterDatabase",
+      "localSheetId": "6",
+      "hidden": "1",
+      "text": "'7. 조회 기준'!$A$3:$B$6"
+    }
+  ],
+  "hidden_rows": 0,
+  "hidden_columns": 0,
+  "source_scope_warning": "위 두시간은 첫/마지막 초과 관측점 사이의 시간이다. 표본 사이 매순간 초과나 전체23행을 독립입증하지 않는다."
+}
