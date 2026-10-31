@@ -39,7 +39,10 @@ sim:
     - {when: [행사, 언제, 날짜], say: "모레, 7월 2일 워크샵이에요.", once: true}
     - {when: [확인, 담당], say: "모레까지는 확실히 오는 거죠?", once: true}
     - {when: [확답, 보장, 장담, 약속], say: "안 오면 어떻게 돼요?", once: true}
+  pressure:  # 원문 '상황'의 고객 반응 — 끝내기 전에 모두 시험(A5 #189)
+    - {key: "확실", say: "모레까지는 확실히 오는 거죠?"}
+    - {key: "안 오면", say: "안 오면 어떻게 돼요?"}
   fallback: "나머지 8통은 언제 와요?"
   end_when: []
   closing: "네, 빨리 확인 부탁드려요."
-  max_turns: 4
+  max_turns: 5

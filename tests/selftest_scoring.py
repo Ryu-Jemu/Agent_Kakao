@@ -140,6 +140,18 @@ def _():
     return run("L-40", calls, ["첫"])
 
 
+@case("L-40 기대 대응에 없는 이관 API-35 → partial (A6 #166)", "partial")
+def _():
+    calls = [c("API-13", 0, {"query.name": "도현우"}), c("API-08", 0, {"query.member_id": "MB-77016"}),
+             c("API-35", 1, {"body.lane": "LANE2_HANDOFF", "body.reason": "재판매 의심"})]
+    return run("L-40", calls, ["첫"])
+
+
+@case("L-40 정답 경로(13→08만)", "ok")
+def _():
+    return run("L-40", [c("API-13", 0, {"query.name": "도현우"}), c("API-08", 0, {"query.member_id": "MB-77016"})], ["첫"])
+
+
 @case("Y-16 API-10 단독 + 선택 후 28", "ok")
 def _():
     calls = [c("API-10", 1, {"path.shipment_id": "SHP-100400017-01"}),

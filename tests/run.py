@@ -203,8 +203,8 @@ async def _run_tc(sid: str, tc: str, rub: dict, handler, args, ts: str, gw, key:
     lits = S.score_literals(rub, bot_bubbles)
     jd = None
     if args.judge:
-        from tests.judge import judge
-        jd = await judge(tc, rub, history, kb_hint=kb_hint(tc))
+        from tests.judge import judge_votes
+        jd = await judge_votes(tc, rub, history, kb_hint=kb_hint(tc), n=args.judge_n)
     v, why = S.verdict(calls_sc, fmt, echo, lits, jd)
     return {"tc": sid, "header": tc, "type": rub.get("type"), "title": rub.get("title"), "verdict": v, "why": why, "turns": turns, "calls": calls,
             "calls_score": calls_sc, "format": fmt, "echo": echo, "literals": lits, "judge": jd,
@@ -225,7 +225,7 @@ def write_tc_md(out: Path, r: dict, build: dict, ts: str, args) -> Path:
     req_ok = sum(1 for x in cs["required"] if x["ok"])
     lines = [f"# {r['tc']} — {r['title']}", "",
              f"- TC ID: {r['tc']}", f"- build git SHA: {build['label']} (HEAD {build['sha']}, content_fp {build['content_fp']}, agent {build.get('agent_file', '-')})",
-             f"- run: {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}/ ({ts}) · sim={args.sim} · judge={'on' if args.judge else 'off'}",
+             f"- run: {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}/ ({ts}) · sim={args.sim} · judge={'on×' + str(args.judge_n) if args.judge else 'off'}",
              f"- 결과: **{r['verdict']}**", ""]
     if r["why"]:
         lines += ["## 사유"] + [f"- {w}" for w in r["why"]] + [""]
@@ -253,9 +253,9 @@ def write_tc_md(out: Path, r: dict, build: dict, ts: str, args) -> Path:
     if r["judge"]:
         lines += ["## LLM 판정", f"- 상태: {r['judge'].get('status')} {r['judge'].get('error', '')}"]
         for it in r["judge"].get("must_say", []):
-            lines.append(f"- must_say {it['id']}[{it['basis']}] **{it['verdict']}** — {it['text']} | 인용: {it['evidence']}")
+            lines.append(f"- must_say {it['id']}[{it['basis']}] **{it['verdict']}** {it.get('votes', '')} — {it['text']} | 인용: {it['evidence']}")
         for it in r["judge"].get("must_not_say", []):
-            lines.append(f"- must_not_say {it['id']} **{it['verdict']}** — {it['text']} | 인용: {it['evidence']}")
+            lines.append(f"- must_not_say {it['id']} **{it['verdict']}** {it.get('votes', '')} — {it['text']} | 인용: {it['evidence']}")
     lines += ["", f"- 시뮬레이터 경로: {r['sim_log']}"]
     p = out / f"{r['tc']}.md"
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -433,6 +433,7 @@ def main():
     ap.add_argument("--no-judge", dest="judge", action="store_false")
     ap.add_argument("--no-record", dest="record", action="store_false")
     ap.add_argument("--build", help="커밋 sha(D-009). 지정 시 그 커밋의 봇 경로를 추출해 실행·기록(미지정=작업 트리, 수정 있으면 -dirty)")
+    ap.add_argument("--judge-n", type=int, default=3, help="LLM 판정 다수결 횟수(동률은 엄격 쪽)")
     ap.add_argument("--label", default="")
     ap.add_argument("--out", help="산출 디렉터리(기본 tests/runs/<ts>). 다른 소유자는 자기 경로로(A5: analysis/runs/…). 지정 시 TC_MATRIX 기록 안 함")
     ap.add_argument("--handler", default="agent", choices=["agent", "echo"], help="echo = 파이프라인 건식 점검(채점 무의미)")

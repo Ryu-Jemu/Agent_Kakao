@@ -6,6 +6,7 @@
 """
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 from typing import Any
@@ -112,7 +113,7 @@ def score_calls(rub: dict, calls: list[dict], sim_turns: list[str]) -> dict:
     """calls: [{api_id, method, flat, status, cached, turn, resp?}] (turn = 이 호출을 일으킨 고객 발화 번호)."""
     c = rub.get("calls") or {}
     out: dict[str, Any] = {"required": [], "alternative": [], "conditional": [], "forbidden": [],
-                           "off_target": [], "premature": [], "no_call": [], "extra": []}
+                           "off_target": [], "premature": [], "no_call": [], "extra": [], "unexpected_write": []}
     used_idx: set[int] = set()
 
     def first_hit(api, match, min_turn=None):
@@ -191,6 +192,19 @@ def score_calls(rub: dict, calls: list[dict], sim_turns: list[str]) -> dict:
     for k, cl in enumerate(calls):
         if k not in used_idx and not cl.get("cached"):
             out["extra"].append({"api": cl["api_id"], "flat": cl["flat"], "status": cl.get("status")})
+    # 기대 목록(필수·택1·조건부)에 없는 접수(POST): 접수 API는 정책 검증 없이 기록만 하므로(06) 불필요 접수는 ⚠️ (A6 #166)
+    specs = [(r["api"], r.get("match")) for r in (c.get("required") or []) + (c.get("conditional") or [])]
+    specs += [(o["api"], o.get("match")) for g in c.get("alternative") or [] for o in g["options"]]
+    forb = {(f["api"], json.dumps(f.get("match"), sort_keys=True)) for f in c.get("forbidden") or []}
+    allowed = set(c.get("allowed_writes") or [])
+    for cl in calls:
+        if cl.get("method") != "POST" or c.get("no_call_expected") or cl["api_id"] in allowed:
+            continue
+        if any(cl["api_id"] == a for a, _ in specs):
+            continue  # 기대 API에 값만 틀린 경우는 필수·조건부 '근접'으로 이미 집계
+        if any(call_matches(cl, a, json.loads(m)) for a, m in forb):
+            continue  # 이미 금지 위반(❌)으로 집계
+        out["unexpected_write"].append({"api": cl["api_id"], "flat": cl["flat"], "turn": cl["turn"]})
     return out
 
 
@@ -275,6 +289,8 @@ def verdict(calls_sc: dict, fmt: dict, echo: list[dict], literals: list[dict], j
             part.append(f"조건부 미충족 {r['id']} {r['api']}" + (f" 근접: {r['near']}" if r.get("near") else ""))
         if r["triggered"] is False:
             part.append(f"조건부 {r['id']} 미발동(고객 선택 단계에 도달 못 함)")
+    for w in calls_sc.get("unexpected_write", []):
+        part.append(f"기대 대응에 없는 접수 {w['api']} 턴{w['turn']} {str(w['flat'])[:80]}")
     for p in calls_sc["premature"]:
         part.append(f"조기 호출 {p['api']} 턴{p['turn']}: {p['why']}")
     for e in echo:

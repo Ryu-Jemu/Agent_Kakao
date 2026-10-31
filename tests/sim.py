@@ -6,11 +6,14 @@
 - mode='llm': Gemini(BRAIN과 다른 프롬프트). 실패한 턴은 규칙 기반(scripted)으로 대체하고 기록한다.
 - mode='scripted': 루브릭 sim.rules 키워드 규칙(결정적, LLM 없음).
 - 종료: 봇 말풍선 누적 10개(러너), sim.end_when 충족, sim.max_turns 도달, 같은 대체 응답 2회 반복.
+- sim.pressure: 원문 '상황'에 적힌 고객의 압박·재요구 발화. 끝내려 할 때 아직 안 한 것(key가 이전 고객 발화에 없음)이 있으면
+  끝내지 않고 그 발화를 보낸다(A5 #189: 접수번호가 나오자마자 끝나 압박 단계가 시험되지 않던 공백).
 - 고객은 기대 대응(정답)을 보지 않는다.
 """
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 
 from tests.scoring import ROOT, first_turn, section
@@ -55,8 +58,20 @@ class Simulator:
         return int(self.sim.get("max_turns", 6))
 
     # ── 규칙 기반 ──
+    def _end_hit(self, bot_text: str) -> bool:
+        """종료 신호: end_when(문자열 또는 're:정규식')이 맞고, 봇이 질문 중이 아니며, min_turns를 넘었을 때(A3 #208)."""
+        if len(self.turns) - 1 < int(self.sim.get("min_turns", 1)):
+            return False
+        if "?" in bot_text.strip()[-80:]:
+            return False
+        for k in self.sim.get("end_when") or []:
+            k = str(k)
+            if (re.search(k[3:], bot_text) if k.startswith("re:") else k in bot_text):
+                return True
+        return False
+
     def _scripted(self, bot_text: str) -> tuple[str, bool]:
-        if any(str(k) in bot_text for k in self.sim.get("end_when") or []):
+        if self._end_hit(bot_text):
             return self.sim.get("closing", "네, 감사합니다."), True
         replies, seen_when = [], set()
         for i, r in enumerate(self.sim.get("rules") or []):
@@ -79,7 +94,8 @@ class Simulator:
         from tests.llm_util import SIM_MODEL, gen_json
 
         facts = json.dumps(self.sim.get("facts") or {}, ensure_ascii=False)
-        rules = "\n".join(f"- 상담원이 {'/'.join(r['when'])} 관련 말을 하면: \"{r['say']}\"" for r in self.sim.get("rules") or [])
+        rules = "\n".join(f"- 상담원이 {'/'.join(map(str, r['when']))} 관련 말을 하면: \"{r['say']}\"" for r in self.sim.get("rules") or [])
+        rules += "".join(f"\n- (대화 중 적절한 때 반드시 한 번) \"{p['say']}\"" for p in self.sim.get("pressure") or [])
         ctx = (f"[고객 문의]\n{self.sections['고객 문의']}\n\n[상황]\n{self.sections['상황']}\n\n"
                f"[페르소나]\n{self.sim.get('persona', '')}\n\n[고객 사실]\n{facts}\n\n[행동 지침]\n{rules}\n"
                f"- 대화를 끝낼 때: \"{self.sim.get('closing', '네, 감사합니다.')}\"")
@@ -90,6 +106,13 @@ class Simulator:
         if not reply:
             raise ValueError("빈 reply")
         return reply, bool(out.get("end"))
+
+    def _pending_pressure(self) -> str | None:
+        said = "\n".join(self.turns[1:])
+        for p in self.sim.get("pressure") or []:
+            if p["key"] not in said:
+                return p["say"]
+        return None
 
     async def next(self, bot_bubbles: list[str], history: list[tuple[str, str]]) -> str | None:
         """봇 말풍선을 받고 다음 고객 발화. None이면 대화 종료."""
@@ -105,11 +128,18 @@ class Simulator:
             try:
                 reply, end = await self._llm(history)
                 path = "llm"
+                if end and len(self.turns) - 1 < int(self.sim.get("min_turns", 1)):  # 너무 이른 종료 방지
+                    reply, end = self._scripted(bot_text)
+                    path = "llm→scripted(min_turns)"
             except Exception as e:  # LLM 불가 → 규칙 기반 대체
                 reply, end = self._scripted(bot_text)
                 path = f"scripted(llm 실패: {type(e).__name__})"
         else:
             reply, end = self._scripted(bot_text)
+        if end or len(self.turns) - 1 >= self.max_turns - 1:
+            pend = self._pending_pressure()
+            if pend and len(self.turns) - 1 < self.max_turns:
+                reply, end, path = pend, False, path + "+pressure"
         self.log.append({"turn": len(self.turns), "path": path, "end": end})
         if end:
             # 마무리 인사는 보내지 않는다(봇 말풍선 수를 부풀리지 않음). 필요 시 러너 --closing

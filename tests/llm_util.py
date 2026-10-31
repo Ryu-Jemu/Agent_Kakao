@@ -24,16 +24,17 @@ LOCATION = os.environ.get("A4_VERTEX_LOCATION", "global")
 SIM_MODEL = os.environ.get("SIM_MODEL", "gemini-3.6-flash")
 JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "gemini-3.7-flash")
 
-_client = None
+_clients: dict[int, object] = {}
 
 
 def client():
-    global _client
-    if _client is None:
-        from google import genai
+    """이벤트 루프마다 클라이언트를 따로 둔다(aio 세션이 루프에 묶임 → asyncio.run 반복 시 'Event loop is closed')."""
+    from google import genai
 
-        _client = genai.Client(vertexai=True, project=PROJECT, location=LOCATION)
-    return _client
+    key = id(asyncio.get_running_loop())
+    if key not in _clients:
+        _clients[key] = genai.Client(vertexai=True, project=PROJECT, location=LOCATION)
+    return _clients[key]
 
 
 async def gen_json(system: str, user: str, *, model: str, timeout: float = 40.0, temperature: float = 0.0) -> dict:

@@ -13,6 +13,7 @@
 | `calls.alternative` | 택1 그룹. `mode: exactly_one`(둘 다 부르면 불충족) / `at_least_one` | 불충족 → partial |
 | `calls.conditional` | 고객 선택 시 필수. 공개 TC 시나리오는 고객이 고르므로 `trigger`가 대화에 나오면 required로 본다 | 불충족 → partial |
 | `calls.forbidden` | 금지 호출. `basis: explicit`(원문 명시) / `derived`(원문 상황·정책에서 도출) | 하나라도 있으면 fail |
+| (규칙) 기대 목록에 없는 접수(POST) | 필수·택1·조건부 어디에도 맞지 않는 접수 호출(A6 #166). 루브릭 `calls.allowed_writes`로만 예외 | ⚠️ partial |
 | `calls.no_call_expected` | 호출이 필요 없는 TC(L-20, Y-24). 조회 → partial, 접수 → fail | |
 | `say.must_say` | 필수 안내 요소. `basis: expected`만 판정에 반영, `situation`은 참고(advisory) | LLM 판정, 미충족 → partial |
 | `say.must_not_say` | 말하면 안 되는 것. `literal`은 결정적 부분문자열 검사 | 위반 → fail |

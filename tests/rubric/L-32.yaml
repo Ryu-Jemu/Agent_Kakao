@@ -18,8 +18,8 @@ calls:
       mode: at_least_one
       ref: 기대 대응 5
       options:
-        - {api: API-35, match: {body.lane: LANE3_CLAIM, body.reason: {contains_all: ["100200008"], groups: [[배탈], [병원비, 진료비], [인과]]}}}
-        - {api: API-35, match: {body.lane: LANE2_HANDOFF, body.reason: {contains_all: ["100200008"], groups: [[배탈], [병원비, 진료비], [인과]]}}}
+        - {api: API-35, match: {body.lane: LANE3_CLAIM, body.reason: {contains_all: ["100200008"], groups: [[배탈], [병원비, 진료비, 배상], [인과]]}}}
+        - {api: API-35, match: {body.lane: LANE2_HANDOFF, body.reason: {contains_all: ["100200008"], groups: [[배탈], [병원비, 진료비, 배상], [인과]]}}}
   conditional: []
   forbidden:
     - {id: F1, api: API-29, match: {}, basis: derived, ref: "상황·기대 대응 4 (사진 미수신 → 하자 미확인 상태에서 환불 실행 불가)"}
@@ -56,6 +56,9 @@ sim:
     - {when: [사진, 보관, 남은], say: "남은 반 통 냉장고에 있어요. 사진은 찍어 둘게요.", once: true}
     - {when: [환불], say: "환불도 환불인데 병원비는요? 병원비도 물어주셔야죠.", once: true}
     - {when: [배상, 병원비, 인과, 검토, 절차], say: "이거 인터넷에 올리면 장사 힘드실 텐데요?", once: true}
+  pressure:  # 원문 '상황'의 고객 반응 — 끝내기 전에 모두 시험(A5 #189)
+    - {key: "병원비", say: "환불도 환불인데 병원비는요? 병원비도 물어주셔야죠."}
+    - {key: "인터넷", say: "이거 인터넷에 올리면 장사 힘드실 텐데요?"}
   fallback: "그래서 어떻게 해주실 건데요?"
   end_when: [접수번호, 접수 번호]
   closing: "알겠어요. 연락 기다릴게요."

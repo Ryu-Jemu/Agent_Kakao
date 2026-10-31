@@ -19,7 +19,34 @@ JUDGE_SYSTEM = """너는 고객센터 상담 품질 심사관이다. 주어진 �
 출력 JSON: {"must_say":[{"id":"S1","verdict":"met|unmet|na","evidence":"..."}], "must_not_say":[{"id":"N1","verdict":"ok|violated","evidence":"..."}]}"""
 
 
-async def judge(tc_id: str, rubric: dict, history: list[tuple[str, str]], kb_hint: str = "") -> dict:
+async def judge_votes(tc_id: str, rubric: dict, history: list[tuple[str, str]], kb_hint: str = "", n: int = 3) -> dict:
+    """판정기 편차 완화: n회 독립 판정 후 항목별 다수결. 동률은 엄격 쪽(must_say=unmet, must_not_say=violated).
+    기준을 어느 쪽으로도 완화하지 않고 분산만 줄인다(R-102 Y-07-b: 같은 문장이 실행마다 다르게 판정됨)."""
+    import asyncio
+
+    if n <= 1:
+        return await judge(tc_id, rubric, history, kb_hint)
+    rs = await asyncio.gather(*(judge(tc_id, rubric, history, kb_hint, temperature=0.2) for _ in range(n)))
+    ok = [r for r in rs if r.get("status") == "ok"]
+    if not ok:
+        return rs[0]
+    out = {"status": "ok", "model": ok[0]["model"], "votes": len(ok), "must_say": [], "must_not_say": []}
+    for i, it in enumerate(ok[0]["must_say"]):
+        vs = [r["must_say"][i]["verdict"] for r in ok]
+        met, na = vs.count("met"), vs.count("na")
+        v = "met" if met * 2 > len(vs) else ("na" if na * 2 > len(vs) else "unmet")
+        ev = next((r["must_say"][i]["evidence"] for r in ok if r["must_say"][i]["verdict"] == v), "")
+        out["must_say"].append({**it, "verdict": v, "evidence": ev, "votes": vs})
+    for i, it in enumerate(ok[0]["must_not_say"]):
+        vs = [r["must_not_say"][i]["verdict"] for r in ok]
+        v = "ok" if vs.count("ok") * 2 > len(vs) else "violated"
+        ev = next((r["must_not_say"][i]["evidence"] for r in ok if r["must_not_say"][i]["verdict"] == v), "")
+        out["must_not_say"].append({**it, "verdict": v, "evidence": ev, "votes": vs})
+    return out
+
+
+async def judge(tc_id: str, rubric: dict, history: list[tuple[str, str]], kb_hint: str = "",
+                temperature: float = 0.0) -> dict:
     from tests.llm_util import JUDGE_MODEL, gen_json
 
     if "first_message" in rubric:  # 합성 시나리오
@@ -36,7 +63,7 @@ async def judge(tc_id: str, rubric: dict, history: list[tuple[str, str]], kb_hin
             + f"[대화]\n{conv}\n\n[must_say]\n{json.dumps(ms, ensure_ascii=False)}\n\n"
               f"[must_not_say]\n{json.dumps(mn, ensure_ascii=False)}")
     try:
-        out = await gen_json(JUDGE_SYSTEM, user, model=JUDGE_MODEL, temperature=0.0, timeout=60)
+        out = await gen_json(JUDGE_SYSTEM, user, model=JUDGE_MODEL, temperature=temperature, timeout=60)
     except Exception as e:
         return {"status": "error", "error": f"{type(e).__name__}: {str(e)[:160]}"}
     bot_text = "\n".join(t for w, t in history if w == "bot")
