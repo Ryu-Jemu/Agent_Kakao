@@ -162,6 +162,21 @@ def load_handler(mode: str) -> Handler:
     return handle_message
 
 
+def load_warmup(mode: str):
+    """agent.warmup()(A3 #125): 콜드 스타트 제거. 없으면 None."""
+    if mode == "echo":
+        return None
+    try:
+        import agent
+
+        return getattr(agent, "warmup", None)
+    except Exception:
+        return None
+
+
+WARMUP_EVERY = float(os.environ.get("GATEWAY_WARMUP_EVERY", "270"))  # 4.5분
+
+
 # ───────────────────────── 게이트웨이 ─────────────────────────
 class Gateway:
     def __init__(self, token: str, handler: Handler, *, mode: str):
@@ -180,6 +195,7 @@ class Gateway:
                                       limits=httpx.Limits(max_keepalive_connections=10, keepalive_expiry=120))
         self.connected = False
         self.last_ack = 0.0
+        self.last_activity = 0.0  # 마지막 handler 완료(monotonic) — warmup 생략 판단
         self.stats = {"msgs": 0, "dups": 0, "cb_ok": 0, "cb_fail": 0, "timeouts": 0, "errors": 0, "reconnects": 0}
         self._load_state()
 
@@ -403,6 +419,7 @@ class Gateway:
             status, outs = "timeout", [TIMEOUT_TEXT]
             self.stats["timeouts"] += 1
         handler_ms = round((time.monotonic() - t_h) * 1000)
+        self.last_activity = time.monotonic()
         texts, issues = sanitize_outputs(outs)
         if any(i.get("issue") == "overlength" for i in issues):
             log.error("A3 포맷터 결함: 500자 초과 말풍선 → 분할/축약 %s", issues)
@@ -448,6 +465,21 @@ class Gateway:
             log.info("종료 대기: 처리 중 %d건", len(self.inflight))
             await asyncio.wait(list(self.inflight), timeout=timeout)
         await self.http.aclose()
+
+    async def warmup_loop(self, warm) -> None:
+        """기동 직후 1회 + WARMUP_EVERY초마다. 최근 처리한 메시지가 있으면(이미 따뜻함) 생략."""
+        first = True
+        while not self.stopping.is_set():
+            if first or time.monotonic() - self.last_activity > WARMUP_EVERY * 0.8:
+                t0 = time.monotonic()
+                try:
+                    ok = await asyncio.wait_for(warm(), timeout=30)
+                except Exception as e:
+                    ok = f"{type(e).__name__}"
+                jlog("warmup", ok=ok, ms=round((time.monotonic() - t0) * 1000), first=first)
+                first = False
+            with contextlib.suppress(asyncio.TimeoutError):
+                await asyncio.wait_for(self.stopping.wait(), timeout=WARMUP_EVERY)
 
     async def alive_loop(self) -> None:
         while not self.stopping.is_set():
@@ -500,10 +532,14 @@ async def amain(mode: str) -> None:
     jlog("start", mode=mode, release=release, pid=os.getpid(), safety_sec=SAFETY_SEC)
     run_t = asyncio.create_task(gw.run())
     alive_t = asyncio.create_task(gw.alive_loop())
+    warm = load_warmup(mode)
+    warm_t = asyncio.create_task(gw.warmup_loop(warm)) if warm else None
     await stop_sig.wait()
     log.info("종료 신호 수신 — drain")
     await gw.drain()
-    for t in (run_t, alive_t):
+    for t in (run_t, alive_t, warm_t):
+        if t is None:
+            continue
         t.cancel()
         with contextlib.suppress(asyncio.CancelledError, Exception):
             await t

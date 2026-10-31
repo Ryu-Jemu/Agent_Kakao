@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# VM 배포: deploy/deploy.sh echo|agent
+# VM 배포: deploy/deploy.sh echo|agent [<git-sha>]
+#   <git-sha>를 주면 작업 트리가 아니라 그 커밋 내용(git archive)을 그대로 배포한다(BUILD sha = VM 코드 보장).
 #   1) 로컬 gateway 프로세스 0개 확인(4004 방지)  2) 스테이징(agent/ integ/ kb/ deploy/ pyproject uv.lock .python-version .env)
 #   3) RELEASE(git SHA[-dirty] + 내용 지문) · MANIFEST.sha256  4) VM 초기설정(vm_setup.sh, 멱등)
 #   5) rsync → /opt/choonsik, sha256 검증, uv sync --frozen(시스템 python3.11)  6) systemd 재시작·READY 확인
@@ -7,7 +8,8 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
-MODE="${1:?사용법: deploy/deploy.sh echo|agent}"
+MODE="${1:?사용법: deploy/deploy.sh echo|agent [<git-sha>]}"
+REF="${2:-}"
 [[ "$MODE" == echo || "$MODE" == agent ]] || { echo "MODE는 echo|agent"; exit 2; }
 
 VM_HOST="${VM_HOST:-136.65.54.161}"
@@ -24,13 +26,21 @@ fi
 echo "✓ 로컬 gateway 프로세스 0개"
 
 # 2) 스테이징
-SHA="$(git rev-parse --short=12 HEAD 2>/dev/null || echo nogit)"
-DIRTY="$(git status --porcelain -- agent integ kb deploy pyproject.toml uv.lock .python-version 2>/dev/null | wc -l | tr -d ' ')"
-REL="$SHA"; [[ "$DIRTY" != 0 ]] && REL="$SHA-dirty"
+PATHS=(agent integ kb deploy pyproject.toml uv.lock .python-version)
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 STAGE="$TMP/choonsik"; mkdir -p "$STAGE"
-rsync -a --exclude '__pycache__/' --exclude '*.pyc' --exclude 'logs/' --exclude '.DS_Store' \
-  agent integ kb deploy pyproject.toml uv.lock .python-version "$STAGE/"
+if [[ -n "$REF" ]]; then
+  SHA="$(git rev-parse --short=12 "$REF^{commit}")"
+  REL="$SHA"
+  git archive --format=tar "$SHA" -- "${PATHS[@]}" | tar -x -C "$STAGE"
+  find "$STAGE" \( -name '__pycache__' -o -name 'logs' \) -prune -exec rm -rf {} +
+else
+  SHA="$(git rev-parse --short=12 HEAD 2>/dev/null || echo nogit)"
+  DIRTY="$(git status --porcelain -- "${PATHS[@]}" 2>/dev/null | wc -l | tr -d ' ')"
+  REL="$SHA"; [[ "$DIRTY" != 0 ]] && REL="$SHA-dirty"
+  rsync -a --exclude '__pycache__/' --exclude '*.pyc' --exclude 'logs/' --exclude '.DS_Store' \
+    "${PATHS[@]}" "$STAGE/"
+fi
 install -m 600 .env "$STAGE/.env"
 ( cd "$STAGE" && find . -type f ! -name .env ! -name MANIFEST.sha256 ! -name RELEASE -print0 | sort -z \
     | xargs -0 shasum -a 256 > MANIFEST.sha256 )
@@ -39,7 +49,7 @@ echo "$REL fp=$FP mode=$MODE deployed=$(date '+%Y-%m-%dT%H:%M:%S%z')" > "$STAGE/
 echo "✓ 스테이징: RELEASE=$(cat "$STAGE/RELEASE") 파일 $(wc -l < "$STAGE/MANIFEST.sha256")개"
 
 # 3) VM 초기설정(멱등)
-"${SSH[@]}" "$R" "sudo bash -s" < deploy/vm_setup.sh
+"${SSH[@]}" "$R" "sudo bash -s" < "$STAGE/deploy/vm_setup.sh"
 
 # 4) 업로드 → 설치
 rsync -az --delete --chmod=Du=rwx,Dgo=,Fu=rw,Fgo= -e "${SSH[*]}" "$STAGE/" "$R:choonsik_stage/"

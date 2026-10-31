@@ -1,5 +1,5 @@
 # api_usage — 업무 → 액션 API 순서·조건·금지
-> 버전: kb/VERSION 참조 (v1.0, 공개 TC 원문 + actions.json 스키마 + 문서 3건[D-###]) · 작성 A1 · 2026-10-31 11:45 KST
+> 버전: kb/VERSION 참조 (v1.0, 공개 TC 원문 + actions.json 스키마 + 문서 3건[D-###]) · 작성 A1 · 2026-10-31 11:33 KST
 > 근거: `docs/contest/07_public_tc_index.md` B·C절(기대 호출 분류), `tests/tc/public/<ID>.md`, `actions.json`(필드는 python으로 추출해 확인).
 > 공통: 헤더 `X-Aitop100-Test-Case-Id`는 케이스 id 그대로. **고객이 확인한 대상 번호로만** 호출. 접수 API는 정책을 검증하지 않으므로 policy_pack 확인 후 호출. 이관하면 `escalation_id`(접수번호)와 회신 기한을 안내.
 
@@ -60,6 +60,15 @@
 - 07 주문: status ∈ PAID·CONFIRMED·CANCEL_REQUESTED·CANCELED·FAILED, member_id(귀속 확인), payment_refs(승인번호), ship_scheduled_at, inflow_tag
 - 10 배송: status ∈ READY·IN_TRANSIT·DELIVERED·RETURNED, picked_up_at(집하), delivered_at(수령일), item_condition
 - 03 로트: measured_brix, grade ∈ PREMIUM·STANDARD·FAIR·IMPERFECT·REJECT, status ∈ ACTIVE·HOLD·DISPOSED, sprayed_at
-- 04 로트 조사: status ∈ IN_PROGRESS·CLOSED, symptom ∈ BLACK_HEART·MOLD, liability ∈ DISTRIBUTION·PRODUCTION·CARRIER·null, disclosure_approved — 조사 없음이면 404(본문 없음) 가능성(해석, A2 실측 필요)
+- 04 로트 조사: status ∈ IN_PROGRESS·CLOSED, symptom ∈ BLACK_HEART·MOLD, liability ∈ DISTRIBUTION·PRODUCTION·CARRIER·null, disclosure_approved — **404(본문 없음) = 로트 조사 미개시**(A2 실측 R-089, L-11 원문과 일치)
 - 12 회원: member_type ∈ INDIVIDUAL·BUSINESS·GROUP_BUY_OPERATOR, grade ∈ MEMBER·REGULAR, status ∈ ACTIVE·WITHDRAWAL_REQUESTED·WITHDRAWN
 - 20 프로모션: benefit_type ∈ RATE·AMOUNT, valid_from/until, target_skus, stackable_with
+
+## A2 실측 메모 (integ/API_SEMANTICS.md v1, R-089 — 상세는 원본 참조)
+- **로트 번호는 배송 items에만 있다**(주문 items엔 없음) → 하자·당도 건은 07이 아니라 **11(또는 10)로 lot_id를 얻은 뒤** 03·04·06.
+- 배송 `READY` + invoice 있음 + `picked_up_at` null = **집하 전**(송장만 생성, Y-16). 정책: 집하 전 배송지 변경·취소 가능 [D-032].
+- 주문 items `unit_price` = **주문 당시 가격**, 상품(01) `price` = 현재 가격 → 가격 인하 차액 = unit_price − price(L-47: 32,000 − 27,900 = 4,100).
+- 02 `item`은 SKU 접두사(WTM=수박, HGL=감귤, MNG=망고). 한글 '수박'은 `[]`.
+- 20 `stackable_with`에 없는 유형과는 중복 불가(SUBAK15는 DISCOUNT_CODE와 불가).
+- **개인정보**: 06 tickets `content`에 다른 고객 실명이 있다 → **응답에 노출 금지**. 12/13 `phone`은 전체 번호 → 인입 계정 마스킹 끝 4자리 대조에만 쓰고 **재노출 금지** [T-015, D-011].
+- 35 응답에 회신 기한 필드 없음 → 기한은 policy_pack §12(LANE3 영업일 3일, LANE2 ❓).
