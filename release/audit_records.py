@@ -77,6 +77,9 @@ def main():
     for d in sorted(glob.glob(os.path.join(ROOT, "tests", "runs", "*")) + glob.glob(os.path.join(ROOT, "release", "redteam", "runs", "*"))):
         if not os.path.isdir(d):
             continue
+        if not any(fs for _, _, fs in os.walk(d)):  # 산출물 0개(중단된 시작) — 실행 결과가 없으므로 미기록 실행 아님
+            notes.append(f"8.3 {os.path.relpath(d, ROOT)}: 빈 디렉터리(산출물 0) — 제외")
+            continue
         name = os.path.basename(d)
         if name not in blob:
             mt = max([os.path.getmtime(os.path.join(dp, f)) for dp, _, fs in os.walk(d) for f in fs] + [os.path.getmtime(d)])

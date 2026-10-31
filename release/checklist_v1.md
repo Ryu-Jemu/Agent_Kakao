@@ -29,6 +29,7 @@ coord v2(0e9b8620)는 아래 2.2~2.6을 도구 안에서 강제한다. A6는 원
 | 2.3 | 증거 위치·고정 | realpath가 `<ROOT>/tests/runs/` 아래이고, 현재 sha256 앞 16자가 칸의 해시와 같은지 확인 | 15/15 |
 | 2.4 | 원문 고정 | `git diff --quiet originals-baseline -- docs/contest tests/tc/public actions.json actions.yaml` + MANIFEST 2종 `shasum -c` | 둘 다 rc 0 (11:23 ✅ baseline=676126b, MANIFEST 해시 동일) |
 | 2.5 | 릴리스 일치 | `git rev-parse release^{commit}` = `--build`의 전체 SHA = HEAD = VM RELEASE 파일 | 넷 다 같음 |
+| 2.5b | 동결 이후 봇 경로 불변(D-034) | `git diff --stat m3 release -- agent integ deploy pyproject.toml uv.lock kb/policy_pack.md kb/api_usage.md kb/VERSION` (FREEZE #456 범위. kb/raw·facts 등은 런타임 미사용) | 비어 있음, 또는 agent/DESIGN.md(#449)·A6가 승인한 HOTFIX만 |
 | 2.6 | ID 정확 일치 | 증거 본문에서 `(?<![A-Za-z0-9-])<ID>(?![A-Za-z0-9-])` 검색 | 15/15 |
 | 2.7 | 증거 내용 표본 | 무작위 3건(`python3 -c "import random;…"` 시드를 보고에 기록)의 증거와 `tests/runs/<ts>/traces.jsonl`을 대조. 호출 API·파라미터·TC 헤더·말풍선이 일치하는지 본다 | 3/3 일치 |
 
@@ -73,6 +74,9 @@ coord v2(0e9b8620)는 아래 2.2~2.6을 도구 안에서 강제한다. A6는 원
 | 6.3 | 재부팅 자동 시작 | `systemctl is-enabled <svc>`. 실제 재부팅은 A0·A2와 시간을 합의한 뒤 1회 | enabled, 재부팅 뒤 active·READY |
 | 6.4 | 게이트웨이 재연결 | journald `reconnects`·RESUME·READY 로그 | 끊긴 뒤 재연결 기록 존재 |
 | 6.5 | 메모리 여유 | `free -m`, `ps -o rss` (e2-micro 1GB) | 가용 ≥150MB, 스왑 폭주 없음 |
+| 6.5b | 자동 업데이트 중지(D-020) | VM `systemctl list-timers apt-daily*`·`is-enabled apt-daily.timer apt-daily-upgrade.timer` | 둘 다 disabled·inactive(11/2까지) |
+| 6.5c | LLM 백엔드·warmup(D-029·D-032) | VM `/etc/default/choonsik`·`.env` 키 이름(값 미출력), journald `warmup` 이벤트의 backend·ok, Vertex 폴백 OFF | backend=gemini-api-key만, AGENT_VERTEX_FALLBACK=0, warmup 270s·연속 오류 2회 시 중지, 403·429 반복 없음 |
+| 6.5d | 지출 한도(H12b) | 제출 직전 키 프로젝트 사용액·한도(40,000원) 화면 확인(HUMAN), 제출 후 우리 쪽 테스트 호출 0 | 남은 한도로 심사+warmup 충분 |
 | 6.6 | 로컬 게이트웨이 0 | 로컬 `pgrep -fl 'integ.gateway'` | 0개(중복 연결 4004 방지) |
 | 6.7 | [HUMAN] 웹훅 미등록 | 콘솔 확인 기록 | HUMAN 확인 |
 | 6.8 | [HUMAN] 카톡 스모크 3건 | 실기기에서 L-20·Y-24·L-23 첫 메시지 → 응답 수신·체감 지연 기록 | 3/3 수신, 각 60초 미만 |

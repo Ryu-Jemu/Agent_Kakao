@@ -21,7 +21,7 @@ OUT = []
 
 def run(cmd, timeout=600, env=None, shell=False):
     try:
-        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=timeout, env=env, shell=shell)
+        r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, errors="replace", timeout=timeout, env=env, shell=shell)
         return r.returncode, (r.stdout + r.stderr)
     except subprocess.TimeoutExpired:
         return 124, "TIMEOUT"
@@ -124,7 +124,7 @@ def main():
     lines = []
     for k, v in env_vals.items():
         r = subprocess.run(["grep", "-rIlF", "--exclude-dir=.git", "--exclude-dir=.venv", "--exclude=.env", "--", v, "."],
-                           cwd=ROOT, capture_output=True, text=True)
+                           cwd=ROOT, capture_output=True, text=True, errors="replace")
         lines.append(f"{k}: git이력 {hist.count(v)} · 작업트리 파일 {len(r.stdout.splitlines())} · 보드 {board.count(v)}")
     emit("7.1 비밀값(키 이름별 건수)", 1 if any(not ln.endswith("0 · 작업트리 파일 0 · 보드 0") for ln in lines) else 0, "\n".join(lines))
     rc, o = run(r"grep -rIlE --exclude-dir=.git --exclude-dir=.venv --exclude=.env 'aitop100_[A-Za-z0-9]{8,}' . || true", shell=True)

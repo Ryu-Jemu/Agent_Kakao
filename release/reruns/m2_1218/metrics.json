@@ -1,0 +1,70 @@
+{
+ "ts": "20261031-121820",
+ "build": {
+  "sha": "c073f5800054315bbd598e459cb0a0e4e549bc58",
+  "dirty": false,
+  "label": "c073f5800054315bbd598e459cb0a0e4e549bc58",
+  "content_fp": "5ab5a00c433b111b",
+  "dirty_files": [],
+  "bot_root": "tests/runs/_builds/c073f5800054315bbd598e459cb0a0e4e549bc58",
+  "agent_file": "tests/runs/_builds/c073f5800054315bbd598e459cb0a0e4e549bc58/agent/__init__.py",
+  "integ_file": "tests/runs/_builds/c073f5800054315bbd598e459cb0a0e4e549bc58/integ/gateway.py"
+ },
+ "set": "public",
+ "sim": "llm",
+ "judge": true,
+ "n": 3,
+ "ok": 3,
+ "partial": 0,
+ "fail": 0,
+ "required_recall": 1.0,
+ "must_say_rate": 1.0,
+ "forbidden": 0,
+ "off_target": 0,
+ "premature": 0,
+ "avg_bubbles_per_case": 3.33,
+ "avg_chars_per_bubble": 170.8,
+ "over_500": 0,
+ "p50_ms": 5477,
+ "p95_ms": 13725,
+ "p95_turn_ms": 13725,
+ "max_ms": 13725,
+ "api_calls_net": 5,
+ "wall_sec": 41.2,
+ "per_tc": {
+  "L-60": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 4,
+   "avg_chars": 163.5,
+   "turn_ms": [
+    9483,
+    5477,
+    3702,
+    5192
+   ]
+  },
+  "L-20": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 218.3,
+   "turn_ms": [
+    9532,
+    2973,
+    4763
+   ]
+  },
+  "R-05-a": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 133.0,
+   "turn_ms": [
+    5019,
+    13725,
+    5634
+   ]
+  }
+ }
+}

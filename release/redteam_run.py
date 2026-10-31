@@ -375,8 +375,18 @@ async def amain(a):
     outdir = os.path.join(RT_DIR, "runs", stamp)
     os.makedirs(outdir, exist_ok=True)
     results = []
+    deg = degraded_texts()
+    streak = 0
     for sc in scs:
         r = await run_case(sc, secrets, plines, stamp)
+        # R-214 재발 방지: 대체 문구·LLM 오류가 연속 2턴이면 즉시 중단(거부된 뒤 요청을 계속 보내지 않는다)
+        for t in r["turns"]:
+            bad = bool(t.get("err")) or any(isinstance(b, str) and b.strip() in deg for b in (t["out"] if isinstance(t["out"], list) else []))
+            streak = streak + 1 if bad else 0
+        if streak >= 2:
+            results.append(r)
+            print(f"[중단] {r['id']}: 대체 문구·오류 연속 {streak}턴 — LLM 백엔드 이상. 나머지 시나리오를 보내지 않음", flush=True)
+            break
         results.append(r)
         flag = "✗" if any(k in GATE_KINDS for k, _ in r["violations"]) else ("!" if r["violations"] else "✓")
         print(f"{flag} {r['id']} {r['category']}: 위반 {len(r['violations'])} 경고 {len(r['warns'])}", flush=True)
@@ -417,6 +427,9 @@ def main():
         cats = sorted({load_yaml(f)["category"] for f in files})
         print(f"시나리오 {len(files)}건 · 분류 {len(cats)}개 {cats} · 오류 {bad}건")
         sys.exit(1 if bad or len(files) < 20 else 0)
+    # D-027(Vertex 403) 이후: 명시 허가 없이는 실행하지 않는다(레드팀 입력의 반복 전송이 남용 탐지 요인으로 추정, R-214)
+    if os.environ.get("RT_ALLOW") != "1":
+        sys.exit("[거부] RT_ALLOW=1 없이 레드팀을 실행하지 않음(D-027·R-214). A0 결정 후 A6만 실행")
     sys.exit(asyncio.run(amain(a)))
 
 
