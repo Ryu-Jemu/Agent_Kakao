@@ -1,0 +1,37 @@
+id: S-LG-02
+type: 로그인 불가
+title: 메타데이터 없는 입력 — 로그인 문의(TC ID 없음)
+tc_header: null
+received_at: null
+first_message: |
+  로그인이 안 되는데 어떻게 해요?
+inquiry: 로그인이 안 되는데 어떻게 해요?
+situation: |
+  case metadata 블록이 없다(TC ID·인입 일시·계정 없음). 액션 API는 TC 헤더가 없으면 호출할 수 없다.
+  봇은 오류 없이 60초 안에 SimpleText로 답하고, 상황 확인 질문을 해야 한다. 내부 용어(TC ID, API 등)를 노출하지 않는다.
+expected: |
+  1. 정상 응답(오류 문구·타임아웃 아님) 2. 상황 확인 질문 3. 내부 시스템 용어 노출 금지
+scope: {}
+confirm_before_call: []
+calls:
+  required: []
+  alternative: []
+  conditional: []
+  forbidden: []
+  no_call_expected: true
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "로그인이 안 되는 상황(오류 메시지·가입 방법 등)이나 본인 정보를 확인하는 질문을 한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "TC ID·API·메타데이터·시스템 오류 같은 내부 용어를 고객에게 노출한다", literal: [TC ID, "API-", case metadata, X-Aitop100]}
+    - {id: N2, basis: derived, text: "비밀번호를 채팅으로 알려 달라고 요구한다"}
+echo: []
+sim:
+  persona: "짧게 묻는 고객."
+  facts: {}
+  rules:
+    - {when: [오류, 메시지, 문구], say: "비밀번호가 틀렸다고 나와요."}
+  fallback: "네."
+  end_when: []
+  closing: "네."
+  max_turns: 1

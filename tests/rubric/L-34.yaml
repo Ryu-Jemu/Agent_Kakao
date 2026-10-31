@@ -1,0 +1,53 @@
+id: L-34
+title: 당일배송 불가 안내와 광고 문구 불만
+received_at: "2037-06-30T16:24:00+09:00"
+source: {file: tests/tc/public/L-34.md, sha256: d3c8fb5564b77186d0a80eb06b1e7003aef12dc98e6f64fcc945482cebe4dfc3}
+customer: {name: 남기웅, member_id: MB-77014, phone_last4: "6754"}
+# R-018: 회원 주문은 100200010 하나(06-30 09:10 주문, PAY-3706-0016)
+scope:
+  order_no: ["100200010"]
+  approval_no: [PAY-3706-0016]
+  shipment_id: ["re:^SHP-100200010-\\d+$"]
+confirm_before_call: ["100200010"]
+calls:
+  required:
+    - {id: R1, api: API-07, match: {path.order_no: "100200010"}, ref: 기대 대응 1}
+    - {id: R2, api: API-35, match: {body.lane: LANE2_HANDOFF, body.reason: {contains_all: ["100200010", 홍보라], groups: [[빠른 배송, 빠른배송]]}}, ref: 기대 대응 5}
+  alternative:
+    - id: G1
+      mode: exactly_one
+      ref: 기대 대응 2
+      options:
+        - {api: API-25, match: {path.order_no: "100200010", body.requested_date: "2037-07-01"}}
+        - {api: API-27, match: {path.order_no: "100200010", body.qty: 1, body.reason: {present: true}}}
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-07, match: {path.order_no: {not_in: ["100200010"]}}, basis: explicit, ref: 기대 대응 1}
+    - {id: F2, api: API-25, match: {path.order_no: {not_in: ["100200010"]}}, basis: explicit, ref: 기대 대응 2}
+    - {id: F3, api: API-27, match: {path.order_no: {not_in: ["100200010"]}}, basis: explicit, ref: 기대 대응 2}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, ref: 기대 대응 3, text: "출고 예정 일정과 도착 예상 일정을 안내하고 도착일은 보장할 수 없다고 설명한다"}
+    - {id: S2, basis: expected, ref: 기대 대응 4, text: "익일 출고 처리 결과(출고 일정 변경 요청 접수 또는 익일 출고 예정 확인)를 안내한다"}
+    - {id: S3, basis: expected, ref: 기대 대응 6, text: "'빠른 배송' 광고 문구로 오해를 드린 점을 사과한다"}
+    - {id: S4, basis: expected, ref: 기대 대응 6, text: "광고 문구 정정 요청이 담당자에게 접수됐다고 안내한다"}
+    - {id: S5, basis: expected, ref: 기대 대응 6, text: "이관 접수번호를 안내한다"}
+    - {id: S6, basis: expected, ref: 기대 대응 6, text: "회신 기한을 안내한다"}
+    - {id: A1, basis: situation, text: "산지직송 상품은 지역과 관계없이 당일배송이 안 되며 통상 익일~모레 도착이라고 설명한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "오늘(당일) 받을 수 있다고 하거나 특정 도착일을 보장한다"}
+    - {id: N2, basis: derived, text: "당일배송 불가를 고객의 거주 지역 탓으로 설명한다"}
+echo: [API-35]
+sim:
+  persona: "급한 30대 회원. 안 된다는 말에 지역 탓인지와 가장 빠른 날을 묻고, 이틀 걸린다는 말에 광고 문구로 따진다."
+  facts:
+    order_no: "100200010"
+    ordered: "오늘 아침 주문, 수박 1통"
+  rules:
+    - {when: [주문번호, 주문 번호], say: "100200010이요."}
+    - {when: [당일, 오늘은, 오늘 받], say: "제가 사는 지역 때문이에요? 그럼 제일 빨리 받을 수 있는 날은 언제예요?", once: true}
+    - {when: [모레, 이틀, 익일, 내일], say: "광고엔 빠른 배송이라고 돼 있던데요? 이틀이나 걸리는 게 빠른 배송이에요?", once: true}
+  fallback: "급해서 그래요. 빨리 받을 방법 없어요?"
+  end_when: [접수번호, 접수 번호]
+  closing: "알겠어요."

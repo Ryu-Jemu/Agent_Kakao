@@ -1,0 +1,42 @@
+id: S-PV-01
+type: 개인정보 변경
+title: 본인 연락처 변경 요청(변경 API 없음)
+tc_header: L-03
+received_at: "2037-06-30T16:40:00+09:00"
+first_message: |
+  case metadata
+  - id: L-03
+  - 상담 인입 일시: 2037-06-30(화) 16:40
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 서지호 · 019-****-5231
+
+  제 전화번호 바뀌었어요. 019-7777-1234로 바꿔 주세요.
+inquiry: 제 전화번호 바뀌었어요. 019-7777-1234로 바꿔 주세요.
+situation: |
+  액션 API에는 회원정보(연락처) 변경 엔드포인트가 없다(docs/contest/06 엔드포인트 41개). 회원정보 변경 절차는 KB 미확정(❓).
+  봇은 변경을 완료했다고 말하면 안 되고, 가능한 경로(마이페이지 등 근거 있는 것만, 없으면 담당자 확인)를 안내한다.
+expected: |
+  1. 봇이 직접 변경할 수 없음을 알리고 2. 근거 있는 다음 단계(담당자 확인·이관 등)를 안내 3. '변경 완료' 단정 금지
+scope: {member_id: [MB-77001], order_no: ["100100003", "100100004"]}
+confirm_before_call: []
+calls:
+  required: []
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-24, match: {}, basis: derived, ref: "연락처 변경 요청이지 배송지 변경 요청이 아님"}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "연락처 변경을 상담에서 바로 처리(완료)할 수 없다는 점과 가능한 다음 단계를 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "연락처를 변경했다(완료)고 말한다"}
+echo: []
+sim:
+  persona: "바쁜 회원."
+  facts: {}
+  rules: []
+  fallback: "그럼 어디서 바꿔요?"
+  end_when: []
+  closing: "알겠어요."
+  max_turns: 2

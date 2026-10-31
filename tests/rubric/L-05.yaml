@@ -1,0 +1,42 @@
+id: L-05
+title: 현금영수증 요청
+received_at: "2037-06-30T18:54:00+09:00"
+source: {file: tests/tc/public/L-05.md, sha256: 48095af3f9d1d4545fb144b8d78c7ca86bf13cf95ae6d66bf176c203fcaa05a2}
+customer: {name: 임태경, member_id: MB-77002, phone_last4: "9701"}
+# R-018: 100100006 = PAY-3706-0003 (무통장, 대상) / 100100007 = PAY-3706-0004 (카드, 대상 아님)
+scope:
+  order_no: ["100100006"]
+  approval_no: [PAY-3706-0003]
+confirm_before_call: ["100100006"]
+calls:
+  required:
+    - {id: R1, api: API-07, match: {path.order_no: "100100006"}, ref: 기대 대응 1}
+    - {id: R2, api: API-32, match: {path.approval_no: PAY-3706-0003, body.receipt_number: "019-2314-9701"}, ref: 기대 대응 2}
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-07, match: {path.order_no: {not_in: ["100100006"]}}, basis: explicit, ref: 기대 대응 1}
+    - {id: F2, api: API-32, match: {path.approval_no: {not_in: [PAY-3706-0003]}}, basis: explicit, ref: 기대 대응 2}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, ref: 기대 대응 1, text: "현금영수증을 요청하는 무통장입금 주문의 주문번호를 묻는다"}
+    - {id: S2, basis: expected, ref: 기대 대응 1, text: "발행 구분(소득공제용·지출증빙용)을 묻는다"}
+    - {id: S3, basis: expected, ref: 기대 대응 3, text: "고객이 지정한 번호(019-2314-9701)로 소득공제용 현금영수증 발행 요청이 접수됐다고 안내한다"}
+    - {id: A1, basis: situation, text: "카드 결제 건은 현금영수증 발행 대상이 아니라는 점(필요 시)"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "카드 결제 주문(100100007)도 현금영수증을 발행해 준다고 안내한다"}
+echo: []  # A5 R1
+sim:
+  persona: "40대 회원. 공손하고 간결하다."
+  facts:
+    order_no: "100100006"
+    pay_method: 무통장입금
+    receipt_number: "019-2314-9701"
+    receipt_type: 소득공제용
+  rules:
+    - {when: [주문번호, 주문 번호, 어느 주문, 어떤 주문, 어느 건, 어떤 건], say: "무통장입금으로 낸 수박 주문이요. 주문번호는 100100006이에요."}
+    - {when: [소득공제, 지출증빙, 발행 구분, 용도], say: "소득공제용이요. 연말정산에 쓰려고요."}
+  fallback: "019-2314-9701로 현금영수증 발행 부탁드려요."
+  end_when: [접수]
+  closing: "네, 감사합니다."

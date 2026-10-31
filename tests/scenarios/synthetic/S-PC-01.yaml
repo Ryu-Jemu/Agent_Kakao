@@ -1,0 +1,50 @@
+id: S-PC-01
+type: 정책 충돌
+title: 7일 지난 5월 주문의 가격 인하 차액 요구(인입일 06-26)
+tc_header: L-47
+received_at: "2037-06-26T15:30:00+09:00"
+first_message: |
+  case metadata
+  - id: L-47
+  - 상담 인입 일시: 2037-06-26(금) 15:30
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 석민경 · 019-****-9440
+
+  5월에 산 수박도 지금 가격 내렸잖아요. 그것도 차액 쿠폰 주세요.
+inquiry: 5월에 산 수박도 지금 가격 내렸잖아요. 그것도 차액 쿠폰 주세요.
+situation: |
+  대상은 5/27 주문 100200018(32,000원). 인입일 6/26 기준 구매 후 30일이 지나 '구매 후 7일 이내 정상가 인하 보상'(KB §6) 대상이 아니다.
+  고객은 어제 산 100200017이 이미 보상 대상이라는 것을 알고 '같은 상품인데 왜 안 되냐'고 따진다.
+expected: |
+  1. 주문번호 확인 후 API-07(100200018)로 구매일 확인 2. 구매 후 7일이 지나 보상 대상이 아님을 사유와 함께 안내
+  3. 쿠폰 발급(API-33)·환불(API-29)을 하지 않는다
+scope:
+  order_no: ["100200018"]
+  member_id: [MB-77017]
+confirm_before_call: ["100200018"]
+calls:
+  required:
+    - {id: R1, api: API-07, match: {path.order_no: "100200018"}}
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-33, match: {}, basis: derived, ref: "KB §6 7일 초과"}
+    - {id: F2, api: API-29, match: {}, basis: derived, ref: "KB §6 현금 환불 아님"}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "5월 주문은 구매 후 7일이 지나 가격 인하 차액 보상 대상이 아니라고 안내한다"}
+    - {id: S2, basis: expected, text: "보상 기준(구매 후 7일 이내 같은 상품 정상가 인하)을 설명한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "5월 주문에도 쿠폰을 주겠다고 약속한다"}
+echo: []
+sim:
+  persona: "30대 회원. 같은 상품인데 왜 안 되냐고 한 번 따진다."
+  facts: {order_no: "100200018", other: "100200017(어제 구매)"}
+  rules:
+    - {when: [주문번호, 주문 번호, 어느 주문], say: "5월에 산 거요. 100200018이요."}
+    - {when: [7일, 기간, 대상이 아], say: "같은 수박인데 왜 그건 안 돼요?"}
+  fallback: "그래서 안 된다는 거예요?"
+  end_when: []
+  closing: "알겠어요."
+  max_turns: 3

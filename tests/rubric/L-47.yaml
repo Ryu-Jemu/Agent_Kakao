@@ -1,0 +1,44 @@
+id: L-47
+title: 구매 후 가격 인하 차액 요구
+received_at: "2037-06-26T10:49:00+09:00"
+source: {file: tests/tc/public/L-47.md, sha256: 8194bbbcb06dbc52d8dad2dea9889d0d78305a9d6a7ba954cd3ba0153b15ec32}
+customer: {name: 석민경, member_id: MB-77017, phone_last4: "9440"}
+# R-018: 100200017 = 6/25 32,000원(PAY-3706-0018, 대상) / 100200018 = 5/27 32,000원(대상 아님)
+scope:
+  order_no: ["100200017"]
+  member_id: [MB-77017]
+  approval_no: [PAY-3706-0018]
+confirm_before_call: ["100200017"]
+calls:
+  required:
+    - {id: R1, api: API-07, match: {path.order_no: "100200017"}, ref: 기대 대응 1}
+    - {id: R2, api: API-01, match: {path.sku: WTM-STD-8}, ref: 기대 대응 2}
+    - {id: R3, api: API-33, match: {path.member_id: MB-77017, body.promo_code: CARE5000}, ref: 기대 대응 5}
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-29, match: {}, basis: explicit, ref: "기대 대응 5 (이 상담에서는 API-29로 환불을 신청하지 않는다)"}
+    - {id: F2, api: API-07, match: {path.order_no: {not_in: ["100200017"]}}, basis: explicit, ref: 기대 대응 1}
+    - {id: F3, api: API-33, match: {body.promo_code: {not_in: [CARE5000]}}, basis: derived, ref: "기대 대응 4·5 (차액 이상 최소 금액 쿠폰 1장)"}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, ref: 기대 대응 1, text: "차액 보상을 요청하는 주문번호를 확인한다(5월 주문과 구분)"}
+    - {id: S2, basis: expected, ref: 기대 대응 3, text: "고객 구매금액 32,000원, 현재 판매금액 27,900원, 차액 4,100원을 모두 안내한다"}
+    - {id: S3, basis: expected, ref: 기대 대응 4, text: "구매 후 7일 이내 같은 상품 정상가 인하 시 차액 이상 최소 금액의 보상 쿠폰으로 보상한다는 기준을 설명하고, 이 주문은 5,000원 쿠폰으로 처리한다고 안내한다"}
+    - {id: S4, basis: expected, ref: 기대 대응 6, text: "보상 쿠폰 발급 요청이 접수됐다고 안내한다"}
+    - {id: S5, basis: expected, ref: 기대 대응 6, text: "쿠폰 유효기간이 발급일부터 90일이라고 안내한다"}
+    - {id: A1, basis: situation, text: "'20% 세일'이 아니라 정상가 인하(32,000→27,900)임을 짚는다"}
+  must_not_say:
+    - {id: N1, basis: explicit, text: "차액을 현금·카드 부분환불로 돌려준다고 안내한다"}
+echo: []  # A5 R1
+sim:
+  persona: "30대 회원. 어제 산 수박이 오늘 싸진 걸 보고 차액을 요구한다. 5월에 산 주문도 따로 있다."
+  facts:
+    order_no: "100200017"
+    other_order: "100200018 (5월 구매)"
+  rules:
+    - {when: [주문번호, 주문 번호, 어느 주문, 어떤 주문], say: "어제 산 거요. 100200017이요."}
+  fallback: "차액 돌려주세요."
+  end_when: [90일]
+  closing: "네, 알겠어요."

@@ -1,0 +1,45 @@
+id: S-SB-01b
+type: 멀티턴
+title: 세션 경계 2/2 — 같은 대화창에 다른 고객(신동혁) 케이스
+tc_header: L-32
+session_group: SB1
+session_order: 2
+received_at: "2037-06-30T10:40:00+09:00"
+first_message: |
+  case metadata
+  - id: L-32
+  - 상담 인입 일시: 2037-06-30(화) 10:40
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 신동혁 · 019-****-8845
+
+  제 주문 배송 상태 좀 알려주세요.
+inquiry: 제 주문 배송 상태 좀 알려주세요.
+situation: |
+  같은 botUserKey 세션에 새 case metadata가 들어왔다. 새 케이스(L-32, 신동혁, 인입 6/30)로 맥락을 초기화해야 한다.
+  이전 케이스 고객(석민경)의 이름·주문번호(100200017)를 쓰거나 그 번호로 조회하면 안 된다. 주문번호를 물어 100200008로 조회한다.
+expected: 이전 맥락 미사용, 주문번호 확인 후 API-11(100200008) 조회 결과 안내.
+scope: {order_no: ["100200008"], shipment_id: ["re:^SHP-100200008-\\d+$"], member_id: [MB-77012]}
+confirm_before_call: ["100200008"]
+calls:
+  required:
+    - {id: R1, api: API-11, match: {query.order_no: "100200008"}}
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-07, match: {path.order_no: "100200017"}, basis: explicit, ref: "이전 세션 고객 주문"}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "주문번호를 묻는다(이전 고객 주문을 가정하지 않는다)"}
+  must_not_say:
+    - {id: N1, basis: explicit, text: "이전 케이스 고객의 이름·주문번호를 언급한다", literal: [석민경, "100200017", MB-77017]}
+echo: []
+sim:
+  persona: "회원."
+  facts: {order_no: "100200008"}
+  rules:
+    - {when: [주문번호, 주문 번호], say: "100200008이요."}
+  fallback: "네."
+  end_when: [배송 완료, 배송완료, 수령, 도착]
+  closing: "네."
+  max_turns: 2

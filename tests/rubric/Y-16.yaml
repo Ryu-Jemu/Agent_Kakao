@@ -1,0 +1,50 @@
+id: Y-16
+title: 수확·포장 완료 뒤 제주 물류 결항
+received_at: "2037-06-06T12:18:00+09:00"
+source: {file: tests/tc/public/Y-16.md, sha256: 740351df2e1bfccd7e8598df10f1ded12b6d916e23c43992665d55306202a1c6}
+customer: {name: 고은샘, member_id: MB-77044, phone_last4: "5085"}
+# R-018: 회원 주문은 100400017 하나(MNG-STD-3 애플망고, 6/2 주문, 54,000원, PAY-3706-0044)
+scope:
+  order_no: ["100400017"]
+  approval_no: [PAY-3706-0044]
+  shipment_id: [SHP-100400017-01]
+confirm_before_call: ["100400017"]
+calls:
+  required: []
+  alternative:
+    - id: G1
+      mode: at_least_one
+      ref: 기대 대응 1
+      options:
+        - {api: API-10, match: {path.shipment_id: SHP-100400017-01}}
+        - {api: API-11, match: {query.order_no: "100400017"}}
+  conditional:
+    - {id: C1, api: API-28, match: {path.shipment_id: SHP-100400017-01}, trigger: [다음 배로], ref: 기대 대응 4}
+  forbidden:
+    - {id: F1, api: API-11, match: {query.order_no: {not_in: ["100400017"]}}, basis: explicit, ref: 기대 대응 1}
+    - {id: F2, api: API-28, match: {path.shipment_id: {not_in: [SHP-100400017-01]}}, basis: explicit, ref: 기대 대응 4}
+    - {id: F3, api: API-29, match: {}, basis: derived, ref: "상황 (고객이 기다리는 쪽을 고름)"}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, ref: 기대 대응 2, text: "수확과 포장이 끝나 송장만 등록된 상태이며, 강풍으로 운송편이 결항돼 아직 택배사에 인계되지 않았다고 안내한다"}
+    - {id: S2, basis: expected, ref: 기대 대응 3, text: "운송 재개 후 재선별하거나 재수확분으로 교체해 출고할 예정이라고 안내한다"}
+    - {id: S3, basis: expected, ref: 기대 대응 3, text: "원하면 출고를 기다리지 않고 전액환불로 취소할 수 있다고 안내한다"}
+    - {id: S4, basis: expected, ref: 기대 대응 4, text: "고객이 고른 차기 운송편 재출고 요청이 접수됐다고 안내한다"}
+    - {id: A1, basis: situation, text: "예상 운송 재개 시점을 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "이미 택배사에 넘어가 배송 중이라고 안내하거나 택배사 책임으로 돌린다"}
+echo: []  # A5 R1
+sim:
+  persona: "애플망고를 기다리는 회원. 상할까 봐 걱정하지만 먼저 말하지 않는다. 짚어 주면 안심한다. 기다릴지 취소할지 고르라면 기다린다."
+  facts:
+    order_no: "100400017"
+    ordered: "나흘 전(6/2) 주문, 송장 알림 받음"
+    choice: "다음 배로 보내 달라(기다림)"
+  rules:
+    - {when: [주문번호, 주문 번호], say: "100400017이요."}
+    - {when: [신선, 상하, 상할, 재수확, 교체, 재선별], say: "다행이네요. 사실 상할까 봐 걱정했어요.", once: true}
+    - {when: [기다리, 취소, 환불, 선택], say: "다음 배로 보내 주세요. 기다릴게요."}
+  fallback: "그래서 언제 와요?"
+  end_when: [접수]
+  closing: "네, 감사합니다."

@@ -1,0 +1,42 @@
+id: L-03
+title: 배송지 변경 요청
+received_at: "2037-06-30T15:16:00+09:00"
+source: {file: tests/tc/public/L-03.md, sha256: 55d3fa138705ae6cd124d2761e19be7071500b05ca5aae6b5d144215c49885db}
+customer: {name: 서지호, member_id: MB-77001, phone_last4: "5231"}
+# R-018: 100100003 = 배송 [] (집하 전, 대상) / 100100004 = SHP-100100004-01 IN_TRANSIT (대상 아님)
+scope:
+  order_no: ["100100003"]
+  approval_no: [PAY-3706-0001]
+  shipment_id: []
+confirm_before_call: ["100100003"]
+calls:
+  required:
+    - {id: R1, api: API-11, match: {query.order_no: "100100003"}, ref: 기대 대응 2}
+    - {id: R2, api: API-24, match: {path.order_no: "100100003", body.new_address: {contains_all: [성남, "203동", "704호"]}}, ref: 기대 대응 4}
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-24, match: {path.order_no: {not_in: ["100100003"]}}, basis: explicit, ref: 기대 대응 4}
+    - {id: F2, api: API-11, match: {query.order_no: {not_in: ["100100003"]}}, basis: explicit, ref: 기대 대응 2}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, ref: 기대 대응 1, text: "배송지를 바꿀 주문번호를 묻고 그 주문이 이번 변경 대상이 맞는지 확인한다"}
+    - {id: S2, basis: expected, ref: 기대 대응 3, text: "동·호수까지 포함한 상세주소를 묻는다"}
+    - {id: S3, basis: expected, ref: 기대 대응 5, text: "고객이 요청한 배송지(성남시 상세주소)로 변경하는 요청이 접수됐다고 안내한다"}
+    - {id: A1, basis: situation, text: "아직 집하 전이라 배송지 변경이 가능하다는 근거를 설명한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "배송지 변경이 이미 완료·확정됐다고 단정한다(접수 API는 기록만 한다, 06 응답 규약)"}
+echo: []  # A5 R1: 원문은 접수 안내만 요구(번호 미요구)
+sim:
+  persona: "30대 회원. 짧은 구어체. 묻는 것만 답한다."
+  facts:
+    order_no: "100100003"
+    new_address: "경기 성남시 수정구 산성대로 101, 203동 704호"
+  rules:
+    - {when: [주문번호, 주문 번호], say: "100100003이요."}
+    - {when: [맞으신가요, 맞나요, 맞는지, 대상], say: "네, 그 주문 맞아요."}
+    - {when: [상세주소, 동·호수, 동 호수, 호수, 상세 주소, 나머지 주소, 전체 주소], say: "경기 성남시 수정구 산성대로 101, 203동 704호요."}
+  fallback: "주소 잘못 넣어서 성남으로 바꿔야 돼요."
+  end_when: [접수]
+  closing: "네, 감사합니다."

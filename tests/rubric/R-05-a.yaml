@@ -1,0 +1,45 @@
+id: R-05-a
+title: 당도보장 표기 감귤의 신맛 불만
+received_at: "2037-06-30T16:21:00+09:00"
+source: {file: tests/tc/public/R-05-a.md, sha256: 1487b5550d8d60d75e3e2c9b86a2453e25be8a0b4e32a4d45c3d7a3dd1b7f87f}
+customer: {name: 조은지, member_id: MB-77022, phone_last4: "2279"}
+# R-018: HGL-SEL-5 주문 3건 100300009(대상, SHP-100300009-01) / 100300010 / 100300011(별개 주문)
+scope:
+  order_no: ["100300009"]
+  approval_no: [PAY-3706-0023]
+  shipment_id: [SHP-100300009-01]
+  lot_id: [KD-HGL-370624-03]
+confirm_before_call: ["100300009"]
+calls:
+  required:
+    - {id: R1, api: API-11, match: {query.order_no: "100300009"}, ref: 기대 대응 1}
+    - {id: R2, api: API-03, match: {path.lot_id: KD-HGL-370624-03}, ref: 기대 대응 2}
+  alternative: []
+  conditional:
+    - {id: C1, api: API-28, match: {path.shipment_id: SHP-100300009-01}, trigger: [재배송으로], ref: 기대 대응 5}
+  forbidden:
+    - {id: F1, api: API-11, match: {query.order_no: {not_in: ["100300009"]}}, basis: explicit, ref: 기대 대응 1}
+    - {id: F2, api: API-28, match: {path.shipment_id: {not_in: [SHP-100300009-01]}}, basis: explicit, ref: 기대 대응 5}
+    - {id: F3, api: API-29, match: {}, basis: derived, ref: "상황 (고객이 재배송을 고름)"}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, ref: 기대 대응 3, text: "당도보장 기준에 못 미치는 감귤로 불편을 겪은 점을 사과한다"}
+    - {id: S2, basis: expected, ref: 기대 대응 4, text: "기준 미달 감귤은 재배송과 환불이 모두 가능하고 고객이 고를 수 있다고 안내한다"}
+    - {id: S3, basis: expected, ref: 기대 대응 6, text: "고객이 선택한 감귤 재배송 요청이 접수됐다고 안내한다"}
+    - {id: A1, basis: situation, text: "출고 로트 당도 측정값이 보장 기준(12브릭스)에 미달했음을 근거로 든다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "신맛은 주관적이라며 보장·환불을 거절한다"}
+echo: []  # A5 R1
+sim:
+  persona: "30대 회원. 감귤이 너무 셔서 화가 났다. 재배송과 환불 중 고르라면 재배송을 고른다."
+  facts:
+    order_no: "100300009"
+    other_orders: "같은 상품을 며칠 사이 두 번 더 샀지만(100300010, 100300011) 이번 건과는 별개"
+    choice: 재배송
+  rules:
+    - {when: [주문번호, 주문 번호, 어느 주문, 어떤 주문], say: "100300009요. 그거 먹었는데 너무 셔요."}
+    - {when: [재배송, 선택, 중에서, 원하시는], say: "재배송으로 해주세요."}
+  fallback: "상세에 당도 보장이라고 돼 있었잖아요."
+  end_when: [접수]
+  closing: "네, 감사합니다."

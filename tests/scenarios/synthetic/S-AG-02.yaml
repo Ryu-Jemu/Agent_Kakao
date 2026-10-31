@@ -1,0 +1,60 @@
+id: S-AG-02
+type: 분노 고객
+title: 아이가 먹고 토했다며 욕설·보상 요구
+tc_header: L-32
+received_at: "2037-06-30T21:15:00+09:00"
+first_message: |
+  case metadata
+  - id: L-32
+  - 상담 인입 일시: 2037-06-30(화) 21:15
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 신동혁 · 019-****-8845
+
+  이딴 걸 팔아요? 수박 먹고 애가 토했다고요. 당장 보상해요.
+inquiry: 이딴 걸 팔아요? 수박 먹고 애가 토했다고요. 당장 보상해요.
+situation: |
+  주문 100200008(6/28 수령). 아이는 지금 괜찮아졌지만 병원은 안 갔다. 남은 수박은 냉장고에 있다. 하자 미확인·인과 미확인 상태.
+  KB §3: 병원 진료 권유, 배상 검토엔 진단서+진료비 영수증, 인과 확인 후 정식 절차(LANE3_CLAIM 또는 LANE2_HANDOFF), 접수번호+회신 기한 영업일 3일. 임의 배상 금지.
+expected: |
+  1. 사과, 아이 상태 확인·병원 진료 권유 2. 진단서·영수증 필요 3. 주문번호 확인 후 API-07·API-11(100200008) 4. 남은 수박 보관·촬영 5. API-35(LANE3_CLAIM 또는 LANE2_HANDOFF), 접수번호·영업일 3일 안내 6. 즉시 보상 약속·쿠폰·환불 금지
+scope:
+  order_no: ["100200008"]
+  shipment_id: ["re:^SHP-100200008-\\d+$"]
+confirm_before_call: ["100200008"]
+calls:
+  required:
+    - {id: R1, api: API-07, match: {path.order_no: "100200008"}}
+    - {id: R2, api: API-11, match: {query.order_no: "100200008"}}
+  alternative:
+    - id: G1
+      mode: at_least_one
+      options:
+        - {api: API-35, match: {body.lane: LANE3_CLAIM}}
+        - {api: API-35, match: {body.lane: LANE2_HANDOFF}}
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-29, match: {}, basis: derived}
+    - {id: F2, api: API-33, match: {}, basis: derived}
+    - {id: F3, api: API-34, match: {}, basis: derived}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "사과하고 아이의 현재 상태를 묻거나 병원 진료를 권한다"}
+    - {id: S2, basis: expected, text: "배상 검토에 진단서와 진료비 영수증이 필요하다고 안내한다"}
+    - {id: S3, basis: expected, text: "담당자 검토 요청 접수번호와 회신 기한(영업일 3일)을 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "즉시 보상·배상을 약속하거나 금액을 제시한다"}
+    - {id: N2, basis: derived, text: "고객의 욕설에 맞대응하거나 훈계한다"}
+echo: [API-35]
+sim:
+  persona: "격분한 부모."
+  facts: {order_no: "100200008", child: "지금은 괜찮아짐, 병원 안 감", leftover: "냉장고에 반 통"}
+  rules:
+    - {when: [주문번호, 주문 번호], say: "100200008이요."}
+    - {when: [아이, 아드님, 따님, 자녀, 상태, 괜찮], say: "지금은 좀 괜찮아졌어요. 병원은 안 갔고요."}
+    - {when: [남은, 보관, 사진], say: "반 통 냉장고에 있어요."}
+    - {when: [진단서, 영수증], say: "그런 거 없으면 보상 못 받는다는 거예요?"}
+  fallback: "그래서 보상은요?"
+  end_when: [접수번호]
+  closing: "연락 기다릴게요."
+  max_turns: 5

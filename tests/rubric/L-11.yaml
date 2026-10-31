@@ -1,0 +1,58 @@
+id: L-11
+title: 곰팡이 핀 수박 사진과 함께 온 하자 신고
+received_at: "2037-06-30T17:37:00+09:00"
+source: {file: tests/tc/public/L-11.md, sha256: 9a52bdb0d6f7810e8e5318756280ceac9eab7620b2eaa5fd745b0dbf6056ebe0}
+customer: {name: 강은비, member_id: MB-77003, phone_last4: "4165"}
+# R-018: 회원 주문은 100100016 하나(34,900원, PAY-3706-0005)
+scope:
+  order_no: ["100100016"]
+  approval_no: [PAY-3706-0005]
+  lot_id: [KD-WTM-370624-03]
+  shipment_id: ["re:^SHP-100100016-\\d+$"]
+confirm_before_call: ["100100016"]
+calls:
+  required:
+    - {id: R1, api: API-11, match: {query.order_no: "100100016"}, ref: 기대 대응 2}
+    - {id: R2, api: API-03, match: {path.lot_id: KD-WTM-370624-03}, ref: 기대 대응 3}
+    - {id: R3, api: API-04, match: {path.lot_id: KD-WTM-370624-03}, ref: 기대 대응 3}
+    - {id: R4, api: API-06, match: {query.lot_id: KD-WTM-370624-03}, ref: 기대 대응 3}
+    - {id: R5, api: API-35, match: {body.lane: LANE2_HANDOFF, body.reason: {contains_all: ["100100016", KD-WTM-370624-03], groups: [[곰팡이], [조사], [안전]]}}, ref: 기대 대응 5}
+  alternative: []
+  conditional:
+    - {id: C1, api: API-29, match: {body.order_no: "100100016", body.amount: 34900}, trigger: [환불로], ref: 기대 대응 4}
+  forbidden:
+    - {id: F1, api: API-29, match: {body.order_no: {not_in: ["100100016"]}}, basis: explicit, ref: 기대 대응 4}
+    - {id: F2, api: API-11, match: {query.order_no: {not_in: ["100100016"]}}, basis: explicit, ref: 기대 대응 2}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, ref: 기대 대응 1, text: "곰팡이 핀 수박으로 불편을 겪은 점을 사과한다"}
+    - {id: S2, basis: expected, ref: 기대 대응 1, text: "수박을 먹었는지와 현재 몸에 이상이 있는지 묻는다"}
+    - {id: S3, basis: expected, ref: 기대 대응 4, text: "재배송과 전액환불 중 고객이 고르게 한다(고객이 고른 전액환불)"}
+    - {id: S4, basis: expected, ref: 기대 대응 6, text: "전액환불 신청이 접수됐다고 안내한다"}
+    - {id: S5, basis: expected, ref: 기대 대응 6, text: "동일 로트 이상 신고에 대한 담당자 확인 요청이 환불과 별도로 접수됐다고 설명한다"}
+    - {id: S6, basis: expected, ref: 기대 대응 6, text: "이관(에스컬레이션) 접수번호를 안내한다"}
+    - {id: S7, basis: expected, ref: 기대 대응 6, text: "담당자 회신 기한을 안내한다"}
+    - {id: A1, basis: situation, text: "섭취를 중단하고 폐기하도록 안내하며 반송을 요구하지 않는다"}
+    - {id: A2, basis: situation, text: "'저만 이런가요' 질문에 같은 로트 신고 확인 중임을 개인정보 없이 답한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "곰팡이 부위만 도려내면 먹어도 된다는 식으로 섭취를 허용한다"}
+    - {id: N2, basis: derived, text: "상품을 반송(회수)해야 환불된다고 요구한다"}
+    - {id: N3, basis: derived, text: "같은 로트를 신고한 다른 고객의 이름·주문번호 등 개인정보를 알려 준다"}
+echo: [API-35]  # 기대 6 "이관 접수번호" (A5 R1)
+sim:
+  persona: "30대 회원. 위생이 걱정돼 조금 불안하다. 묻는 것만 답한다."
+  facts:
+    order_no: "100100016"
+    received: "나흘 전(6/26) 수령, 오늘 처음 열어 봄"
+    storage: "받은 뒤로 상자째 서늘한 곳에 둠"
+    eaten: "안 먹음, 몸은 괜찮음"
+    choice: 환불
+  rules:
+    - {when: [드셨, 먹었, 섭취, 몸, 이상 증상, 괜찮으신], say: "아뇨, 열자마자 곰팡이 보고 바로 닫아서 안 먹었어요. 몸은 괜찮아요. 근데 이거 먹으면 안 되는 거죠?"}
+    - {when: [주문번호, 주문 번호], say: "100100016이요."}
+    - {when: [보관, 어디에 두], say: "받고 나서 상자째 서늘한 데 뒀어요."}
+    - {when: [재배송, 환불 중, 환불과, 환불 또는, 중에서, 선택], say: "환불로 해주세요. 근데 저만 이런 거예요?"}
+  fallback: "사진 보내드린 대로 곰팡이가 폈어요. 어떻게 해야 돼요?"
+  end_when: [접수번호, 접수 번호]
+  closing: "네, 알겠습니다. 감사합니다."

@@ -1,0 +1,54 @@
+id: S-MT-01
+type: 멀티턴
+title: 주문 2건 중 배송 중인 건 확인 → 이어서 배송지 변경 문의
+tc_header: L-03
+received_at: "2037-06-30T11:02:00+09:00"
+first_message: |
+  case metadata
+  - id: L-03
+  - 상담 인입 일시: 2037-06-30(화) 11:02
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 서지호 · 019-****-5231
+
+  수박 시킨 거 언제 와요?
+inquiry: 수박 시킨 거 언제 와요?
+situation: |
+  고객(서지호, MB-77001)은 6/29에 수박 주문 2건(100100003 집하 전, 100100004 IN_TRANSIT 시원배송 송장 640100000004)을 했다(R-018 실측).
+  고객이 묻는 건 100100004다. 배송 상태를 들은 뒤 그 주문의 배송지를 바꿀 수 있는지 묻는다.
+  택배사 계약서상 집하 전에만 배송지 변경이 가능하다(KB §4). 이미 배송 중인 주문의 변경 가능 여부는 KB 미확정(❓)이므로 접수를 확정하거나 가능하다고 단정하면 안 된다.
+expected: |
+  1. 어느 주문인지 주문번호를 묻는다(2건 존재). 2. 100100004로 API-11 조회, 배송 중(시원배송, 송장)임을 안내하고 도착일은 보장하지 않는다.
+  3. 배송지 변경은 집하 전에만 가능하므로 배송 중인 건은 바로 변경 접수할 수 없다고 설명하고, 필요 시 담당자 확인으로 안내한다.
+scope:
+  order_no: ["100100004"]
+  shipment_id: [SHP-100100004-01]
+  approval_no: [PAY-3706-0002]
+confirm_before_call: ["100100004"]
+calls:
+  required:
+    - {id: R1, api: API-11, match: {query.order_no: "100100004"}, ref: 기대 2}
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-24, match: {}, basis: derived, ref: "KB §4 집하 전에만 변경 가능(추정: 배송 중 건 접수 금지)"}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "어느 주문인지(주문번호) 확인한다"}
+    - {id: S2, basis: expected, text: "100100004가 배송 중(택배사 인수)이라고 안내한다"}
+    - {id: S3, basis: expected, text: "배송 중인 주문은 바로 배송지 변경 접수를 할 수 없다(집하 전에만 가능)고 설명한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "배송 중인 주문의 배송지를 변경해 주겠다고 확정하거나 변경 접수했다고 말한다"}
+    - {id: N2, basis: derived, text: "특정 도착일을 보장한다"}
+echo: []
+sim:
+  persona: "30대 회원. 짧게 말한다."
+  facts: {order_no: "100100004", new_address: "경기 성남시 분당구 정자일로 1, 1501호"}
+  rules:
+    - {when: [주문번호, 주문 번호, 어느 주문, 어떤 주문, 두 건, 2건], say: "100100004요."}
+    - {when: [배송 중, 배송중, 이동 중, 출고, 송장], say: "아 그럼 그거 주소 바꿀 수 있어요? 성남으로 가야 돼서요."}
+    - {when: [상세주소, 동·호수, 호수, 주소를 알려], say: "경기 성남시 분당구 정자일로 1, 1501호요."}
+  fallback: "그래서 언제 와요?"
+  end_when: [담당자, 접수번호]
+  closing: "알겠어요."
+  max_turns: 4

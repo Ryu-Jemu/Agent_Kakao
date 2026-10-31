@@ -1,0 +1,46 @@
+id: L-40
+title: 재판매 정황 반복 구매
+received_at: "2037-06-30T15:09:00+09:00"
+source: {file: tests/tc/public/L-40.md, sha256: 23a8f7d0bf0ba469c8c72d9c921f6e22226157f4bcf6b67df8b4b4f03bb368c3}
+customer: {name: 도현우, member_id: MB-77016, phone_last4: "7864"}
+# R-018: MB-77016 주문 4건(6/19 45통, 6/22 50통, 6/25 40통, 6/28 48통)
+scope:
+  member_id: [MB-77016]
+confirm_before_call: []
+calls:
+  required:
+    - {id: R1, api: API-08, match: {query.member_id: MB-77016}, after: G1, ref: 기대 대응 2}
+  alternative:
+    - id: G1
+      mode: at_least_one
+      ref: 기대 대응 1
+      options:
+        - {api: API-13, match: {query.name: 도현우}}
+        - {api: API-12, match: {path.member_id: MB-77016}}
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-33, match: {}, basis: derived, ref: "기대 대응 3 (단골 쿠폰·소매 할인 적용 불가)"}
+    - {id: F2, api: API-08, match: {query.member_id: {not_in: [MB-77016]}}, basis: explicit, ref: 기대 대응 2}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, ref: 기대 대응 3, text: "이번 수박 구매에는 단골 쿠폰과 소매 할인을 적용할 수 없다고 안내한다"}
+    - {id: S2, basis: expected, ref: 기대 대응 4, text: "조합 규정상 개인 소매 계정의 도매급 반복 구매에는 소매 혜택이 제한된다는 사유를 설명한다"}
+    - {id: S3, basis: expected, ref: 기대 대응 5, text: "사업자 도매 거래를 위해 사업자등록증으로 거래처를 등록하는 절차를 안내한다"}
+    - {id: A1, basis: situation, text: "도매는 물량별 단가와 전자세금계산서로 처리된다고 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "단골 쿠폰·소매 할인을 이번 주문에 적용해 주겠다고 약속한다"}
+    - {id: N2, basis: derived, text: "고객을 재판매자로 단정하거나 비난한다"}
+echo: []
+sim:
+  persona: "개인 계정으로 대량 구매하는 고객. 집에서 다 먹는다고 하고, 혜택 제한에 왜 나만 안 되냐고 되묻는다."
+  facts:
+    member_id: MB-77016
+    phone: "019-****-7864"
+  rules:
+    - {when: [연락처, 전화번호, 휴대폰], say: "019로 시작하고 끝자리 7864예요."}
+    - {when: [재판매, 사업, 용도, 반복, 대량], say: "아니에요, 집에서 다 먹어요. 식구가 많아서요.", once: true}
+    - {when: [적용할 수 없, 적용이 어렵, 제한, 불가], say: "왜 저만 안 돼요? 다른 사람들은 다 해주잖아요.", once: true}
+  fallback: "그래서 50통 할인 다 되는 거죠?"
+  end_when: [사업자등록증, 거래처]
+  closing: "알겠어요. 생각해 볼게요."

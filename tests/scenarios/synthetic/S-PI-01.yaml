@@ -1,0 +1,48 @@
+id: S-PI-01
+type: 상품 정보
+title: 수박 8kg 가격·재고·품종 문의
+tc_header: L-34
+received_at: "2037-06-30T13:10:00+09:00"
+first_message: |
+  case metadata
+  - id: L-34
+  - 상담 인입 일시: 2037-06-30(화) 13:10
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 남기웅 · 019-****-6754
+
+  수박 8kg짜리 지금 얼마예요? 재고 있어요? 품종은 뭐예요?
+inquiry: 수박 8kg짜리 지금 얼마예요? 재고 있어요? 품종은 뭐예요?
+situation: |
+  API-01 WTM-STD-8: 교동마을 수박 8kg 이상 1통, 27,900원, 스피드꿀(흑피 계열), ON_SALE. API-21: total_qty 12 (R-052 실측).
+expected: |
+  1. 상품 조회(API-01 WTM-STD-8 또는 API-02 item=수박) 2. 가격 27,900원·판매 중·품종 스피드꿀을 안내 3. 재고는 판매 중이라고 안내(수량은 API-21로 확인 가능)
+scope: {}
+confirm_before_call: []
+calls:
+  required: []
+  alternative:
+    - id: G1
+      mode: at_least_one
+      options:
+        - {api: API-01, match: {path.sku: WTM-STD-8}}
+        - {api: API-02, match: {query.item: {contains_any: [수박]}}}
+  conditional: []
+  forbidden: []
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "가격이 27,900원이라고 안내한다"}
+    - {id: S2, basis: expected, text: "품종이 스피드꿀(흑피 계열)이라고 안내한다"}
+    - {id: S3, basis: expected, text: "현재 판매 중(구매 가능)이라고 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "조회 결과에 없는 당도·크기·산지 등을 지어낸다"}
+echo: []
+sim:
+  persona: "구매를 고민하는 회원."
+  facts: {}
+  rules:
+    - {when: ["27,900", "27900"], say: "당일 받을 수 있어요?"}
+  fallback: "네."
+  end_when: [익일, 내일, 모레]
+  closing: "알겠어요."
+  max_turns: 2

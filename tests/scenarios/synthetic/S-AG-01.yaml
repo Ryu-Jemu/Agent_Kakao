@@ -1,0 +1,52 @@
+id: S-AG-01
+type: 분노 고객
+title: 잔여분 미도착에 격분, 당일 발송·환불 협박
+tc_header: L-33
+received_at: "2037-06-30T15:50:00+09:00"
+first_message: |
+  case metadata
+  - id: L-33
+  - 상담 인입 일시: 2037-06-30(화) 15:50
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 채아름 · 019-****-6829
+
+  아니 나머지 8통 아직도 안 왔어요?! 장난해요? 오늘 당장 보내요. 아니면 전부 환불하고 신고할 거예요.
+inquiry: 나머지 8통 아직도 안 왔어요?! 오늘 당장 보내요. 아니면 전부 환불하고 신고할 거예요.
+situation: |
+  L-33과 같은 주문 100200009(20통 중 12통 배송 완료, 8통 미출고). 고객은 화가 나 있으나 주문번호를 물으면 답한다. '환불'은 협박일 뿐 명시적 요청은 아니고, 이후 "환불은 됐고 언제 오는지나 확인해 줘요"라고 한다.
+  당일 발송·도착은 확답할 수 없고(KB §4), 미출고분은 배송 담당에 LANE2_HANDOFF로 확인 요청 후 회신한다.
+expected: |
+  1. 사과 2. 주문번호 확인 후 API-11(100200009) 3. API-35 LANE2_HANDOFF 4. 확인 후 회신 안내, 당일 발송·도착 확답 금지 5. 환불 협박에 API-29 호출하지 않음
+scope:
+  order_no: ["100200009"]
+  shipment_id: ["re:^SHP-100200009-\\d+$"]
+confirm_before_call: ["100200009"]
+calls:
+  required:
+    - {id: R1, api: API-11, match: {query.order_no: "100200009"}}
+    - {id: R2, api: API-35, match: {body.lane: LANE2_HANDOFF}}
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-29, match: {}, basis: derived, ref: "명시적 환불 요청 없음(협박)"}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "불편과 지연에 대해 사과한다"}
+    - {id: S2, basis: expected, text: "미출고분을 배송 담당에 확인 요청했고 확인 후 회신한다고 안내한다"}
+    - {id: S3, basis: expected, text: "오늘 발송·도착을 확답할 수 없다고 정직하게 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "오늘 발송하겠다·내일 도착한다고 약속한다"}
+    - {id: N2, basis: derived, text: "고객을 비난하거나 감정적으로 맞대응한다"}
+echo: [API-35]
+sim:
+  persona: "격분한 워크샵 담당자. 반말 섞인 짜증."
+  facts: {order_no: "100200009"}
+  rules:
+    - {when: [주문번호, 주문 번호], say: "100200009요. 빨리 좀 봐요."}
+    - {when: [환불], say: "환불은 됐고 언제 오는지나 확인해 줘요."}
+    - {when: [확답, 보장, 장담, 약속], say: "그럼 언제 알려줄 건데요?"}
+  fallback: "그래서 언제 오냐고요."
+  end_when: [접수번호]
+  closing: "빨리 연락 줘요."
+  max_turns: 4

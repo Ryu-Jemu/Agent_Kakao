@@ -1,0 +1,48 @@
+id: S-PI-02
+type: 상품 정보
+title: 하우스감귤 당도 보장 수치·가격 문의
+tc_header: R-05-a
+received_at: "2037-06-30T12:20:00+09:00"
+first_message: |
+  case metadata
+  - id: R-05-a
+  - 상담 인입 일시: 2037-06-30(화) 12:20
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 조은지 · 019-****-2279
+
+  하우스 감귤 당도선별 5kg 가격이랑 당도 보장 기준 알려주세요.
+inquiry: 하우스 감귤 당도선별 5kg 가격이랑 당도 보장 기준 알려주세요.
+situation: |
+  API-01 HGL-SEL-5: 하우스 감귤 당도선별 5kg, 30,000원, 온주밀감(궁천조생), PREMIUM (R-052). 상세페이지 당도보장 12브릭스(R-05-a 원문).
+  기준 미달 시 상세페이지 안내는 「재배송 또는 환불」(R-05-a 상황).
+expected: |
+  1. API-01(HGL-SEL-5) 또는 API-02(item=감귤) 조회 2. 30,000원, 당도보장 12브릭스 안내 3. 미달 시 재배송 또는 환불 가능 안내(선택)
+scope: {}
+confirm_before_call: []
+calls:
+  required: []
+  alternative:
+    - id: G1
+      mode: at_least_one
+      options:
+        - {api: API-01, match: {path.sku: HGL-SEL-5}}
+        - {api: API-02, match: {query.item: {contains_any: [감귤]}}}
+  conditional: []
+  forbidden: []
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "가격이 30,000원이라고 안내한다"}
+    - {id: S2, basis: expected, text: "당도 12브릭스 보장 기준을 안내한다"}
+    - {id: A1, basis: situation, text: "기준 미달이면 재배송 또는 환불이 가능하다고 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "12브릭스가 아닌 다른 보장 수치를 말한다"}
+echo: []
+sim:
+  persona: "구매 전 확인하는 회원."
+  facts: {}
+  rules: []
+  fallback: "네."
+  end_when: [브릭스]
+  closing: "감사합니다."
+  max_turns: 2

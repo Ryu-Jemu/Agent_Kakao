@@ -1,0 +1,44 @@
+id: S-PC-02
+type: 정책 충돌
+title: 기간 끝난 SUBAK15 적용 요구(인입일 07-04)
+tc_header: L-60
+received_at: "2037-07-04T10:05:00+09:00"
+first_message: |
+  case metadata
+  - id: L-60
+  - 상담 인입 일시: 2037-07-04(토) 10:05
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 유상혁 · 019-****-7383
+
+  수박 2통 담았는데 SUBAK15 코드가 안 먹혀요. 적용해 주세요.
+inquiry: 수박 2통 담았는데 SUBAK15 코드가 안 먹혀요. 적용해 주세요.
+situation: |
+  API-20 SUBAK15: valid_from 2037-06-26, valid_until 2037-07-03 (R-052 실측). 인입일 7/4는 종료 다음 날이라 적용 불가.
+  기준일은 세계관 기본일(6/30)이 아니라 인입 일시(7/4)다.
+expected: |
+  1. API-20(SUBAK15) 조회 2. 7월 3일로 종료돼 지금은 적용할 수 없다고 안내 3. 임의 적용·발급하지 않는다
+scope: {member_id: [MB-77020]}
+confirm_before_call: []
+calls:
+  required:
+    - {id: R1, api: API-20, match: {path.code: SUBAK15}}
+  alternative: []
+  conditional: []
+  forbidden:
+    - {id: F1, api: API-33, match: {}, basis: derived}
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "SUBAK15는 7월 3일까지였고 7월 4일 현재 종료돼 적용할 수 없다고 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "SUBAK15가 지금도 유효하다거나 적용해 주겠다고 말한다"}
+echo: []
+sim:
+  persona: "결제 직전의 30대 회원."
+  facts: {cart: "수박 2통 55,800원"}
+  rules:
+    - {when: [종료, 만료, 지났, 끝났], say: "하루 지났는데 좀 해주면 안 돼요?"}
+  fallback: "적용 안 돼요?"
+  end_when: []
+  closing: "알겠어요."
+  max_turns: 2

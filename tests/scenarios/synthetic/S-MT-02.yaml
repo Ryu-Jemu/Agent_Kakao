@@ -1,0 +1,54 @@
+id: S-MT-02
+type: 멀티턴
+title: 음성 환불 문의 — 사유가 하자인 분기(Y-07-b 변형, A5 R7)
+tc_header: Y-07-b
+received_at: "2037-06-30T14:40:00+09:00"
+first_message: |
+  case metadata
+  - id: Y-07-b
+  - 상담 인입 일시: 2037-06-30(화) 14:40
+  - 인입창구: 조합몰 1:1 채팅
+  - 인입 계정: 회원 로그인 · 표리원 · 019-****-4425
+
+  audio: https://t1.kakaocdn.net/aitop100/aitop100/dist/IhTu8IcHwTNWOIZtWlr_vQ.m4a
+inquiry: "[음성] 지난주 받은 수박 환불 가능 여부(사유 불분명)"
+situation: |
+  공개 TC Y-07-b와 같은 음성이다. 대상은 100400033(6/26 수령, 27,900원). 이번 고객은 사유를 물으면 '하자'(꼭지 쪽이 물러 상한 것 같음)라고 답하고, 조건을 들은 뒤 "환불 진행해 주세요"라고 명시적으로 요청한다.
+  하자는 전액환불·배송비 무료(KB §2). 명시적 요청 뒤에만 API-29.
+expected: |
+  1. 음성 요지 되짚기 2. 사유 재확인 3. 주문번호 확인 후 API-07·API-11(100400033) 4. 수령 후 4일·7일 이내 5. 하자 → 전액환불·배송비 무료 안내
+  6. 고객이 명시적으로 요청하면 API-29(order_no 100400033, amount 27900) 접수 후 접수 안내
+scope:
+  order_no: ["100400033"]
+  approval_no: [PAY-3706-0055]
+  shipment_id: ["re:^SHP-100400033-\\d+$"]
+confirm_before_call: ["100400033"]
+calls:
+  required:
+    - {id: R1, api: API-07, match: {path.order_no: "100400033"}}
+    - {id: R2, api: API-11, match: {query.order_no: "100400033"}}
+  alternative: []
+  conditional:
+    - {id: C1, api: API-29, match: {body.order_no: "100400033", body.amount: 27900}, trigger: [환불 진행해]}
+  forbidden: []
+  no_call_expected: false
+say:
+  must_say:
+    - {id: S1, basis: expected, text: "음성 요지(지난주 받은 수박 환불 가능 여부)를 되짚어 확인한다"}
+    - {id: S2, basis: expected, text: "하자인지 단순 변심인지 사유를 묻는다"}
+    - {id: S3, basis: expected, text: "수령 후 4일로 7일 이내라고 안내한다"}
+    - {id: S4, basis: expected, text: "하자이면 전액환불이고 배송비 부담이 없다고 안내한다"}
+    - {id: S5, basis: expected, text: "환불 신청이 접수됐다고 안내한다"}
+  must_not_say:
+    - {id: N1, basis: derived, text: "하자인데 왕복 배송비를 고객이 부담한다고 안내한다"}
+echo: []
+sim:
+  persona: "말끝을 흐리는 50대 회원."
+  facts: {order_no: "100400033", reason: "꼭지 쪽이 물러서 상한 것 같음(하자)"}
+  rules:
+    - {when: [주문번호, 주문 번호], say: "끝이 33이었던 것 같은데… 앱 보니까 100400033이네요."}
+    - {when: [사유, 이유, 상태, 하자, 변심, 어떤 문제], say: "꼭지 쪽이 물러서 상한 것 같아요."}
+    - {when: [전액, 배송비], say: "네, 그럼 환불 진행해 주세요."}
+  fallback: "지난주 받은 수박 환불되나 해서요."
+  end_when: [접수]
+  closing: "네, 감사합니다."
