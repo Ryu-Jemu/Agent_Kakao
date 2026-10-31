@@ -1,1 +1,14 @@
+# secrets
 .env
+.env.*
+!.env.example
+# coordination runtime state
+.coord/
+# run artifacts / logs
+tests/runs/
+**/logs/
+# python
+__pycache__/
+*.pyc
+.venv/
+.DS_Store

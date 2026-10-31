@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# 역할 세션 실행기. 사용: bin/agent <A0|A1|A2|A3|A4|A5|A6> [claude|codex]
+# - AGENT_ID를 설정해 훅·coord 명령이 역할을 식별하게 한다.
+# - codex는 AGENTS.md를 자동으로 읽지만 Claude 훅은 없다 → AGENTS.md §7 의무를 따른다.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+ID="${1:-}"; RT="${2:-claude}"
+case "$ID" in
+  A0) F=A0_ORCH ;; A1) F=A1_KNOW ;; A2) F=A2_INTEG ;; A3) F=A3_BRAIN ;;
+  A4) F=A4_TEST ;; A5) F=A5_ANALYST ;; A6) F=A6_GATE ;;
+  *) echo "사용: bin/agent <A0..A6> [claude|codex]"; exit 2 ;;
+esac
+export AGENT_ID="$ID"
+MSG="AGENTS.md와 prompts/_COMMON.md, prompts/${F}.md를 읽고 그대로 수행하라. 너의 AGENT_ID는 ${ID}다. 모든 coord 명령은 'AGENT_ID=${ID} python3 coord/coord.py …'로 실행하라."
+case "$RT" in
+  claude) exec claude "$MSG" ;;
+  codex)  exec codex "$MSG" ;;
+  *) echo "런타임은 claude 또는 codex"; exit 2 ;;
+esac

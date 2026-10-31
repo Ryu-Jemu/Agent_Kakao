@@ -1,0 +1,26 @@
+[PASS] H1 AGENT_ID 없으면 훅 무동작
+[PASS] H2 보드 직접 편집 deny
+[PASS] H3 원문 편집 deny
+[PASS] H4 필독 전 쓰기 deny
+[PASS] H5 필독 후 소유 경로 허용
+[PASS] H6 남의 경로 deny
+[PASS] T1 새 이벤트 additionalContext 주입
+[PASS] T2 같은 버전은 1회만 주입
+[PASS] T3 동시 post 30건 seq 무중복
+[PASS] L1 실패 기록에 원인·금지사항 필수
+[PASS] L2 실패 재시도는 --change 필수
+[PASS] L3 --change 있으면 재시도 기록 허용
+[PASS] P1 TC_MATRIX는 A4만
+[PASS] P2 WU는 담당자만
+[PASS] P3 HANDOFF 필수 항목 검증
+[PASS] G1 미실행 상태 NO-GO
+[PASS] G2 비커밋 빌드·없는 증거 → NO-GO
+[PASS] G3 실제 커밋·증거 15/15 → GO
+[PASS] G4 증거 내용에 ID/SHA 없으면 NO-GO
+[PASS] G5 원문 누락 → NO-GO
+[PASS] G6 원문 변조(MANIFEST 불일치) → NO-GO
+[PASS] G7 원상복구 후 GO 재현
+[PASS] B1 coord 저장 후 보드는 읽기 전용(444)
+[PASS] G8 매트릭스 중복 ID → NO-GO
+
+합계 24건 / 실패 0건

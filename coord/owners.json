@@ -1,0 +1,158 @@
+{
+  "_doc": "AGENTS.md U1/U3. write: 쓰기 허용 경로(접두사, '/'로 끝나면 디렉터리). readonly가 write보다 우선한다. required_reading은 glob이며, 해당 파일 sha256이 coord.py read로 기록되기 전에는 쓰기가 차단된다.",
+  "agents": {
+    "A0": {
+      "name": "ORCH",
+      "write": [
+        "coord/",
+        "prompts/",
+        "docs/",
+        ".claude/",
+        ".gitignore",
+        "README.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        "HUMAN_TODO.md",
+        "bin/"
+      ]
+    },
+    "A1": {
+      "name": "KNOW",
+      "write": [
+        "kb/"
+      ]
+    },
+    "A2": {
+      "name": "INTEG",
+      "write": [
+        "integ/",
+        "deploy/",
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version"
+      ]
+    },
+    "A3": {
+      "name": "BRAIN",
+      "write": [
+        "agent/"
+      ]
+    },
+    "A4": {
+      "name": "TEST",
+      "write": [
+        "tests/"
+      ]
+    },
+    "A5": {
+      "name": "ANALYST",
+      "write": [
+        "analysis/"
+      ]
+    },
+    "A6": {
+      "name": "GATE",
+      "write": [
+        "release/"
+      ]
+    },
+    "HUMAN": {
+      "name": "HUMAN",
+      "write": [
+        "inbox/",
+        ".env",
+        "HUMAN_TODO.md"
+      ]
+    }
+  },
+  "readonly": [
+    "docs/contest/",
+    "actions.json",
+    "actions.yaml",
+    "tests/tc/public/",
+    "SHARED_BOARD.md"
+  ],
+  "required_reading": {
+    "A0": [
+      "docs/contest/00_*.md",
+      "docs/contest/01_*.md",
+      "docs/contest/02_*.md",
+      "docs/contest/03_*.md",
+      "docs/contest/04_*.md",
+      "docs/contest/05_*.md",
+      "docs/contest/06_*.md",
+      "docs/contest/06b_*.md",
+      "docs/contest/07_*.md",
+      "docs/contest/08_*.md",
+      "docs/contest/09_*.md",
+      "docs/contest/10_*.md"
+    ],
+    "A1": [
+      "docs/contest/00_*.md",
+      "docs/contest/01_*.md",
+      "docs/contest/02_*.md",
+      "docs/contest/05_*.md",
+      "docs/contest/03_*.md",
+      "docs/contest/06_*.md",
+      "docs/contest/07_*.md",
+      "docs/contest/10_*.md"
+    ],
+    "A2": [
+      "docs/contest/00_*.md",
+      "docs/contest/01_*.md",
+      "docs/contest/02_*.md",
+      "docs/contest/05_*.md",
+      "docs/contest/04_*.md",
+      "docs/contest/06_*.md",
+      "docs/contest/06b_*.md",
+      "docs/contest/08_*.md",
+      "docs/contest/09_*.md"
+    ],
+    "A3": [
+      "docs/contest/00_*.md",
+      "docs/contest/01_*.md",
+      "docs/contest/02_*.md",
+      "docs/contest/05_*.md",
+      "docs/contest/04_*.md",
+      "docs/contest/06_*.md",
+      "docs/contest/07_*.md",
+      "docs/contest/08_*.md",
+      "docs/contest/10_*.md",
+      "tests/tc/public/*.md"
+    ],
+    "A4": [
+      "docs/contest/00_*.md",
+      "docs/contest/01_*.md",
+      "docs/contest/02_*.md",
+      "docs/contest/05_*.md",
+      "docs/contest/06_*.md",
+      "docs/contest/07_*.md",
+      "tests/tc/public/*.md"
+    ],
+    "A5": [
+      "docs/contest/00_*.md",
+      "docs/contest/01_*.md",
+      "docs/contest/02_*.md",
+      "docs/contest/05_*.md",
+      "docs/contest/06_*.md",
+      "docs/contest/07_*.md",
+      "tests/tc/public/*.md"
+    ],
+    "A6": [
+      "docs/contest/*.md",
+      "tests/tc/public/*.md"
+    ]
+  },
+  "contracts": {
+    "C1": "A3",
+    "C2": "A2",
+    "C3": "A2",
+    "C4": "A1",
+    "C5": "A4"
+  },
+  "tc_matrix_writer": "A4",
+  "board_admin": [
+    "A0",
+    "SETUP"
+  ]
+}

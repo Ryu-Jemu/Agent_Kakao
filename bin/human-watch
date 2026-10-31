@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# 사용자 알림 터미널: HUMAN을 지목한 요청(HUMAN_TODO 등)만 실시간 표시한다. 종료: Ctrl+C
+cd "$(dirname "$0")/.."
+echo "== HUMAN 알림 대기 (할 일 목록: HUMAN_TODO.md) =="
+AGENT_ID=HUMAN exec python3 coord/coord.py watch --interval 2

@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit",
+        "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR\"/coord/coord.py hook-pre" }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR\"/coord/coord.py hook-post" }]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [{ "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR\"/coord/coord.py hook-prompt" }]
+      }
+    ]
+  }
+}
