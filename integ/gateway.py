@@ -166,6 +166,8 @@ def load_warmup(mode: str):
     """agent.warmup()(A3 #125): 콜드 스타트 제거. 없으면 None."""
     if mode == "echo":
         return None
+    if os.environ.get("GATEWAY_WARMUP", "1").strip().lower() in ("0", "false", "off", "no"):
+        return None  # D-027: Vertex 호출 중단 시 warmup 완전 비활성(기동 직후 1회 호출도 없음)
     try:
         import agent
 

@@ -216,8 +216,17 @@ def unit_sanitize():
     check("san:str", t == ["문자열"])
 
 
+def unit_warmup_switch():
+    import os
+    os.environ["GATEWAY_WARMUP"] = "0"
+    check("warmup:switch-off", ig.load_warmup("agent") is None)
+    os.environ.pop("GATEWAY_WARMUP")
+    check("warmup:echo-none", ig.load_warmup("echo") is None)
+
+
 def main():
     unit_sanitize()
+    unit_warmup_switch()
     asyncio.run(run_tests())
     bad = [r for r in results if not r[1]]
     for n, ok, d in results:

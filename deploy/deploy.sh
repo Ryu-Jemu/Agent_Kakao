@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# VM 배포: deploy/deploy.sh echo|agent [<git-sha>]
+# VM 배포: [GATEWAY_WARMUP=0] deploy/deploy.sh echo|agent [<git-sha>]   (GATEWAY_WARMUP=0: agent.warmup 주기 호출 끔, D-027)
 #   <git-sha>를 주면 작업 트리가 아니라 그 커밋 내용(git archive)을 그대로 배포한다(BUILD sha = VM 코드 보장).
 #   1) 로컬 gateway 프로세스 0개 확인(4004 방지)  2) 스테이징(agent/ integ/ kb/ deploy/ pyproject uv.lock .python-version .env)
 #   3) RELEASE(git SHA[-dirty] + 내용 지문) · MANIFEST.sha256  4) VM 초기설정(vm_setup.sh, 멱등)
@@ -53,7 +53,7 @@ echo "✓ 스테이징: RELEASE=$(cat "$STAGE/RELEASE") 파일 $(wc -l < "$STAGE
 
 # 4) 업로드 → 설치
 rsync -az --delete --chmod=Du=rwx,Dgo=,Fu=rw,Fgo= -e "${SSH[*]}" "$STAGE/" "$R:choonsik_stage/"
-"${SSH[@]}" "$R" "sudo MODE=$MODE STAGE=/home/$VM_USER/choonsik_stage bash -s" <<'REMOTE'
+"${SSH[@]}" "$R" "sudo MODE=$MODE WARMUP=${GATEWAY_WARMUP:-1} STAGE=/home/$VM_USER/choonsik_stage bash -s" <<'REMOTE'
 set -euo pipefail
 rsync -a --delete --exclude '.venv/' --exclude '.cache/' --exclude 'integ/logs/' --exclude 'agent/logs/' "$STAGE/" /opt/choonsik/
 rm -f "$STAGE/.env"
@@ -69,7 +69,11 @@ if [ "$MODE" = agent ]; then
   sudo -u choonsik bash -c 'cd /opt/choonsik && .venv/bin/python -c "from agent import handle_message; print(\"✓ agent.handle_message import\")"'
 fi
 # 런타임 환경 고정(systemd 환경변수가 .env보다 우선 — dotenv override=False). D-008·#234: Vertex는 global
-printf 'GATEWAY_MODE=%s\nVERTEX_LOCATION=global\nAGENT_VERTEX_LOCATION=global\n' "$MODE" > /etc/default/choonsik
+# 관리 키만 갱신하고, vm_env.sh set으로 넣은 다른 키(GCP_PROJECT 등)는 보존한다
+T=$(mktemp)
+grep -v -E '^(GATEWAY_MODE|VERTEX_LOCATION|AGENT_VERTEX_LOCATION|GATEWAY_WARMUP)=' /etc/default/choonsik > "$T" 2>/dev/null || true
+printf 'GATEWAY_MODE=%s\nVERTEX_LOCATION=global\nAGENT_VERTEX_LOCATION=global\nGATEWAY_WARMUP=%s\n' "$MODE" "$WARMUP" >> "$T"
+install -m 644 "$T" /etc/default/choonsik; rm -f "$T"
 install -m 644 /opt/choonsik/deploy/choonsik.service /etc/systemd/system/choonsik.service
 systemctl daemon-reload
 systemctl enable -q choonsik
