@@ -40,11 +40,12 @@ def _is_policy_denied(msg: str) -> bool:
     return "403" in msg and "PERMISSION_DENIED" in msg
 
 
-# 백엔드 체인(D-028·D-029): ① Gemini API 키(AGENT_GEMINI_API_KEY 또는 GEMINI_API_KEY, 사용자 결정 D-029 기본)
+# 백엔드 체인(D-028·D-029): ① Gemini API 키(AGENT_GEMINI_API_KEY → GOOGLE_GEMINI_API_KEY → GEMINI_API_KEY, D-029·D-030)
 # → ② Vertex(GCP_PROJECT, ADC). 403 PERMISSION_DENIED를 받은 백엔드는 BLOCK_COOLDOWN_S 동안 건너뛰고 다음으로 넘어간다.
 # AGENT_VERTEX_FALLBACK=0이면 키가 있을 때 Vertex를 쓰지 않는다. 키 값은 로그·보드에 쓰지 않는다.
-API_KEY = (os.environ.get("AGENT_GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY") or "").strip()
-VERTEX_FALLBACK = os.environ.get("AGENT_VERTEX_FALLBACK", "1") != "0"
+API_KEY = (os.environ.get("AGENT_GEMINI_API_KEY") or os.environ.get("GOOGLE_GEMINI_API_KEY")  # D-030: HUMAN .env 키 이름
+           or os.environ.get("GEMINI_API_KEY") or "").strip()
+VERTEX_FALLBACK = os.environ.get("AGENT_VERTEX_FALLBACK", "0") == "1"  # D-027 보강: 키가 있으면 차단 프로젝트(Vertex)로 폴백하지 않음
 BLOCK_COOLDOWN_S = float(os.environ.get("AGENT_403_COOLDOWN_S", "300"))
 
 
