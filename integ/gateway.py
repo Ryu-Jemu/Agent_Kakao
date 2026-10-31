@@ -177,6 +177,7 @@ def load_warmup(mode: str):
 
 
 WARMUP_EVERY = float(os.environ.get("GATEWAY_WARMUP_EVERY", "270"))  # 4.5분
+WARMUP_MAX_FAILS = int(os.environ.get("GATEWAY_WARMUP_MAX_FAILS", "2"))  # 연속 실패 시 warmup 중지
 
 
 # ───────────────────────── 게이트웨이 ─────────────────────────
@@ -484,6 +485,7 @@ class Gateway:
     async def warmup_loop(self, warm) -> None:
         """기동 직후 1회 + WARMUP_EVERY초마다. 최근 처리한 메시지가 있으면(이미 따뜻함) 생략."""
         first = True
+        fails = 0
         while not self.stopping.is_set():
             if first or time.monotonic() - self.last_activity > WARMUP_EVERY * 0.8:
                 t0 = time.monotonic()
@@ -493,6 +495,11 @@ class Gateway:
                     ok = f"{type(e).__name__}"
                 jlog("warmup", ok=ok, ms=round((time.monotonic() - t0) * 1000), first=first)
                 first = False
+                fails = 0 if ok is True else fails + 1
+                if fails >= WARMUP_MAX_FAILS:  # D-032·#427: 연속 실패 시 warmup만 중지(재시도 루프 금지), 메시지 처리는 계속
+                    log.error("warmup 연속 %d회 실패 → warmup 중지", fails)
+                    jlog("warmup_stopped", fails=fails)
+                    return
             with contextlib.suppress(asyncio.TimeoutError):
                 await asyncio.wait_for(self.stopping.wait(), timeout=WARMUP_EVERY)
 

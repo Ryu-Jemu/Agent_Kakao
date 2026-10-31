@@ -224,9 +224,45 @@ def unit_warmup_switch():
     check("warmup:echo-none", ig.load_warmup("echo") is None)
 
 
+def unit_warmup_autostop():
+    async def t():
+        calls = []
+
+        async def bad():
+            calls.append(1)
+            return False  # agent.warmup은 예외를 삼키고 False 반환
+
+        async def flaky():
+            calls.append(1)
+            if len(calls) == 1:
+                raise RuntimeError("429")
+            return True
+
+        old = ig.WARMUP_EVERY
+        ig.WARMUP_EVERY = 0.05
+        try:
+            gw = ig.Gateway("x", ig.echo_handler, mode="test")
+            await asyncio.wait_for(gw.warmup_loop(bad), 2)  # 연속 2회 실패 → 스스로 종료
+            check("warmup:autostop-2fails", len(calls) == 2, len(calls))
+            calls.clear()
+            gw2 = ig.Gateway("x", ig.echo_handler, mode="test")
+            task = asyncio.create_task(gw2.warmup_loop(flaky))
+            await asyncio.sleep(0.4)
+            check("warmup:recover-resets", not task.done() and len(calls) >= 3, len(calls))
+            gw2.stopping.set()
+            await task
+            await gw.http.aclose()
+            await gw2.http.aclose()
+        finally:
+            ig.WARMUP_EVERY = old
+
+    asyncio.run(t())
+
+
 def main():
     unit_sanitize()
     unit_warmup_switch()
+    unit_warmup_autostop()
     asyncio.run(run_tests())
     bad = [r for r in results if not r[1]]
     for n, ok, d in results:
