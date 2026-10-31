@@ -13,6 +13,7 @@ WORLD_DEFAULT_NOW = datetime(2037, 6, 30, 12, 0)  # 세계관 기준일(docs/con
 
 # 고객 발화에서 '고객이 확인해 준' 식별자를 뽑는다(대상 외 번호 호출 금지 가드용).
 _ORDER_NO = re.compile(r"(?<![\d-])(\d[\d -]{5,14}\d)(?![\d-])")
+_PHONE = re.compile(r"0\d{1,2}[- .]?\d{3,4}[- .]?\d{4}")
 _TOKEN = re.compile(r"\b([A-Z]{2,5}-[A-Z0-9-]{2,30}|[A-Z]{3,}\d{2,6})\b", re.I)
 
 
@@ -29,12 +30,15 @@ class Session:
     member_id: str | None = None  # API-13 대조로 확정된 인입 회원
     member_lookup_done: bool = False
     customer_ids: set[str] = field(default_factory=set)  # 고객이 직접 말한 번호
+    customer_raw: dict[str, str] = field(default_factory=dict)  # 숫자열 → 고객이 쓴 원래 표기(전화·번호 형식 보존, D-012④)
     derived_ids: dict[str, set[str]] = field(default_factory=lambda: {
         "order": set(), "shipment": set(), "payment": set(), "lot": set(), "subscription": set(), "escalation": set(),
     })
     foreign_orders: set[str] = field(default_factory=set)  # 타 회원 주문으로 확인된 번호
     member_info: dict | None = None
     order_cache: dict[str, dict] = field(default_factory=dict)  # 소유 확인된 주문
+    shipments_by_order: dict[str, list] = field(default_factory=dict)  # API-11/10 결과(집하 여부 판단)
+    payment_cache: dict[str, dict] = field(default_factory=dict)  # API-17/18 결과(결제수단 판단)
     promo_status: dict[str, bool] = field(default_factory=dict)  # API-20 확인 결과(True=등록, False=미등록)
     receipts: list[dict] = field(default_factory=list)  # 접수 결과(접수번호 등)
     escalations: list[dict] = field(default_factory=list)  # API-35 접수(+reply_due)
@@ -48,7 +52,13 @@ class Session:
 
     def absorb_customer_text(self, text: str) -> None:
         for m in _ORDER_NO.finditer(text or ""):
-            digits = re.sub(r"\D", "", m.group(1))
+            raw = m.group(1).strip()
+            digits = re.sub(r"\D", "", raw)
+            if 8 <= len(digits) <= 14:
+                self.customer_raw.setdefault(digits, raw)
+            # 전화번호(010·019 등 01x로 시작 10~11자리, 또는 0xx-xxxx-xxxx 형식)는 주문번호로 받지 않는다(L-05 R-0xx)
+            if _PHONE.fullmatch(raw) or (digits.startswith("01") and len(digits) in (10, 11)):
+                continue
             if 6 <= len(digits) <= 14:
                 self.customer_ids.add(digits)
         for m in _TOKEN.finditer(text or ""):

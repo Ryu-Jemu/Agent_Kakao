@@ -23,10 +23,14 @@ except Exception:  # pragma: no cover
 PROJECT = os.environ.get("GCP_PROJECT", "ai-top-100-2026-513102")
 # D-008: global 고정(R-063: us-central1은 전 모델 404). .env의 VERTEX_LOCATION은 무시하고, 필요 시 AGENT_VERTEX_LOCATION으로만 바꾼다.
 LOCATION = os.environ.get("AGENT_VERTEX_LOCATION", "global")
-MODEL = os.environ.get("AGENT_MODEL", "gemini-3.6-flash")  # L-23 실측(warm, LOW) 3.6≈6.3s vs 3.8≈10s(agent/logs/turns.jsonl). 최종은 A5 실측
-FAST_MODEL = os.environ.get("AGENT_FAST_MODEL", MODEL)
+MODEL = os.environ.get("AGENT_MODEL", "gemini-3.8-flash")  # A5 R-095: 툴 판단 43/44(98%) vs 3.6 LOW 16/22, analysis/models.md
+FAST_MODEL = os.environ.get("AGENT_FAST_MODEL", "gemini-3.6-flash")  # 축약용
+FALLBACK_MODEL = os.environ.get("AGENT_FALLBACK_MODEL", "gemini-3.6-flash")  # 단계 타임아웃 시(A5 R-095: MINIMAL p95 1.2s)
+FALLBACK_THINKING = os.environ.get("AGENT_FALLBACK_THINKING", "MINIMAL")
 THINKING_BUDGET = os.environ.get("AGENT_THINKING_BUDGET")  # 정수(2.5 계열)
-THINKING_LEVEL = os.environ.get("AGENT_THINKING_LEVEL", "LOW")  # MINIMAL|LOW|MEDIUM|HIGH(3 계열). 3.8-flash는 MINIMAL 400
+# thinking: 모델별 기본(D-012). 3.8-flash=LOW(A5 R-095), 3.6-flash 등=모델 기본(LOW·MINIMAL은 툴 판단 저하). env로 덮어쓴다.
+THINKING_LEVEL = os.environ.get("AGENT_THINKING_LEVEL")  # MINIMAL|LOW|MEDIUM|HIGH. 3.8-flash는 MINIMAL 400
+MODEL_THINKING = {"gemini-3.8-flash": "LOW"}
 
 _client: genai.Client | None = None
 
@@ -49,8 +53,12 @@ def _switch_to_global() -> bool:
 
 
 def thinking_config(model: str) -> types.ThinkingConfig | None:
+    if model == FALLBACK_MODEL and model != MODEL and FALLBACK_THINKING:
+        return types.ThinkingConfig(thinking_level=FALLBACK_THINKING)
     if THINKING_LEVEL:
         return types.ThinkingConfig(thinking_level=THINKING_LEVEL)
+    if model in MODEL_THINKING:
+        return types.ThinkingConfig(thinking_level=MODEL_THINKING[model])
     if THINKING_BUDGET is not None:
         return types.ThinkingConfig(thinking_budget=int(THINKING_BUDGET))
     return None
@@ -61,7 +69,8 @@ async def generate(contents, *, system: str, tools: list | None, model: str | No
     m = model or MODEL
     cfg = types.GenerateContentConfig(
         system_instruction=system,
-        temperature=0.2,
+        temperature=float(os.environ.get("AGENT_TEMPERATURE", "0")),  # D-014①: 비결정성 축소
+        seed=int(os.environ.get("AGENT_SEED", "7")),
         max_output_tokens=max_tokens,
         automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
     )

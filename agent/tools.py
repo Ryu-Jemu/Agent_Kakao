@@ -24,25 +24,25 @@ except Exception:  # pragma: no cover - integ 미배포 환경
 # api_id → (함수 이름, 설명)
 TOOL_INFO: dict[str, tuple[str, str]] = {
     "API-01": ("get_product", "상품 조회: 상품명·원산지·품종·중량·등급·현재 판매가(price)·판매상태."),
-    "API-02": ("search_products", "품목명(예: 수박, 감귤)으로 상품 목록 검색."),
+    "API-02": ("search_products", "SKU 접두사로 상품 목록 검색: item=WTM(수박)·HGL(감귤)·MNG(망고) 등. 한글 품목명은 결과가 비어 있다(integ/API_SEMANTICS ①)."),
     "API-03": ("get_lot", "로트(출고 묶음) 조회: 포장일·측정 중량·측정 당도(measured_brix)·등급·상태·방제일. lot_id는 배송 조회 결과 items[].lot_id."),
     "API-04": ("get_lot_investigation", "로트 조사 기록 조회(상태·증상·책임·결론). found=false면 조사 기록이 없는 것."),
     "API-05": ("search_tickets_by_member", "인입 회원의 과거 상담 이력 검색(과거 약속·보상 이력 확인용)."),
-    "API-06": ("search_tickets_by_lot", "같은 로트에 대한 상담·신고 이력 검색(동일 로트 복수 신고 여부 확인)."),
+    "API-06": ("search_tickets_by_lot", "같은 로트에 대한 상담·신고 이력 건수 확인(동일 로트 복수 신고 여부). 다른 고객 정보는 비공개로 건수·날짜만 돌려준다."),
     "API-07": ("get_order", "주문 조회: 회원·주문상태·주문일·결제금액(amount)·수령인·배송지·결제승인번호(payment_refs)·품목(sku·단가)·출고예정일."),
     "API-08": ("search_orders_by_member", "인입 회원의 주문 이력 검색. 반복 구매 등 이력 판단이 정책상 필요할 때만 쓴다. 대상 주문을 찾으려고 쓰지 말고 주문번호는 고객에게 묻는다."),
     "API-09": ("search_orders_by_inflow_tag", "유입태그(인플루언서·제휴 코드 등)별 주문 검색."),
     "API-10": ("get_shipment", "배송 건 조회(shipment_id): 상태 READY/IN_TRANSIT/DELIVERED/RETURNED·택배사·송장·집하/배송완료 시각·물품 상태·로트."),
     "API-11": ("search_shipments_by_order", "주문의 배송 건 목록 조회. 빈 목록이면 배송 건이 아직 없는 것(집하 전)."),
-    "API-12": ("get_member", "조합원 조회(인입 회원 본인만)."),
-    "API-13": ("search_members_by_name", "이름으로 조합원 검색 — 인입 계정 이름으로만 가능, 전화 끝 4자리로 본인 회원ID를 확정한다."),
+    "API-12": ("get_member", "조합원 조회(인입 회원 본인만). 회원 유형·등급 판단이 필요할 때만."),
+    "API-13": ("search_members_by_name", "이름으로 조합원 검색 — 인입 계정 이름으로만 가능, 전화 끝 4자리로 본인 회원ID를 확정한다. 회원별 판단(반복 구매·도매 여부, 회원 보유 혜택)이 필요할 때만 쓴다."),
     "API-14": ("search_members_by_referrer", "인입 회원이 추천한 조합원 목록(추천 리워드 확인용)."),
     "API-15": ("search_point_entries", "인입 회원의 적립금 내역."),
-    "API-16": ("search_coupons", "인입 회원이 보유한 쿠폰 목록(발급·만료·사용 여부)."),
+    "API-16": ("search_coupons", "인입 회원이 보유한 쿠폰 목록(발급·만료·사용 여부). 고객이 자기 보유 쿠폰을 물을 때만."),
     "API-17": ("get_payment", "결제 조회(approval_no): 결제수단(pay_method)·금액·결제일·상태·카드 끝자리."),
     "API-18": ("search_payments_by_order", "주문의 결제 목록 조회."),
     "API-19": ("get_subscription", "구독 조회."),
-    "API-20": ("get_promo", "프로모션 코드 조회: 혜택(정률/정액)·유효기간·대상 SKU·함께 쓸 수 있는 코드(stackable_with). found=false면 등록되지 않은 코드."),
+    "API-20": ("get_promo", "프로모션 코드 조회: 혜택(정률/정액)·유효기간·대상 SKU·함께 쓸 수 있는 코드(stackable_with). found=false면 등록되지 않은 코드. 고객이 특정 코드의 적용 조건·기간·중복을 물을 때만 쓴다(혜택 목록 안내·쿠폰 요구 거절에는 쓰지 않는다)."),
     "API-21": ("get_inventory", "SKU 재고·판매상태 조회."),
     "API-22": ("request_order_restore", "[접수] 주문 복구 요청."),
     "API-23": ("request_order_change", "[접수] 주문 품목 변경 요청. requested_items 예: ['WTM-STD-8 x1']."),
@@ -57,7 +57,9 @@ TOOL_INFO: dict[str, tuple[str, str]] = {
     "API-32": ("request_cash_receipt", "[접수] 현금영수증 발행 요청. approval_no=현금·계좌이체 결제의 승인번호, receipt_number=고객이 지정한 발행 번호."),
     "API-33": ("request_coupon_issue", "[접수] 인입 회원에게 등록된 프로모션/보상 쿠폰 발급 요청(promo_code). 임의·미등록 코드 금지."),
     "API-34": ("request_reward", "[접수] 인입 회원에게 리워드(추천 리워드 등) 지급 요청."),
-    "API-35": ("escalate", "[접수] 담당자 이관(에스컬레이션). lane: LANE2_HANDOFF=담당자 확인·처리 이관(기본), LANE3_CLAIM=손해배상·클레임 정식 검토. reason에 대상 주문번호·사실·고객 요청·담당자에게 요청할 확인 사항을 적는다. 같은 이슈는 한 번만."),
+    "API-35": ("escalate", "[접수] 담당자 이관(에스컬레이션). lane: LANE2_HANDOFF=담당자 확인·처리 이관(기본), LANE3_CLAIM=손해배상·클레임 정식 검토. 같은 이슈는 한 번만. "
+               "reason은 다음 5요소를 모두 채운 한두 문장: [대상] 주문번호(관련 로트·배송 건 ID) / [사실] 조회 결과와 고객 진술 — 고객이 쓴 핵심 표현을 그대로(예: 곰팡이, 배탈, 병원비, 광고 문구 \"…\") / "
+               "[고객 요청] 고객이 요구한 것(환불·배상·병원비·정정 등) / [미확인] 아직 확인 안 된 것(예: 하자와 증상의 인과관계 미확인, 조사 기록 없음) / [요청] 담당자(지식베이스의 담당자 이름)에게 확인·조치 요청 사항. 섭취 후 건강 이상 건은 '병원비(진료비) 배상 검토'와 '하자와 증상의 인과관계 미확인'을 반드시 넣는다."),
     "API-36": ("get_escalation", "이관 접수 건 조회(처리 상태)."),
     "API-37": ("request_reship_charge", "[접수] 재배송비 청구(charge_amount, 원)."),
     "API-38": ("request_pickup", "[접수] 회수(픽업) 요청. qty·trigger(사유)·cost_bearer(SELLER|CUSTOMER)."),
@@ -92,6 +94,8 @@ _EXTRA_PARAM_DESC = {
     "amount": "환불 금액(원, 정수)",
     "reason": "사유(구체적으로)",
     "lane": "LANE2_HANDOFF 또는 LANE3_CLAIM",
+    "receipt_number": "고객이 지정한 발행 번호 — 고객이 적은 형식 그대로(하이픈 포함, 예: 019-2314-9701)",
+    "new_address": "고객이 확인해 준 상세주소 — 고객이 말한 표기 그대로",
 }
 
 
@@ -223,6 +227,25 @@ class ToolRunner:
                 return _err("UNREGISTERED_CODE", f"{code}는 등록되지 않은 코드다. 발급할 수 없다.")
             if code in s.customer_ids and st is not True:
                 return _err("REFUSE", f"고객이 요구한 코드 {code}는 발급할 수 없다(봇은 진행 중 이벤트의 등록 코드를 정책 조건에 맞을 때만 발급). 조회·발급을 더 시도하지 말고 거절한 뒤 실제 받을 수 있는 혜택을 안내하라.")
+        if api_id in ("API-24", "API-25", "API-27"):
+            # 상태 전제 가드(T-003): 집하 후에는 배송지·출고일 변경·긴급 출고 불가(KB §6, 택배 계약서).
+            ono = _digits(args.get("order_no"))
+            ships = s.shipments_by_order.get(ono)
+            if ships is None:
+                return _err("CHECK_SHIPMENT_FIRST", "접수 전에 search_shipments_by_order로 이 주문의 집하 여부를 먼저 확인하라.")
+            picked = [r for r in ships if isinstance(r, dict) and (r.get("picked_up_at") or r.get("status") in ("IN_TRANSIT", "DELIVERED", "RETURNED"))]
+            if picked:
+                return _err("ALREADY_PICKED_UP", "이 주문은 이미 택배사가 집하(인수)했다. 배송지·출고 일정 변경이나 긴급 출고를 접수할 수 없다. 접수하지 말고, 집하 후에는 변경이 불가하다는 점과 지식베이스의 대안을 안내하라.")
+        # 식별자 원문 보존(D-012④, L-05): 고객이 쓴 번호를 모델이 정규화해 넘기면 고객 표기로 되돌린다.
+        for key in ("receipt_number",):
+            if args.get(key):
+                raw = s.customer_raw.get(_digits(args[key]))
+                if raw and raw != args[key]:
+                    args[key] = raw
+        if api_id == "API-32":
+            pay = s.payment_cache.get(_norm(args.get("approval_no")))
+            if pay and "카드" in str(pay.get("pay_method", "")) or (pay and "CARD" in str(pay.get("pay_method", "")).upper()):
+                return _err("NOT_ELIGIBLE", "카드 결제는 현금영수증 발행 대상이 아니다. 접수하지 말고 현금·계좌이체 결제 주문인지 확인하라.")
         if api_id == "API-29":
             amt = args.get("amount")
             o = s.order_cache.get(_digits(args.get("order_no")))
@@ -293,6 +316,13 @@ class ToolRunner:
             out["date_notes"] = [n for n in notes if n]
         if api_id in ("API-11", "API-10"):
             rows = data if isinstance(data, list) else [data]
+            if api_id == "API-11":
+                s.shipments_by_order[_digits(args.get("order_no"))] = [r for r in rows if isinstance(r, dict)]
+            else:
+                for r in rows:
+                    if isinstance(r, dict) and r.get("order_no"):
+                        cur = [x for x in s.shipments_by_order.get(_digits(r["order_no"]), []) if x.get("shipment_id") != r.get("shipment_id")]
+                        s.shipments_by_order[_digits(r["order_no"])] = cur + [r]
             notes = []
             for r in rows:
                 if not isinstance(r, dict):
@@ -313,6 +343,9 @@ class ToolRunner:
             for r in data:
                 if isinstance(r, dict) and r.get("approval_no"):
                     s.derived_ids["payment"].add(_norm(r["approval_no"]))
+                    s.payment_cache[_norm(r["approval_no"])] = r
+        if api_id == "API-17" and isinstance(data, dict) and data.get("approval_no"):
+            s.payment_cache[_norm(data["approval_no"])] = data
         if api_id == "API-03" and isinstance(data, dict) and data.get("packed_at"):
             out["date_notes"] = [dates.elapsed_note(data["packed_at"], now, "포장일")]
         if api_id == "API-01" and isinstance(data, dict) and isinstance(data.get("price"), int):
@@ -325,6 +358,18 @@ class ToolRunner:
                                     "ordered": dates.elapsed_note(o.get("ordered_at"), now, "주문일")})
             if cmp:
                 out["price_compare"] = cmp
+        if api_id == "API-06" and isinstance(data, list):
+            # tickets.content에 타 고객 실명이 들어 있다(API_SEMANTICS ③) → 건수·날짜·본인 여부만 넘긴다.
+            mine = [r for r in data if isinstance(r, dict) and s.member_id and r.get("member_id") == s.member_id]
+            return {"ok": True, "lot_id": args.get("lot_id"), "ticket_count": len(data),
+                    "others_count": len(data) - len(mine),
+                    "created_dates": sorted({str(r.get("created_at", ""))[:10] for r in data if isinstance(r, dict)}),
+                    "note": "다른 고객의 신원·연락처·신고 내용은 고객에게 절대 말하지 않는다(건수 수준으로만)."}
+        if api_id in ("API-12", "API-14") and data:
+            rows = data if isinstance(data, list) else [data]
+            for r in rows:
+                if isinstance(r, dict) and r.get("phone"):
+                    r["phone"] = "***-****-" + _digits(r["phone"])[-4:]
         if api_id == "API-20":
             s.promo_status[_norm(args.get("code"))] = True
         if api_id == "API-13":

@@ -76,8 +76,12 @@ async def run_tests():
     ig.GW_URL = f"ws://127.0.0.1:{port}"
 
     callbacks: list[httpx.Request] = []
+    prewarms: list[httpx.Request] = []
 
     def cb_handler(req: httpx.Request):
+        if req.method == "HEAD":  # 콜백 연결 예열(콜백 아님)
+            prewarms.append(req)
+            return httpx.Response(403)
         callbacks.append(req)
         return httpx.Response(200, json={"totalCount": 1, "sendCount": 1, "errorCount": 0})
 
@@ -117,6 +121,8 @@ async def run_tests():
     await mock.dispatch(msg(big_id, "hi"))
     await asyncio.sleep(0.3)
     check("callback:once", len(callbacks) == 1)
+    check("kapi:prewarm", len(prewarms) == 1 and "Authorization" not in prewarms[0].headers
+          and "X-Bot-Callback-Token" not in prewarms[0].headers)
     if callbacks:
         r = callbacks[0]
         body = json.loads(r.content)

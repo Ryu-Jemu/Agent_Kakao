@@ -196,6 +196,7 @@ class Gateway:
         self.connected = False
         self.last_ack = 0.0
         self.last_activity = 0.0  # 마지막 handler 완료(monotonic) — warmup 생략 판단
+        self.last_kapi = 0.0  # 마지막 kapi 연결 사용(monotonic) — 콜백 연결 예열 판단
         self.stats = {"msgs": 0, "dups": 0, "cb_ok": 0, "cb_fail": 0, "timeouts": 0, "errors": 0, "reconnects": 0}
         self._load_state()
 
@@ -354,6 +355,10 @@ class Gateway:
             jlog("skip_no_callback", msg_id=mid)
             return
         self.stats["msgs"] += 1
+        if time.monotonic() - self.last_kapi > 20:
+            # 콜백 TLS 연결(실측 신규 0.5~0.9s vs 재사용 0.17s)을 handler 처리와 병렬로 미리 연다
+            self.last_kapi = time.monotonic()
+            asyncio.create_task(self._prewarm_kapi())
         key = f"{d.get('botGroupKey', '')}:{d.get('botUserKey', '')}"
         q = self.sessions.get(key)
         if q is None:
@@ -430,6 +435,10 @@ class Gateway:
              in_len=len(content), in_head=content[:40].replace("\n", " "), issues=issues or None,
              cb_status=cb_status, cb=cb_resp)
 
+    async def _prewarm_kapi(self) -> None:
+        with contextlib.suppress(Exception):  # 인증 없는 HEAD(403) — 연결 풀에 keep-alive 연결만 남긴다
+            await self.http.head(CALLBACK_URL, timeout=5.0)
+
     async def _send_callback(self, cb_token: str, texts: list[str], recv_mono: float):
         body = build_body(texts)
         headers = {"Authorization": f"KakaoAK {self.token}", "X-Bot-Callback-Token": cb_token,
@@ -437,6 +446,7 @@ class Gateway:
         last = None
         for attempt in range(2):
             try:
+                self.last_kapi = time.monotonic()
                 r = await self.http.post(CALLBACK_URL, json=body, headers=headers)
                 try:
                     j = r.json()

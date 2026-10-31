@@ -90,4 +90,4 @@ def elapsed_note(event_at, now: datetime, label: str) -> str | None:
     if not d:
         return None
     n = days_between(d, now.date())
-    return f"{label} {iso_ko(d)} → 상담일 기준 {n}일 경과"
+    return f"{label} {ko(d)} → 상담일({ko(now)}) 기준 {label.split()[-1]} 후 {n}일째"

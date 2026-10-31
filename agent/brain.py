@@ -22,7 +22,8 @@ from agent.tools import ToolRunner, function_declarations
 ROOT = Path(__file__).resolve().parent.parent
 BUDGET = float(os.environ.get("AGENT_BUDGET_S", "42"))
 MAX_STEPS = int(os.environ.get("AGENT_MAX_STEPS", "6"))
-STEP_TIMEOUT = float(os.environ.get("AGENT_STEP_TIMEOUT_S", "20"))
+STEP_TIMEOUT = float(os.environ.get("AGENT_STEP_TIMEOUT_S", "20"))  # D-012: 20s 초과 → 폴백 모델
+FAST_AFTER = float(os.environ.get("AGENT_FAST_AFTER_S", "18"))  # 턴 경과가 이 값을 넘으면 남은 단계는 폴백 모델
 MAX_BUBBLES = max(1, min(3, int(os.environ.get("AGENT_MAX_BUBBLES", "2"))))  # A5 A/B 손잡이(#66)
 TARGET_CHARS = int(os.environ.get("AGENT_TARGET_CHARS", "160"))  # A4 R-071: 평균 239자 → 축소
 MAX_CHARS = min(int(TARGET_CHARS * 1.75), 450)  # 160 → 280
@@ -30,8 +31,9 @@ LOG_PATH = Path(os.environ.get("AGENT_TURN_LOG", str(ROOT / "agent" / "logs" / "
 log = logging.getLogger("agent")
 
 FALLBACK = "죄송해요, 지금 확인이 지연되고 있어요. 방금 내용을 한 번만 다시 보내 주시면 바로 이어서 도와드릴게요."
-NO_CASE_NOTE = ("[시스템 메모] 이 대화에는 케이스 정보(case metadata)가 없어 주문·회원 조회와 접수를 할 수 없다. "
-                "일반 정책 안내만 하고, 개인 주문 처리가 필요하면 주문번호 등 필요한 정보만 정중히 물어라.")
+NO_CASE_NOTE = ("[시스템 메모] 이 대화에는 상담 정보(인입 계정·인입 일시 등)가 없어 주문·회원 조회와 접수를 할 수 없다. "
+                "일반 정책 안내는 하고, 개인 주문 처리가 필요하면 '상담 정보(계정)가 확인되지 않아 지금은 주문을 조회할 수 없다'고 사실대로 말한 뒤 "
+                "필요한 정보만 정중히 물어라. 시스템 장애 같은 사실 아닌 사유를 대지 않는다.")
 
 _cache: dict[str, tuple[float, str]] = {}
 
@@ -122,21 +124,40 @@ async def _run(s: Session, parsed, t0: float) -> tuple[list[str], dict]:
 
     tools = function_declarations() if runner.ac else None
     final = None
+    fast = False  # 이 턴에서 폴백이 났거나 FAST_AFTER초를 넘기면 남은 단계는 빠른 모델로(지연 상한)
     for step in range(MAX_STEPS):
         remaining = BUDGET - (time.monotonic() - t0)
         if remaining < 5:
             break
         allow = step < MAX_STEPS - 1
+        if not fast and (time.monotonic() - t0) > FAST_AFTER and llm.FALLBACK_MODEL != llm.MODEL:
+            fast = True
         t_llm = time.monotonic()
         try:
             resp = await llm.generate(s.history, system=system_prompt(s), tools=tools,
-                                      timeout=min(STEP_TIMEOUT, remaining - 2), allow_calls=allow)
-        except Exception as e:  # noqa: BLE001
+                                      model=llm.FALLBACK_MODEL if fast else None,
+                                      timeout=min(10.0 if fast else STEP_TIMEOUT, remaining - 2), allow_calls=allow)
+        except Exception as e:  # noqa: BLE001 — 주 모델 실패·타임아웃 → 빠른 폴백 모델로 같은 단계 1회
             meta["errors"].append(f"llm:{type(e).__name__}:{str(e)[:160]}")
             meta.setdefault("llm_ms", []).append(round((time.monotonic() - t_llm) * 1000))
-            break
+            remaining = BUDGET - (time.monotonic() - t0)
+            if remaining < 4 or llm.FALLBACK_MODEL == llm.MODEL or fast:
+                break
+            fast = True
+            t_llm = time.monotonic()
+            try:
+                resp = await llm.generate(s.history, system=system_prompt(s), tools=tools, model=llm.FALLBACK_MODEL,
+                                          timeout=min(10.0, remaining - 1.5), allow_calls=allow)
+                meta["fallback"] = meta.get("fallback", 0) + 1
+            except Exception as e2:  # noqa: BLE001
+                meta["errors"].append(f"fallback:{type(e2).__name__}:{str(e2)[:120]}")
+                break
+            finally:
+                meta.setdefault("llm_ms", []).append(round((time.monotonic() - t_llm) * 1000))
         meta.setdefault("llm_ms", []).append(round((time.monotonic() - t_llm) * 1000))
         meta["steps"] += 1
+        if fast:
+            meta["fast_steps"] = meta.get("fast_steps", 0) + 1
         cand = resp.candidates[0] if resp.candidates else None
         content = cand.content if cand is not None else None
         if content is None or not content.parts:
