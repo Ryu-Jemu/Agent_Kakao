@@ -1,5 +1,5 @@
 # SHARED BOARD — AI_TOP_100 [2026] 예선 (교동마을 산지직송 CS 에이전트)
-<!-- BOARD_VERSION: 742 -->
+<!-- BOARD_VERSION: 745 -->
 > 이 파일은 `python3 coord/coord.py`로만 수정한다(AGENTS.md U2, 직접 편집하면 훅이 차단한다). 셀 안의 `|`는 `¦`로 저장된다.
 > 처음 온 에이전트의 순서: AGENTS.md → NEXT → WORK_UNITS(내 WU) → 내 STATUS의 HANDOFF.
 
@@ -656,6 +656,11 @@
 | R-478 | 14:57 | A2 | 제출 완료(D-055 14:57) 시점 VM 최종 상태 기록 → 감시 종료·관찰만 전환 | ✅성공 | deploy/vm.sh cmd(읽기 전용): RELEASE·systemctl·pgrep·journal alive | RELEASE=48de01f1b0bf active=active restarts=0 procs=1 {"ev": "alive", "t": "2026-10-31T05:55:10.780+00:00", "connected": true, "sessions": 0, "inflight": 0, "rss_mb": 64.5, "mode": "agent", "msgs": 3, "dups": 0, "cb_ok": 3, "cb_fail": 0, "timeouts": 0, "errors": 0, "reconnects": 0} | - | - | - |
 | R-479 | 14:57 | A6 | M4 전제 감시 종료·제출 기록(D-055) | ✅성공 | TaskStop premise_watch; release/gate_M4.md 14:57 절 추가; coord ack 735 | premise_watch 14:17~14:56:58 ✗ 0. 제출 = App 1627085 + debrief 227e16c53c6c1d70 + release 48de01f. 디브리프 4판(26b136d5→dd66480a→85edc750→227e16c5) 교체 이력과 A6 검증 R-번호를 gate_M4.md(sha 2ca6bccd4ca2bd02)에 기록. 이후 관찰만 | - | - | - |
 | R-480 | 14:58 | A0 | M5 비봇 경로 커밋 + debrief 태그 | ✅성공 | git commit(214파일, 비밀 0, 런타임 0) → git tag debrief | git ff09a03 (tag debrief), release 48de01f 봇 경로 diff 0 | - | - | - |
+| R-481 | 15:00 | A0 | M5 마감 커밋(HUMAN_TODO·보드) + debrief 태그 이동 | ✅성공 | git commit; git tag -f debrief HEAD | git e953ff0 (tag debrief) | - | - | - |
+| R-482 | 15:00 | A6 | D-056 마감 커밋 읽기 전용 대조(관찰) | ✅성공 | git diff --name-only refs/tags/release refs/tags/debrief -- <봇 경로>; git diff 추가줄 비밀 패턴 grep; git show debrief:docs/debrief.md·release/gate_M4.md ¦ shasum; git branch -r --contains HEAD; git log -4 | release 48de01f→debrief: 214파일, 봇 경로 diff 0, .env 0, 비밀 패턴 추가 0, 원격 브랜치 포함 0(push 흔적 없음). 태그 내 docs/debrief.md=227e16c53c6c1d70(제출본), release/gate_M4.md=2ca6bccd4ca2bd02(A6 최종본). 관찰: debrief 태그는 D-056 기재 ff09a03이 아니라 후속 커밋 e953ff0(15:00:16, HUMAN_TODO·SHARED_BOARD만 추가)을 가리킴 — 비런타임, 영향 없음 | - | - | - |
+| R-483 | 15:00 | HUMAN | [보조] 제출 후 최종 에이전트 상태 일치 확인 | ✅성공 | A0 D055·A6제출기록·정본문어체sha/1611자·runtime release diff·읽기전용VM RELEASE/systemctl 대조 | inbox/audits/submitted_final_state_20261031.json | App1627085/release48de01f/문어체227e16c5·1611자일치. VMactive/running/NRestarts0·runtime diff0. 본세션이제출완료웹화면을직접열람한것은아님(A0사용자14:57보고근거). | 제출후운영/코드/설정변경·모델/액션테스트0유지. 이후비봇기록커밋과실행release를구분해설명. | - |
+| R-484 | 15:02 | HUMAN | [보조] 발견 관계자 수 최종 대조 | ✅성공 | kb/people.md 채널표와 kb/raw/*.md 8명 원문 파일 교차확인 | kb/people.md | 대회관계자10명중채널확보/대화8명. 대화에나온이름총12명,추가4명은연락처/대회관계자여부미확인. | 8명발견과12명이름확인을구분해답변. 낡은하단후보3명표로잔여인원계산하지않음. 제출후봇/설정/테스트변경0. | - |
+| R-485 | 15:51 | HUMAN | [보조] Google 모델 API 오류 문의 — 현재 운영 메타데이터 감사 | ✅성공 | 읽기전용SSH systemctl/RELEASE·journal기간별집계·turn오류/백엔드메타·재시도코드 대조 | inbox/audits/google_api_error_check_20261031_1550.json | 15:50active/running·connectedtrue·warmup34/34성공·callback4/4성공·최신15:49응답3661ms·기록된모델처리오류0. Google집계자체코드/숫자/기간미제공. | Google원시오류수와최종처리실패를구분,코드/기간추가요청. 누적원인을이전Vertex403으로단정하지않음. 신규추론/액션호출·배포/설정변경0. | - |
 <!-- SEC:RUNLOG:END -->
 
 <!-- SEC:READ:BEGIN -->
@@ -1599,4 +1604,7 @@
 | 740 | 14:59 | A0→ALL | DECISION | D-056 M5 마무리 완료: 커밋 ff09a03 + tag debrief(214파일, 비밀 0, 런타임 경로 0 — 봇은 release 48de01f 그대로, 봇 경로 diff 0 확인). 태그: m1 7253af4 / m2 c073f58 / m3 1678c0a / release 48de01f / debrief ff09a03. push 없음. 이후 커밋은 11/2 이후 회고만. 전원 수고했습니다 — 세션 종료 가능(A2·A6는 관찰만, 변경 금지) | SHARED_BOARD.md | - |
 | 741 | 14:59 | A0→ALL | WU | WU A0-1 ✅ TASKS 등록·HUMAN_TODO 게시·15분 점검 | R-480 | - |
 | 742 | 14:59 | A0→ALL | WU | WU A0-2 ✅ 마일스톤 커밋·FREEZE·디브리프·release 태그·제출 안내 | R-480 | - |
+| 743 | 15:00 | A6→A0 | INFO | D-056 읽기 전용 대조(A6 관찰): release 48de01f→debrief 214파일, 봇 경로 diff 0·.env 0·비밀 패턴 0·push 흔적 0, 태그 안 디브리프 = 제출본 227e16c5 확인. 기록 정정 참고: debrief 태그는 ff09a03이 아니라 e953ff0(15:00 HUMAN_TODO·보드 최종 커밋)을 가리킴 — 비런타임, 영향 없음. A6 관찰 모드 유지 | release/gate_M4.md | - |
+| 744 | 15:00 | HUMAN→A0,A2,A6 | INFO | [보조] 사용자제출상태가최종에이전트맞는지질문에읽기전용재확인. D05514:57제출보고·문어체227e16c5/1611자·App1627085·VMRELEASE48de01f active/running/NRestarts0·release대비runtime diff0일치. HEAD후속커밋은실행봇변경아님. 사용자에게일치보고. 제출후모델/액션테스트/설정변경0. | inbox/audits/submitted_final_state_20261031.json | - |
+| 745 | 15:51 | HUMAN→A0,A2,A6 | INFO | [보조] 사용자Google/모델API오류문의. 15:50읽기전용관찰: active/running/NRestarts0/release48de01f,aliveconnectedtrue msgs4 cb_ok4 cb_fail/timeouts/errors/reconnects0. warmup배포후34/34·제출후12/12성공,최신15:49:25. 실제수신응답15:49:30 ok/cb200/3.661초·gemini-api-key·턴로그오류0. Google화면코드/오류수/기간은사용자에게질문대기(재시도/누적오류가능,단정안함). 보조발신·추론테스트·코드/설정변경0. | inbox/audits/google_api_error_check_20261031_1550.json | - |
 <!-- SEC:EVENTS:END -->

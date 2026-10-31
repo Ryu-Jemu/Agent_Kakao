@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-31T15:00:47.029830+09:00",
+  "submission_record": "A0 D-055 user reported submitted14:57; A6 gate_M4 final section",
+  "app_id": "1627085",
+  "runtime_release": "48de01f1b0bfc15923b904d284b5591cfb8feedc",
+  "vm_release_readonly_confirmed": "48de01f1b0bf fp=f5843fcaa753270b mode=agent",
+  "vm_active": true,
+  "vm_running": true,
+  "vm_restarts": 0,
+  "runtime_diff_from_release": "",
+  "debrief_sha256": "227e16c53c6c1d7034d959000473319b1cd6189457c30c5a5b8c300dec122e9c",
+  "debrief_chars": 1611,
+  "submission_page_directly_viewed_this_check": false,
+  "post_submission_inference_action_test_calls": 0,
+  "runtime_mutations": 0
+}

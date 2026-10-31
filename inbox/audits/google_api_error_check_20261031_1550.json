@@ -1,0 +1,43 @@
+{
+  "checked_at_kst": "2026-10-31 15:50:45",
+  "source": "read-only VM journal/systemctl/agent-turn metadata",
+  "service": "active/running",
+  "restarts": 0,
+  "release": "48de01f1b0bf",
+  "latest_alive_kst": "15:50:10",
+  "connected": true,
+  "stats": {
+    "received": 4,
+    "callback_ok": 4,
+    "callback_fail": 0,
+    "timeouts": 0,
+    "handler_errors": 0,
+    "reconnects": 0
+  },
+  "warmups_since_deploy": {
+    "success": 34,
+    "failure": 0,
+    "stopped": 0
+  },
+  "warmups_since_submission": {
+    "success": 12,
+    "failure": 0
+  },
+  "warmups_last15min": {
+    "success": 4,
+    "failure": 0
+  },
+  "latest_warmup_kst": "15:49:25",
+  "latest_warmup_ms": 1383,
+  "latest_inbound_response_kst": "15:49:30",
+  "latest_response_ms": 3661,
+  "latest_response_handler_status": "ok",
+  "latest_callback_status": 200,
+  "latest_response_backend": "gemini-api-key",
+  "latest_model": "gemini-3.6-flash",
+  "logged_turns_since_deploy": 4,
+  "turns_with_logged_llm_errors": 0,
+  "google_metric_error_count_directly_checked": false,
+  "limitation": "Successful retries can count as Google API errors while no final application failure is logged. No inference/action test was sent. Google error code/count/window requested from user.",
+  "mutations": 0
+}
