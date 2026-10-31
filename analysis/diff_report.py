@@ -38,14 +38,18 @@ OWNER = {"KB 공백": "A1", "정책 추론": "A3(프롬프트)", "도구 오용"
 ICON = {"ok": "✅", "partial": "⚠️", "fail": "❌"}
 
 
-def kb_status():
-    """kb_coverage.py를 import해 K별 상태를 얻는다(실패하면 빈 dict)."""
+def kb_status(build_sha=None):
+    """K별 상태. 빌드 추출본(tests/runs/_builds/<sha>/kb)이 있으면 **빌드 시점 KB**로 판정한다(읽기 전용)."""
     try:
         sys.path.insert(0, os.path.join(ROOT, "analysis"))
         import kb_coverage as kc
-        return {k: v["status"] for k, v in kc.evaluate(kc.load_facts()).items()}
+        p = None
+        if build_sha:
+            cand = os.path.join(ROOT, "tests", "runs", "_builds", build_sha.split("-")[0], "kb", "facts.jsonl")
+            p = cand if os.path.exists(cand) else None
+        return {k: v["status"] for k, v in kc.evaluate(kc.load_facts(p)).items()}, (p or "현재 kb/")
     except Exception:
-        return {}
+        return {}, "-"
 
 
 def fmt_flat(flat, n=90):
@@ -142,7 +146,7 @@ def render(run, m, rows):
     L = ["# A5-2 diff 보고서 — run `%s`" % ts, ""]
     L.append("> 생성: `python3 analysis/diff_report.py %s` · 입력: results.json·metrics.json(A4 하네스) · 정본: 원문 기대 대응(루브릭)" % run)
     b = m.get("build", {})
-    L.append("> build `%s` · set=%s · sim=%s · judge=%s" % (b.get("label"), m.get("set"), m.get("sim"), m.get("judge")))
+    L.append("> build `%s` · set=%s · sim=%s · judge=%s · KB 판정 기준: %s" % (b.get("label"), m.get("set"), m.get("sim"), m.get("judge"), m.get("_kb_src")))
     L.append("")
     L.append("## 요약 (사실 — metrics.json)")
     L.append("| ✅ | ⚠️ | ❌ | 필수 재현율 | must_say 충족 | 금지/대상외/조기 | 말풍선/케이스 | 글자/말풍선 | p50 | p95 | 턴 p95 | 액션 호출 |")
@@ -219,7 +223,8 @@ def main():
     run = a.run
     res = json.load(open(os.path.join(run, "results.json"), encoding="utf-8"))
     m = json.load(open(os.path.join(run, "metrics.json"), encoding="utf-8"))
-    kst = kb_status()
+    kst, kb_src = kb_status(m.get("build", {}).get("label"))
+    m["_kb_src"] = os.path.relpath(kb_src, ROOT) if kb_src not in ("-", "현재 kb/") else kb_src
     rows = [analyze_tc(r, kst) for r in res]
     ts = os.path.basename(run.rstrip("/"))
     md = render(run, m, rows)

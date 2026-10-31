@@ -40,6 +40,17 @@ EXPS = {
         "m38_low": {"AGENT_MODEL": "gemini-3.8-flash", "AGENT_THINKING_LEVEL": "LOW"},
         "m36_def": {"AGENT_MODEL": "gemini-3.6-flash", "AGENT_THINKING_LEVEL": ""},
     },
+    "v02": {     # --build 9766b9a(BUILD v0.2): MODEL_THINKING로 3.8=LOW, 3.6=모델 기본. D-012 개정 판정용 2조건
+        "m38_low": {"AGENT_MODEL": "gemini-3.8-flash", "AGENT_THINKING_LEVEL": "LOW"},
+        "m36_def": {"AGENT_MODEL": "gemini-3.6-flash", "AGENT_THINKING_LEVEL": ""},
+    },
+    "repro": {   # D-015 이후: 릴리스 후보 빌드의 기본값 그대로(env 변경 없음) 재현성 확인
+        "default": {},
+    },
+    "v03": {     # 릴리스 후보: default(목표 160) 2회 = 재현성 확인(D-015), t120 2회 = 형식 A/B(정확도 하락 시 채택 안 함)
+        "default": {},
+        "t120": {"AGENT_TARGET_CHARS": "120"},
+    },
     "thinking": {
         "think_default": {},
         "think_minimal": {"AGENT_THINKING_LEVEL": "minimal"},

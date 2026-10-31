@@ -1,0 +1,136 @@
+{
+ "ts": "20261031-115548",
+ "build": {
+  "sha": "71cad56b206da389d6fb6b205b62b7e89476d94e",
+  "dirty": false,
+  "label": "71cad56b206da389d6fb6b205b62b7e89476d94e",
+  "content_fp": "7a9ae6dba4982047",
+  "dirty_files": [],
+  "bot_root": "tests/runs/_builds/71cad56b206da389d6fb6b205b62b7e89476d94e",
+  "agent_file": "tests/runs/_builds/71cad56b206da389d6fb6b205b62b7e89476d94e/agent/__init__.py",
+  "integ_file": "tests/runs/_builds/71cad56b206da389d6fb6b205b62b7e89476d94e/integ/gateway.py"
+ },
+ "set": "public",
+ "sim": "scripted",
+ "judge": true,
+ "n": 8,
+ "ok": 5,
+ "partial": 3,
+ "fail": 0,
+ "required_recall": 1.0,
+ "must_say_rate": 0.865,
+ "forbidden": 0,
+ "off_target": 0,
+ "premature": 0,
+ "avg_bubbles_per_case": 3.38,
+ "avg_chars_per_bubble": 200.4,
+ "over_500": 0,
+ "p50_ms": 5627,
+ "p95_ms": 15913,
+ "p95_turn_ms": 15913,
+ "max_ms": 16225,
+ "api_calls_net": 20,
+ "wall_sec": 86.0,
+ "per_tc": {
+  "L-20": {
+   "verdict": "partial",
+   "why": [
+    "무호출 TC에서 API-13 호출",
+    "무호출 TC에서 API-12 호출"
+   ],
+   "bubbles": 3,
+   "avg_chars": 285.0,
+   "turn_ms": [
+    10936,
+    4149,
+    8836
+   ]
+  },
+  "Y-24": {
+   "verdict": "partial",
+   "why": [
+    "must_say S2 unmet: 공시된 상호와 대표자명을 안내한다(값은 KB 공시 정보와 일치해야 함)",
+    "must_say S3 unmet: 공시 페이지에 표기된 사업자등록번호를 그대로 안내한다",
+    "must_say S4 unmet: 공시된 사업장 주소와 대표 전화 또는 대표 이메일을 안내한다"
+   ],
+   "bubbles": 3,
+   "avg_chars": 179.0,
+   "turn_ms": [
+    6915,
+    4009,
+    3415
+   ]
+  },
+  "L-60": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 169.7,
+   "turn_ms": [
+    9747,
+    5593,
+    3209
+   ]
+  },
+  "L-40": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 181.3,
+   "turn_ms": [
+    10059,
+    5995,
+    4756
+   ]
+  },
+  "Y-07-b": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 185.3,
+   "turn_ms": [
+    5816,
+    12772,
+    5627
+   ]
+  },
+  "L-23": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 5,
+   "avg_chars": 188.2,
+   "turn_ms": [
+    11922,
+    6397,
+    3973,
+    2802,
+    2932
+   ]
+  },
+  "L-33": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 4,
+   "avg_chars": 192.5,
+   "turn_ms": [
+    2676,
+    15913,
+    4811,
+    4555
+   ]
+  },
+  "L-32": {
+   "verdict": "partial",
+   "why": [
+    "must_say S5 unmet: 남은 수박 사진으로 상품 하자가 확인되면 전액환불을 진행할 수 있다고 안"
+   ],
+   "bubbles": 3,
+   "avg_chars": 233.0,
+   "turn_ms": [
+    6274,
+    16225,
+    4052
+   ]
+  }
+ }
+}

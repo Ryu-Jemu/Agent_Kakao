@@ -1,0 +1,130 @@
+{
+ "ts": "20261031-121335",
+ "build": {
+  "sha": "3a78db0548eb26580c355231722c740ec368d09c",
+  "dirty": false,
+  "label": "3a78db0548eb26580c355231722c740ec368d09c",
+  "content_fp": "2d811a6d3d4691fb",
+  "dirty_files": [],
+  "bot_root": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c",
+  "agent_file": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c/agent/__init__.py",
+  "integ_file": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c/integ/gateway.py"
+ },
+ "set": "public",
+ "sim": "scripted",
+ "judge": true,
+ "n": 8,
+ "ok": 6,
+ "partial": 2,
+ "fail": 0,
+ "required_recall": 1.0,
+ "must_say_rate": 0.919,
+ "forbidden": 0,
+ "off_target": 0,
+ "premature": 0,
+ "avg_bubbles_per_case": 3.25,
+ "avg_chars_per_bubble": 198.5,
+ "over_500": 0,
+ "p50_ms": 5218,
+ "p95_ms": 12372,
+ "p95_turn_ms": 12372,
+ "max_ms": 19394,
+ "api_calls_net": 18,
+ "wall_sec": 126.8,
+ "per_tc": {
+  "L-20": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 215.0,
+   "turn_ms": [
+    6394,
+    3375,
+    6036
+   ]
+  },
+  "Y-24": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 209.7,
+   "turn_ms": [
+    8797,
+    5011,
+    2257
+   ]
+  },
+  "L-60": {
+   "verdict": "partial",
+   "why": [
+    "must_say S1 unmet: 장바구니 상품과 수량, 할인 전 장바구니 금액을 묻는다"
+   ],
+   "bubbles": 3,
+   "avg_chars": 181.3,
+   "turn_ms": [
+    10148,
+    5218,
+    2731
+   ]
+  },
+  "L-40": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 148.7,
+   "turn_ms": [
+    10986,
+    4822,
+    4255
+   ]
+  },
+  "Y-07-b": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 225.0,
+   "turn_ms": [
+    5608,
+    11655,
+    5863
+   ]
+  },
+  "L-23": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 5,
+   "avg_chars": 175.0,
+   "turn_ms": [
+    12372,
+    6025,
+    4684,
+    4078,
+    2796
+   ]
+  },
+  "L-33": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 4,
+   "avg_chars": 189.5,
+   "turn_ms": [
+    4532,
+    11852,
+    4556,
+    5005
+   ]
+  },
+  "L-32": {
+   "verdict": "partial",
+   "why": [
+    "must_say S4 unmet: 주문번호를 받고 그 수박 주문이 상담 대상인지 확인한다"
+   ],
+   "bubbles": 2,
+   "avg_chars": 295.0,
+   "turn_ms": [
+    4898,
+    19394
+   ]
+  }
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "ts": "20261031-121038",
+ "build": {
+  "sha": "3a78db0548eb26580c355231722c740ec368d09c",
+  "dirty": false,
+  "label": "3a78db0548eb26580c355231722c740ec368d09c",
+  "content_fp": "2d811a6d3d4691fb",
+  "dirty_files": [],
+  "bot_root": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c",
+  "agent_file": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c/agent/__init__.py",
+  "integ_file": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c/integ/gateway.py"
+ },
+ "set": "public",
+ "sim": "scripted",
+ "judge": true,
+ "n": 8,
+ "ok": 7,
+ "partial": 1,
+ "fail": 0,
+ "required_recall": 1.0,
+ "must_say_rate": 0.946,
+ "forbidden": 0,
+ "off_target": 0,
+ "premature": 0,
+ "avg_bubbles_per_case": 3.88,
+ "avg_chars_per_bubble": 197.7,
+ "over_500": 0,
+ "p50_ms": 4812,
+ "p95_ms": 12045,
+ "p95_turn_ms": 12045,
+ "max_ms": 12312,
+ "api_calls_net": 15,
+ "wall_sec": 100.3,
+ "per_tc": {
+  "L-20": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 215.0,
+   "turn_ms": [
+    6414,
+    3185,
+    6820
+   ]
+  },
+  "Y-24": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 199.3,
+   "turn_ms": [
+    8868,
+    5067,
+    3436
+   ]
+  },
+  "L-60": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 253.3,
+   "turn_ms": [
+    12045,
+    6557,
+    3075
+   ]
+  },
+  "L-40": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 6,
+   "avg_chars": 140.8,
+   "turn_ms": [
+    11043,
+    3740,
+    3919,
+    3872,
+    3681,
+    2283
+   ]
+  },
+  "Y-07-b": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 225.0,
+   "turn_ms": [
+    5678,
+    11609,
+    6039
+   ]
+  },
+  "L-23": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 5,
+   "avg_chars": 171.2,
+   "turn_ms": [
+    11569,
+    5517,
+    4812,
+    3174,
+    3005
+   ]
+  },
+  "L-33": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 6,
+   "avg_chars": 212.8,
+   "turn_ms": [
+    4440,
+    12312,
+    4671,
+    4705,
+    9617,
+    4023
+   ]
+  },
+  "L-32": {
+   "verdict": "partial",
+   "why": [
+    "must_say S4 unmet: 주문번호를 받고 그 수박 주문이 상담 대상인지 확인한다"
+   ],
+   "bubbles": 2,
+   "avg_chars": 236.5,
+   "turn_ms": [
+    4657,
+    11722
+   ]
+  }
+ }
+}

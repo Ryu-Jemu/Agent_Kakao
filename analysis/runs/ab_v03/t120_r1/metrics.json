@@ -1,0 +1,127 @@
+{
+ "ts": "20261031-121219",
+ "build": {
+  "sha": "3a78db0548eb26580c355231722c740ec368d09c",
+  "dirty": false,
+  "label": "3a78db0548eb26580c355231722c740ec368d09c",
+  "content_fp": "2d811a6d3d4691fb",
+  "dirty_files": [],
+  "bot_root": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c",
+  "agent_file": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c/agent/__init__.py",
+  "integ_file": "tests/runs/_builds/3a78db0548eb26580c355231722c740ec368d09c/integ/gateway.py"
+ },
+ "set": "public",
+ "sim": "scripted",
+ "judge": true,
+ "n": 8,
+ "ok": 8,
+ "partial": 0,
+ "fail": 0,
+ "required_recall": 1.0,
+ "must_say_rate": 0.973,
+ "forbidden": 0,
+ "off_target": 0,
+ "premature": 0,
+ "avg_bubbles_per_case": 3.38,
+ "avg_chars_per_bubble": 191.0,
+ "over_500": 0,
+ "p50_ms": 5049,
+ "p95_ms": 13123,
+ "p95_turn_ms": 13123,
+ "max_ms": 13964,
+ "api_calls_net": 14,
+ "wall_sec": 76.0,
+ "per_tc": {
+  "L-20": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 196.3,
+   "turn_ms": [
+    5710,
+    4657,
+    4558
+   ]
+  },
+  "Y-24": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 196.0,
+   "turn_ms": [
+    6627,
+    3525,
+    3747
+   ]
+  },
+  "L-60": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 190.7,
+   "turn_ms": [
+    9234,
+    5965,
+    2770
+   ]
+  },
+  "L-40": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 2,
+   "avg_chars": 189.0,
+   "turn_ms": [
+    10152,
+    3977
+   ]
+  },
+  "Y-07-b": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 189.0,
+   "turn_ms": [
+    5512,
+    8086,
+    4512
+   ]
+  },
+  "L-23": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 5,
+   "avg_chars": 188.4,
+   "turn_ms": [
+    13123,
+    6717,
+    3558,
+    4165,
+    5049
+   ]
+  },
+  "L-33": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 4,
+   "avg_chars": 168.2,
+   "turn_ms": [
+    6401,
+    13964,
+    5229,
+    3252
+   ]
+  },
+  "L-32": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 4,
+   "avg_chars": 212.0,
+   "turn_ms": [
+    4784,
+    10976,
+    4218,
+    4111
+   ]
+  }
+ }
+}

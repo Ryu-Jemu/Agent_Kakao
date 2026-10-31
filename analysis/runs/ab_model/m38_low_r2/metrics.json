@@ -1,0 +1,141 @@
+{
+ "ts": "20261031-115348",
+ "build": {
+  "sha": "71cad56b206da389d6fb6b205b62b7e89476d94e",
+  "dirty": false,
+  "label": "71cad56b206da389d6fb6b205b62b7e89476d94e",
+  "content_fp": "7a9ae6dba4982047",
+  "dirty_files": [],
+  "bot_root": "tests/runs/_builds/71cad56b206da389d6fb6b205b62b7e89476d94e",
+  "agent_file": "tests/runs/_builds/71cad56b206da389d6fb6b205b62b7e89476d94e/agent/__init__.py",
+  "integ_file": "tests/runs/_builds/71cad56b206da389d6fb6b205b62b7e89476d94e/integ/gateway.py"
+ },
+ "set": "public",
+ "sim": "scripted",
+ "judge": true,
+ "n": 8,
+ "ok": 4,
+ "partial": 3,
+ "fail": 1,
+ "required_recall": 1.0,
+ "must_say_rate": 0.811,
+ "forbidden": 0,
+ "off_target": 0,
+ "premature": 0,
+ "avg_bubbles_per_case": 3.75,
+ "avg_chars_per_bubble": 203.5,
+ "over_500": 0,
+ "p50_ms": 5997,
+ "p95_ms": 37792,
+ "p95_turn_ms": 37792,
+ "max_ms": 40005,
+ "api_calls_net": 17,
+ "wall_sec": 119.4,
+ "per_tc": {
+  "L-20": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 3,
+   "avg_chars": 321.0,
+   "turn_ms": [
+    37792,
+    3853,
+    11947
+   ]
+  },
+  "Y-24": {
+   "verdict": "partial",
+   "why": [
+    "must_say S2 unmet: 공시된 상호와 대표자명을 안내한다(값은 KB 공시 정보와 일치해야 함)",
+    "must_say S3 unmet: 공시 페이지에 표기된 사업자등록번호를 그대로 안내한다",
+    "must_say S4 unmet: 공시된 사업장 주소와 대표 전화 또는 대표 이메일을 안내한다"
+   ],
+   "bubbles": 3,
+   "avg_chars": 159.3,
+   "turn_ms": [
+    3372,
+    3425,
+    2010
+   ]
+  },
+  "L-60": {
+   "verdict": "partial",
+   "why": [
+    "must_say S2 unmet: SUBAK15가 수박 한정 15% 할인이고 유효기간은 6월 26일부터 7"
+   ],
+   "bubbles": 3,
+   "avg_chars": 206.3,
+   "turn_ms": [
+    11362,
+    2715,
+    6483
+   ]
+  },
+  "L-40": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 4,
+   "avg_chars": 151.2,
+   "turn_ms": [
+    40005,
+    24207,
+    3586,
+    22823
+   ]
+  },
+  "Y-07-b": {
+   "verdict": "fail",
+   "why": [
+    "must_not_say N1 위반: 사유를 확인하기 전에 하자 또는 단순 변심으로 단정한다 — 음성 메시지로 지난주에 받으신 수박의 상태가 이상한 것 같아 환불이 가능한지 문의해 주신 것으로 확인했어요.",
+    "must_say S2 unmet: 음성만으로 하자나 단순 변심을 단정하지 않고 환불 사유를 고객에게 재확인"
+   ],
+   "bubbles": 3,
+   "avg_chars": 203.3,
+   "turn_ms": [
+    6047,
+    5997,
+    6453
+   ]
+  },
+  "L-23": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 6,
+   "avg_chars": 189.3,
+   "turn_ms": [
+    33377,
+    2516,
+    2961,
+    2612,
+    3698,
+    2482
+   ]
+  },
+  "L-33": {
+   "verdict": "ok",
+   "why": [],
+   "bubbles": 5,
+   "avg_chars": 184.8,
+   "turn_ms": [
+    4061,
+    8917,
+    4909,
+    6665,
+    2903
+   ]
+  },
+  "L-32": {
+   "verdict": "partial",
+   "why": [
+    "must_say S5 unmet: 남은 수박 사진으로 상품 하자가 확인되면 전액환불을 진행할 수 있다고 안"
+   ],
+   "bubbles": 3,
+   "avg_chars": 256.7,
+   "turn_ms": [
+    7547,
+    8817,
+    3354
+   ]
+  }
+ }
+}
