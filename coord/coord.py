@@ -135,6 +135,7 @@ def load() -> str:
 def save(text: str):
     write_text(BOARD, text)
     os.chmod(BOARD, 0o444)  # 훅 없는 런타임(Codex 등)의 직접 편집 차단. os.replace는 디렉터리 권한으로 동작한다.
+    write_text(state_path("board.sha256"), sha256(BOARD))  # audit이 coord 밖 편집을 탐지하는 기준(A6 #241, D-016)
 
 
 # ───────────────────────── 보드 구조 ─────────────────────────
@@ -878,9 +879,17 @@ def cmd_audit(a):
     for ln in out.splitlines():
         path = ln[3:].strip().strip('"')
         owner = path_owner(path, o)
-        ro = is_readonly(path, o)
+        # SHARED_BOARD.md는 coord.py가 갱신하므로 git 변경은 정상이다. 대신 마지막 coord 저장 해시와 비교해
+        # coord 밖 편집(chmod 후 직접 편집 등)을 잡는다(#24·A6 #241·D-016).
+        board = path == "SHARED_BOARD.md"
+        ro = is_readonly(path, o) and not board
         flag = "READONLY 변경!" if ro and ln[:2].strip() not in ("??", "A") else ""
-        if owner is None and not ro:
+        if board:
+            rec = state_path("board.sha256")
+            last = open(rec, encoding="utf-8").read().strip() if os.path.exists(rec) else ""
+            if last != sha256(BOARD):
+                flag = "coord 외 편집!"
+        if owner is None and not ro and not board:
             flag = flag or "소유자 없음"
         if flag:
             problems += 1
