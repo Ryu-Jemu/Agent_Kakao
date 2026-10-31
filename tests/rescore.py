@@ -78,6 +78,8 @@ def record(run: Path, out: Path, rows: list, why: str) -> None:
     import os
     import subprocess
 
+    if (os.environ.get("AGENT_ID") or "A4") != "A4":
+        sys.exit("--record(TC_MATRIX 기록)는 A4 전용")
     m = json.loads((run / "metrics.json").read_text(encoding="utf-8"))
     ids = sorted(tc for tc, *_ in rows)
     if m.get("set") != "public" or ids != S.tc_ids() or m["build"].get("dirty"):

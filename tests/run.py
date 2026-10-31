@@ -41,8 +41,11 @@ COORD = [sys.executable if False else "python3", str(ROOT / "coord" / "coord.py"
 
 
 # ───────────────────────── 보조 ─────────────────────────
+CALLER = os.environ.get("AGENT_ID") or "A4"  # A6 #320: 기록 담당 = 실제 호출자(없으면 A4)
+
+
 def coord(*args: str, check: bool = False) -> str:
-    env = dict(os.environ, AGENT_ID="A4")
+    env = dict(os.environ, AGENT_ID=CALLER)
     r = subprocess.run(COORD + list(args), capture_output=True, text=True, env=env, cwd=ROOT)
     if check and r.returncode != 0:
         raise RuntimeError(f"coord {args[:2]} 실패: {r.stderr.strip()}")
@@ -316,6 +319,9 @@ async def amain(args) -> int:
         return 2
     ids = [x.strip() for x in args.tc.split(",")] if args.tc else all_ids
     full = args.set == "public" and set(ids) == set(all_ids) and args.handler == "agent" and not args.out
+    if CALLER != "A4" and (args.reset or (args.record and full)):
+        print(f"[run] 거부: reset·TC_MATRIX 기록은 A4 전용(호출자 {CALLER}) — --no-reset 와 --out(또는 --no-record)로 실행")
+        return 2
     probs = manifest_check()
     if probs:
         coord("post", "--to", "ALL", "--type", "BLOCKER", f"A4 회귀 중단: 공개 TC 원문 무결성 실패 — {'; '.join(probs)}",
