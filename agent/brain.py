@@ -130,23 +130,23 @@ async def _run(s: Session, parsed, t0: float) -> tuple[list[str], dict]:
         if remaining < 5:
             break
         allow = step < MAX_STEPS - 1
-        if not fast and (time.monotonic() - t0) > FAST_AFTER and llm.FALLBACK_MODEL != llm.MODEL:
+        if not fast and (time.monotonic() - t0) > FAST_AFTER:
             fast = True
         t_llm = time.monotonic()
         try:
             resp = await llm.generate(s.history, system=system_prompt(s), tools=tools,
-                                      model=llm.FALLBACK_MODEL if fast else None,
+                                      fallback=fast,
                                       timeout=min(10.0 if fast else STEP_TIMEOUT, remaining - 2), allow_calls=allow)
         except Exception as e:  # noqa: BLE001 — 주 모델 실패·타임아웃 → 빠른 폴백 모델로 같은 단계 1회
             meta["errors"].append(f"llm:{type(e).__name__}:{str(e)[:160]}")
             meta.setdefault("llm_ms", []).append(round((time.monotonic() - t_llm) * 1000))
             remaining = BUDGET - (time.monotonic() - t0)
-            if remaining < 4 or llm.FALLBACK_MODEL == llm.MODEL or fast:
+            if remaining < 4 or fast:
                 break
             fast = True
             t_llm = time.monotonic()
             try:
-                resp = await llm.generate(s.history, system=system_prompt(s), tools=tools, model=llm.FALLBACK_MODEL,
+                resp = await llm.generate(s.history, system=system_prompt(s), tools=tools, fallback=True,
                                           timeout=min(10.0, remaining - 1.5), allow_calls=allow)
                 meta["fallback"] = meta.get("fallback", 0) + 1
             except Exception as e2:  # noqa: BLE001

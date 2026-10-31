@@ -205,6 +205,8 @@ async def _run_tc(sid: str, tc: str, rub: dict, handler, args, ts: str, gw, key:
     if args.judge:
         from tests.judge import judge_votes
         jd = await judge_votes(tc, rub, history, kb_hint=kb_hint(tc), n=args.judge_n)
+        # 판정 정답 근거는 '현재 최신 KB'(빌드 KB가 아님) — 진실은 빌드와 무관. 어떤 KB로 판정했는지 남긴다
+        jd["kb_truth"] = (ROOT / "kb" / "VERSION").read_text(encoding="utf-8").strip() if (ROOT / "kb" / "VERSION").exists() else "-"
     v, why = S.verdict(calls_sc, fmt, echo, lits, jd)
     return {"tc": sid, "header": tc, "type": rub.get("type"), "title": rub.get("title"), "verdict": v, "why": why, "turns": turns, "calls": calls,
             "calls_score": calls_sc, "format": fmt, "echo": echo, "literals": lits, "judge": jd,
@@ -251,7 +253,7 @@ def write_tc_md(out: Path, r: dict, build: dict, ts: str, args) -> Path:
         lines.append(f"| {i} | {c['turn']} | {c['api_id']} | {json.dumps(c['flat'], ensure_ascii=False)[:160]} | {c['status']} | {c['cached']} |")
     lines.append("")
     if r["judge"]:
-        lines += ["## LLM 판정", f"- 상태: {r['judge'].get('status')} {r['judge'].get('error', '')}"]
+        lines += ["## LLM 판정", f"- 상태: {r['judge'].get('status')} {r['judge'].get('error', '')} · 정답 근거 KB(작업 트리 최신) v{r['judge'].get('kb_truth', '-')}"]
         for it in r["judge"].get("must_say", []):
             lines.append(f"- must_say {it['id']}[{it['basis']}] **{it['verdict']}** {it.get('votes', '')} — {it['text']} | 인용: {it['evidence']}")
         for it in r["judge"].get("must_not_say", []):

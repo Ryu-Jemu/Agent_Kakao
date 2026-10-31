@@ -23,7 +23,7 @@ except Exception:  # pragma: no cover
 PROJECT = os.environ.get("GCP_PROJECT", "ai-top-100-2026-513102")
 # D-008: global 고정(R-063: us-central1은 전 모델 404). .env의 VERTEX_LOCATION은 무시하고, 필요 시 AGENT_VERTEX_LOCATION으로만 바꾼다.
 LOCATION = os.environ.get("AGENT_VERTEX_LOCATION", "global")
-MODEL = os.environ.get("AGENT_MODEL", "gemini-3.8-flash")  # A5 R-095: 툴 판단 43/44(98%) vs 3.6 LOW 16/22, analysis/models.md
+MODEL = os.environ.get("AGENT_MODEL", "gemini-3.6-flash")  # D-015: 3.6 기본 thinking(A5 R-126 실하네스 A/B: ✅5·5, p95 14.0s vs 3.8 LOW p95 39.1s)
 FAST_MODEL = os.environ.get("AGENT_FAST_MODEL", "gemini-3.6-flash")  # 축약용
 FALLBACK_MODEL = os.environ.get("AGENT_FALLBACK_MODEL", "gemini-3.6-flash")  # 단계 타임아웃 시(A5 R-095: MINIMAL p95 1.2s)
 FALLBACK_THINKING = os.environ.get("AGENT_FALLBACK_THINKING", "MINIMAL")
@@ -52,9 +52,9 @@ def _switch_to_global() -> bool:
     return True
 
 
-def thinking_config(model: str) -> types.ThinkingConfig | None:
-    if model == FALLBACK_MODEL and model != MODEL and FALLBACK_THINKING:
-        return types.ThinkingConfig(thinking_level=FALLBACK_THINKING)
+def thinking_config(model: str, override: str | None = None) -> types.ThinkingConfig | None:
+    if override:
+        return types.ThinkingConfig(thinking_level=override)
     if THINKING_LEVEL:
         return types.ThinkingConfig(thinking_level=THINKING_LEVEL)
     if model in MODEL_THINKING:
@@ -65,8 +65,10 @@ def thinking_config(model: str) -> types.ThinkingConfig | None:
 
 
 async def generate(contents, *, system: str, tools: list | None, model: str | None = None,
-                   timeout: float = 25.0, allow_calls: bool = True, max_tokens: int = 2048):
-    m = model or MODEL
+                   timeout: float = 25.0, allow_calls: bool = True, max_tokens: int = 2048,
+                   fallback: bool = False):
+    """fallback=True: 빠른 폴백(FALLBACK_MODEL + FALLBACK_THINKING). 주 모델과 같은 모델이어도 thinking만 낮춘다."""
+    m = FALLBACK_MODEL if fallback else (model or MODEL)
     cfg = types.GenerateContentConfig(
         system_instruction=system,
         temperature=float(os.environ.get("AGENT_TEMPERATURE", "0")),  # D-014①: 비결정성 축소
@@ -74,7 +76,7 @@ async def generate(contents, *, system: str, tools: list | None, model: str | No
         max_output_tokens=max_tokens,
         automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
     )
-    tc = thinking_config(m)
+    tc = thinking_config(m, FALLBACK_THINKING if fallback else None)
     if tc is not None:
         cfg.thinking_config = tc
     if tools:

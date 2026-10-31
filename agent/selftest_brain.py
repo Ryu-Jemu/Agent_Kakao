@@ -19,7 +19,7 @@ def _resp(parts):
     return types.GenerateContentResponse(candidates=[types.Candidate(content=types.Content(role="model", parts=parts))])
 
 
-async def fake_generate(contents, *, system, tools, model=None, timeout=25.0, allow_calls=True, max_tokens=2048):
+async def fake_generate(contents, *, system, tools, model=None, timeout=25.0, allow_calls=True, max_tokens=2048, **kw):
     SEEN.append({"n_contents": len(contents), "tools": bool(tools), "allow": allow_calls, "system_tail": system[-400:]})
     return SCRIPT.pop(0)
 
