@@ -15,3 +15,11 @@ __pycache__/
 # 대용량 원문 이미지(권한 위임표, 판독본은 kb/raw/sources/_text/에 커밋) — A0 D-022
 kb/raw/sources/authority_zip/
 kb/raw/sources/authority_files/
+# macOS 전용 로컬 도구(카톡 창 조작·캡처) — 저장소에 올리지 않는다(사용자 12:3x 지시)
+bin/interview_runner.py
+bin/kakao_helper.swift
+bin/interview_selftest/
+docs/INTERVIEW_AUTOMATION.md
+inbox/images/auto/
+# 대용량 상품 상세 원문 html(25.8MB, 판독본 _text/상품상세.txt만 커밋) — A0 D-022 확장
+kb/raw/sources/product_html/
