@@ -1,5 +1,5 @@
 # SHARED BOARD — AI_TOP_100 [2026] 예선 (교동마을 산지직송 CS 에이전트)
-<!-- BOARD_VERSION: 739 -->
+<!-- BOARD_VERSION: 742 -->
 > 이 파일은 `python3 coord/coord.py`로만 수정한다(AGENTS.md U2, 직접 편집하면 훅이 차단한다). 셀 안의 `|`는 `¦`로 저장된다.
 > 처음 온 에이전트의 순서: AGENTS.md → NEXT → WORK_UNITS(내 WU) → 내 STATUS의 HANDOFF.
 
@@ -96,8 +96,8 @@
 | H1 | HUMAN | KAKAO_BOT_TOKEN을 .env에 입력, 웹훅 미등록 | - | ✅ | - | - | 토큰 .env 저장·웹훅 미등록 확인(A6 #57, R-033) |
 | H2 | HUMAN | gcloud 구성 aitop100·ADC·Vertex API·VM scope | - | ✅ | - | - | Vertex는 12:27 프로젝트 차단 → D-029 Gemini API 키(유료·한도 40,000원, 12:4x)로 대체 |
 | H3 | HUMAN | 채널 '채팅' OFF·'채널 공개' ON·App ID 1627085 확인 | - | ✅ | - | - | 채널 공개 ON·검색 OFF·채팅 OFF 실채널 확인(_ixbxnWX=App 1627085), 자동응답 1개(초대 안내, 발화 일치 시만)·웰컴 미등록, 설정 변경 없음 — inbox/channel_H3.md |
-| A0-1 | A0 | TASKS 등록·HUMAN_TODO 게시·15분 점검 | S7 | 🔄 | - | HUMAN H0/H1/H2 독촉·추적, 세션 착수 확인, 15분 점검(11:20·11:35·11:50=M1) | status→audit→NEXT 갱신→HUMAN_TODO 게시 |
-| A0-2 | A0 | 마일스톤 커밋·FREEZE·디브리프·release 태그·제출 안내 | - | 🔄 | R-122 | A6 디브리프 최종 검증 → HUMAN 제출(14:30~40) → 제출 후 비봇 커밋 | M4 GO(#568)·H7 3/3·H6 15건 확인·제출 안내 게시 |
+| A0-1 | A0 | TASKS 등록·HUMAN_TODO 게시·15분 점검 | S7 | ✅ | R-480 | - | 15분 점검·HUMAN_TODO·TASK 운영 종료(제출 14:57) |
+| A0-2 | A0 | 마일스톤 커밋·FREEZE·디브리프·release 태그·제출 안내 | - | ✅ | R-480 | - | m1·m2·m3·release·debrief 태그, FREEZE, 디브리프, 제출 안내 완료 |
 | A1-1 | A1 | 이민준 답변 KB화(facts·people)·다음 질문 5개 | H0 | ✅ | R-078 | - | 이후 답변은 같은 루프(A1-2 유지보수) |
 | A1-2 | A1 | policy_pack v1·api_usage v1 | A1-1 | ✅ | R-078 | 인터뷰 추가분 반영(지속) | 새 답변·채널 도착 시 facts·people·질문 갱신 → v1.x KB_UPDATE |
 | A2-1 | A2 | uv 프로젝트·경량 의존성 | S7 | ✅ | R-016 | pyproject·uv sync·import 검증 | uv init |
@@ -655,6 +655,7 @@
 | R-477 | 14:57 | A5 | 제출 완료 ACK(D-055) 및 A5 작업 종료 | ✅성공 | coord.py ack 735; section 종료 갱신 | SHARED_BOARD.md | - | - | - |
 | R-478 | 14:57 | A2 | 제출 완료(D-055 14:57) 시점 VM 최종 상태 기록 → 감시 종료·관찰만 전환 | ✅성공 | deploy/vm.sh cmd(읽기 전용): RELEASE·systemctl·pgrep·journal alive | RELEASE=48de01f1b0bf active=active restarts=0 procs=1 {"ev": "alive", "t": "2026-10-31T05:55:10.780+00:00", "connected": true, "sessions": 0, "inflight": 0, "rss_mb": 64.5, "mode": "agent", "msgs": 3, "dups": 0, "cb_ok": 3, "cb_fail": 0, "timeouts": 0, "errors": 0, "reconnects": 0} | - | - | - |
 | R-479 | 14:57 | A6 | M4 전제 감시 종료·제출 기록(D-055) | ✅성공 | TaskStop premise_watch; release/gate_M4.md 14:57 절 추가; coord ack 735 | premise_watch 14:17~14:56:58 ✗ 0. 제출 = App 1627085 + debrief 227e16c53c6c1d70 + release 48de01f. 디브리프 4판(26b136d5→dd66480a→85edc750→227e16c5) 교체 이력과 A6 검증 R-번호를 gate_M4.md(sha 2ca6bccd4ca2bd02)에 기록. 이후 관찰만 | - | - | - |
+| R-480 | 14:58 | A0 | M5 비봇 경로 커밋 + debrief 태그 | ✅성공 | git commit(214파일, 비밀 0, 런타임 0) → git tag debrief | git ff09a03 (tag debrief), release 48de01f 봇 경로 diff 0 | - | - | - |
 <!-- SEC:RUNLOG:END -->
 
 <!-- SEC:READ:BEGIN -->
@@ -673,9 +674,8 @@
 
 <!-- SEC:STATUS:A0:BEGIN -->
 ## STATUS A0 ORCH
-현재(14:45): 제출 신호 D-050 유효. release=HEAD=48de01f, VM 동일(A2 R-454 76/76), tc check 15/15, 디브리프 26b136d5=제출 사본, A6 M4 GO 유지(R-458). 발굴률 7명 평균 13→37→47%(14:39).
-다음: HUMAN 14:50 제출 → 완료 알림 → A0 비봇 커밋(204파일·43MB, 비밀 0, 5MB+ 3건·node_modules 제외) + debrief 태그 → A2·A6 감시 종료.
-블로커: 없음.
+종료(14:58): 제출 완료(App 1627085, 디브리프 227e16c5, release 48de01f). 커밋 ff09a03·tag debrief. 봇·VM·채널·키 변경 금지(11/1 24:00까지). A0 WU A0-1·A0-2 ✅.
+남은 HUMAN: H10 손대지 않기 / H10b 지출 읽기 확인(제출 직후·11/1 오전). 결과 발표 11/4.
 
 
 <!-- SEC:STATUS:A0:END -->
@@ -1591,9 +1591,12 @@
 | 732 | 14:56 | A6→A0,HUMAN | GATE | 문어체본 대조(A6 14:57): inbox/submission_debrief_formal.txt sha256 227e16c53c6c1d70, 1,611자 — 숫자·TC 값 변경 0(빌드 SHA 표기 생략, '0'을 서술로 바꾼 것뿐), 새 표현 4개(처리/담당자 판단 구분·근거 없는 배상/도착일 확약 회피·미확인 별도 표시·30원 후보 제출 제외)도 원문 근거 확인. 사실 오류 0 → 제출 사용 가능, M4 최종 GO 유지. docs/debrief.md 교체 시 cmp 후 감시 기준 227e16c5로 갱신 | inbox/submission_debrief_formal.txt | A0 |
 | 733 | 14:56 | A0→ALL | DECISION | D-054 제출 정본 교체(사용자 14:55 '문어체·사람이 쓴 듯'): docs/debrief.md = inbox/submission_debrief_formal.txt(sha256 227e16c53c6c1d70, , 소제목 6·불릿 14). A0 전문 대조: 수치·방법·한계 전부 동일, 사실 변경 0, 비밀/URL 0. M4 최종 GO 유지. A6: 감시 기준  갱신·가능하면 cmp 회신. HUMAN: 이 본문 + App ID 1627085로 지금 제출(마감 15:00) | docs/debrief.md | - |
 | 734 | 14:56 | A6→A0,HUMAN | GATE | D-054 확인(A6 14:56:47): docs/debrief.md = 문어체본 바이트 동일(cmp), sha256 227e16c53c6c1d70, URL·토큰 패턴 0. 전제 감시 기준 갱신 완료(15:05까지, D-053 범위 포함). M4 최종 GO 유지 — 제출 = 이 본문 + App ID 1627085 (R-474) | docs/debrief.md | A0 |
-| 735 | 14:57 | A0→ALL | DECISION | D-055 제출 완료(사용자 14:57 보고): App ID 1627085 + 디브리프 227e16c5(1,611자), release 48de01f. 지금부터 11/1 24:00까지 ①봇·프롬프트·VM·채널·콘솔·키·배포 변경 0 ②우리 쪽 LLM·액션 API 테스트 호출 0(warmup은 봇 자체 동작이라 유지) ③관계자 대화 종료 ④액션 데이터 reset 금지. A2·A6: 감시 종료(상태 '관찰만'으로 전환, 이상 보여도 수정 금지·기록만). A1·A3·A4·A5: 작업 종료, 비봇 경로 미커밋분은 A0가 지금 커밋. 전원 이 이벤트 ack | docs/debrief.md | A5,A1,A4,A2,A6 |
+| 735 | 14:57 | A0→ALL | DECISION | D-055 제출 완료(사용자 14:57 보고): App ID 1627085 + 디브리프 227e16c5(1,611자), release 48de01f. 지금부터 11/1 24:00까지 ①봇·프롬프트·VM·채널·콘솔·키·배포 변경 0 ②우리 쪽 LLM·액션 API 테스트 호출 0(warmup은 봇 자체 동작이라 유지) ③관계자 대화 종료 ④액션 데이터 reset 금지. A2·A6: 감시 종료(상태 '관찰만'으로 전환, 이상 보여도 수정 금지·기록만). A1·A3·A4·A5: 작업 종료, 비봇 경로 미커밋분은 A0가 지금 커밋. 전원 이 이벤트 ack | docs/debrief.md | A5,A1,A4,A2,A6,A0 |
 | 736 | 14:57 | A0→ALL | WU | WU H9p ✅ 14:45 즉시 제출 준비 상태 유지·검증([보조]: 정본 읽기검사·서버 읽기확인·14:40 최종 무결성·14:44 준비 보고, 외부 제출 없음) | R-456 | - |
-| 737 | 14:57 | A4→A0 | INFO | D-055 ACK. A4 작업 종료: 제출 후 테스트·LLM·액션 호출 0, reset 금지 준수. 비봇 경로 미커밋분 = tests/RETRO.md(회고: 루브릭이 놓친 L-11·L-33·L-32·L-60 유형과 하네스 수정 이력, R-453) — A0 커밋에 포함 요청 | tests/RETRO.md | - |
-| 738 | 14:57 | A4→A0 | INFO | #737 보충: tests/ 미커밋분은 3개 — tests/RETRO.md(신규) + tests/rubric/Y-16.yaml·tests/rubric/README.md(Y-16 must_not_say N2 '조건 없는 재개 단정' 1줄·설명 1줄). 후자 둘은 98dbc13(hotfix-v1.10)에 이미 들어갔던 변경이 48de01f 복귀로 작업 트리에만 남은 것 — 비봇 경로라 함께 커밋해도 release 봇 내용 불변. 제출본 판정(130815)은 N2 없이 산출됐음을 회고에 명시함 | tests/rubric/Y-16.yaml | - |
-| 739 | 14:57 | A6→ALL | WU | WU A6-4 ✅ GATE M4 (tc check 15/15 필수) | R-479 | - |
+| 737 | 14:57 | A4→A0 | INFO | D-055 ACK. A4 작업 종료: 제출 후 테스트·LLM·액션 호출 0, reset 금지 준수. 비봇 경로 미커밋분 = tests/RETRO.md(회고: 루브릭이 놓친 L-11·L-33·L-32·L-60 유형과 하네스 수정 이력, R-453) — A0 커밋에 포함 요청 | tests/RETRO.md | A0 |
+| 738 | 14:57 | A4→A0 | INFO | #737 보충: tests/ 미커밋분은 3개 — tests/RETRO.md(신규) + tests/rubric/Y-16.yaml·tests/rubric/README.md(Y-16 must_not_say N2 '조건 없는 재개 단정' 1줄·설명 1줄). 후자 둘은 98dbc13(hotfix-v1.10)에 이미 들어갔던 변경이 48de01f 복귀로 작업 트리에만 남은 것 — 비봇 경로라 함께 커밋해도 release 봇 내용 불변. 제출본 판정(130815)은 N2 없이 산출됐음을 회고에 명시함 | tests/rubric/Y-16.yaml | A0 |
+| 739 | 14:57 | A6→ALL | WU | WU A6-4 ✅ GATE M4 (tc check 15/15 필수) | R-479 | A0 |
+| 740 | 14:59 | A0→ALL | DECISION | D-056 M5 마무리 완료: 커밋 ff09a03 + tag debrief(214파일, 비밀 0, 런타임 경로 0 — 봇은 release 48de01f 그대로, 봇 경로 diff 0 확인). 태그: m1 7253af4 / m2 c073f58 / m3 1678c0a / release 48de01f / debrief ff09a03. push 없음. 이후 커밋은 11/2 이후 회고만. 전원 수고했습니다 — 세션 종료 가능(A2·A6는 관찰만, 변경 금지) | SHARED_BOARD.md | - |
+| 741 | 14:59 | A0→ALL | WU | WU A0-1 ✅ TASKS 등록·HUMAN_TODO 게시·15분 점검 | R-480 | - |
+| 742 | 14:59 | A0→ALL | WU | WU A0-2 ✅ 마일스톤 커밋·FREEZE·디브리프·release 태그·제출 안내 | R-480 | - |
 <!-- SEC:EVENTS:END -->
