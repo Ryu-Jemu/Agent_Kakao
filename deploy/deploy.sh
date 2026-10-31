@@ -68,7 +68,8 @@ sudo -u choonsik /opt/choonsik/.venv/bin/python -c "import httpx, websockets, go
 if [ "$MODE" = agent ]; then
   sudo -u choonsik bash -c 'cd /opt/choonsik && .venv/bin/python -c "from agent import handle_message; print(\"✓ agent.handle_message import\")"'
 fi
-echo "GATEWAY_MODE=$MODE" > /etc/default/choonsik
+# 런타임 환경 고정(systemd 환경변수가 .env보다 우선 — dotenv override=False). D-008·#234: Vertex는 global
+printf 'GATEWAY_MODE=%s\nVERTEX_LOCATION=global\nAGENT_VERTEX_LOCATION=global\n' "$MODE" > /etc/default/choonsik
 install -m 644 /opt/choonsik/deploy/choonsik.service /etc/systemd/system/choonsik.service
 systemctl daemon-reload
 systemctl enable -q choonsik

@@ -323,6 +323,9 @@ class Gateway:
         op = p.get("op")
         if op == OP_HEARTBEAT_ACK:
             self.last_ack = time.monotonic()
+            if self.session_id and not self.stopping.is_set():
+                # 연결이 살아 있음을 상태 파일에 기록 → 크래시·재부팅 직후에도 RESUME으로 누락 이벤트 재수신
+                self._save_state()
             return
         if op != OP_DISPATCH:
             if op == OP_READY:  # RESUME 후 READY가 올 수도 있음(문서 미기재) → 세션 갱신

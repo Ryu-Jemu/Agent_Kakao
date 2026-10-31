@@ -184,6 +184,9 @@ async def run_tests():
     await asyncio.sleep(0.3)
     check("4009:identify", len([f for f in mock.frames if f["op"] == 2]) == n_ident + 1)
     check("state:persist", json.loads(ig.STATE_FILE.read_text())["session_id"] == "sess_T")
+    saved0 = json.loads(ig.STATE_FILE.read_text())["saved"]
+    await asyncio.sleep(1.3)  # 모의 HB 1s → ACK마다 saved 갱신
+    check("state:ack-refresh", json.loads(ig.STATE_FILE.read_text())["saved"] > saved0)
 
     print("stage: drain", flush=True)
     await asyncio.wait_for(gw.drain(2), 5)
