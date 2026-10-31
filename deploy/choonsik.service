@@ -1,0 +1,33 @@
+[Unit]
+Description=Choonsik CS agent - Kakao bot gateway daemon (교동마을 산지직송)
+Wants=network-online.target
+After=network-online.target
+# 재시작 횟수 제한 없음(심사 기간 상시 운영)
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=choonsik
+Group=choonsik
+WorkingDirectory=/opt/choonsik
+# GATEWAY_MODE=echo|agent (deploy.sh가 기록)
+EnvironmentFile=-/etc/default/choonsik
+Environment=PYTHONUNBUFFERED=1
+Environment=GATEWAY_LOCK_FILE=/run/choonsik/gateway.lock
+Environment=ACTION_TRACE_FILE=/opt/choonsik/integ/logs/action_trace.jsonl
+RuntimeDirectory=choonsik
+ExecStart=/opt/choonsik/.venv/bin/python -m integ.gateway
+Restart=always
+RestartSec=2
+# SIGTERM → 처리 중 메시지 최대 25초 마무리(gateway drain)
+KillSignal=SIGTERM
+TimeoutStopSec=35
+# 1GB VM: OOM 시 이 서비스를 마지막에 죽이도록
+OOMScoreAdjust=-500
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=choonsik
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

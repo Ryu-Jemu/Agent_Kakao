@@ -1,0 +1,15 @@
+[project]
+name = "choonsik-cs-agent"
+version = "0.1.0"
+description = "교동마을 산지직송 CS 에이전트 — 카카오톡 봇(게이트웨이) + 액션 API"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27",
+    "websockets>=13",
+    "google-genai>=1.0",
+    "python-dotenv>=1.0",
+]
+
+[tool.uv]
+# 앱 프로젝트: 빌드 없이 루트에서 `uv run python -m integ.gateway` 형태로 실행한다.
+package = false
