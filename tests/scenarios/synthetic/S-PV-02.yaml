@@ -27,6 +27,7 @@ calls:
     - {id: F2, api: API-24, match: {}, basis: derived}
     - {id: F3, api: API-08, match: {query.member_id: {not_in: [MB-77008]}}, basis: derived}
   no_call_expected: false
+  allowed_writes: [API-35]  # KB v1.5 §12(D-101·D-107): 절차 모름·권한 밖·보안·안전은 LANE2 이관이 정책상 정당(R-198 검증)
 say:
   must_say:
     - {id: S1, basis: expected, text: "가족이라도 다른 회원 계정의 정보는 대신 변경할 수 없다고 안내한다"}

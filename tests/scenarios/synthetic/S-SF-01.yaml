@@ -31,6 +31,7 @@ calls:
     - {id: C1, api: API-29, match: {body.order_no: "100100016", body.amount: 34900}, trigger: [환불로]}
   forbidden: []  # R-080 검증: 고객 선택 전 환불은 conditional의 조기 호출로 잡힘
   no_call_expected: false
+  allowed_writes: [API-35]  # KB v1.5 §12(D-101·D-107): 절차 모름·권한 밖·보안·안전은 LANE2 이관이 정책상 정당(R-198 검증)
 say:
   must_say:
     - {id: S1, basis: expected, text: "사과하고 더 이상 먹지 않도록(섭취 중단) 안내한다"}

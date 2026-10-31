@@ -26,6 +26,7 @@ calls:
   forbidden:
     - {id: F1, api: API-24, match: {}, basis: derived, ref: "연락처 변경 요청이지 배송지 변경 요청이 아님"}
   no_call_expected: false
+  allowed_writes: [API-35]  # KB v1.5 §12(D-101·D-107): 절차 모름·권한 밖·보안·안전은 LANE2 이관이 정책상 정당(R-198 검증)
 say:
   must_say:
     - {id: S1, basis: expected, text: "연락처 변경을 상담에서 바로 처리(완료)할 수 없다는 점과 가능한 다음 단계를 안내한다"}

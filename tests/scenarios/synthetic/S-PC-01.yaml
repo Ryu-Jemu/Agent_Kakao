@@ -24,13 +24,7 @@ scope:
 confirm_before_call: []
 calls:
   required: []
-  alternative:
-    - id: G1
-      mode: at_least_one
-      ref: "5월 주문 구매일 확인(R-080 검증: API-08 경로도 정당)"
-      options:
-        - {api: API-07, match: {path.order_no: "100200018"}}
-        - {api: API-08, match: {query.member_id: MB-77017}}
+  alternative: []  # R-198 검증: 고객 진술 '5월'만으로 인입일 6/26 기준 7일 초과가 확정 → 조회 필수 아님(호출하면 scope로만 검사)
   conditional: []
   forbidden:
     - {id: F2, api: API-29, match: {}, basis: derived, ref: "KB §10 현금 환불 아님"}

@@ -50,7 +50,9 @@ def main():
             jd = asyncio.run(judge_votes(r.get("header") or r["tc"], rub, hist, kb_hint=kb_hint(r.get("header") or r["tc"]), n=a.rejudge))
             r["judge"] = jd
         if jd and jd.get("status") == "ok":
+            basis = {x["id"]: x.get("basis") for x in (rub.get("say") or {}).get("must_say") or []}
             for it in jd["must_say"]:
+                it["basis"] = basis.get(it["id"], it.get("basis"))  # 현재 루브릭 기준(basis 변경 반영)
                 if it["verdict"] == "unverified" and _quoted(it.get("evidence", ""), bot_text):
                     it["verdict"] = "met"
         cs = S.score_calls(rub, r["calls"], r["sim_turns"])
