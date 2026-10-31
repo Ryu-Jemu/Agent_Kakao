@@ -71,8 +71,8 @@ class Simulator:
         return False
 
     def _scripted(self, bot_text: str) -> tuple[str, bool]:
-        if self._end_hit(bot_text):
-            return self.sim.get("closing", "네, 감사합니다."), True
+        # 아직 쓰지 않은 규칙 응답(질문에 대한 답·선택)이 있으면 종료보다 먼저 답한다
+        # (R-280: '이관 접수했습니다'+'재배송/환불 중 선택' 동시 메시지에서 선택 전에 끝나던 결함)
         replies, seen_when = [], set()
         for i, r in enumerate(self.sim.get("rules") or []):
             key = tuple(r["when"])
@@ -86,6 +86,8 @@ class Simulator:
         if replies:
             self._fallback_streak = 0
             return " ".join(replies), False
+        if self._end_hit(bot_text):
+            return self.sim.get("closing", "네, 감사합니다."), True
         self._fallback_streak += 1
         return self.sim.get("fallback", "네."), self._fallback_streak >= 2
 

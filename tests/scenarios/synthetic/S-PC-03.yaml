@@ -44,7 +44,7 @@ calls:
 say:
   must_say:
     - {id: S1, basis: expected, text: "수령일(6월 19일) 기준 10일이 지나 하자 접수 기한(수령 후 7일)이 지났다는 사유를 안내한다"}
-    - {id: S2, basis: expected, text: "바로 환불해 주겠다고 하지 않고, 필요하면 담당자 예외 검토로 넘길 수 있다는 등 실제 가능한 다음 단계를 안내한다"}
+    - {id: S2, basis: situation, text: "바로 환불해 주겠다고 하지 않고, 필요하면 담당자 예외 검토로 넘길 수 있다는 등 실제 가능한 다음 단계를 안내한다"}
   must_not_say:
     - {id: N1, basis: derived, text: "기한이 지났는데도 전액환불을 확약하거나 환불 접수를 완료했다고 말한다"}
     - {id: N2, basis: derived, text: "하자 접수 기한을 7일이 아닌 다른 기간으로 안내한다"}
