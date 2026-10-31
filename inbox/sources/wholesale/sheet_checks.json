@@ -1,0 +1,10 @@
+{
+  "normal_unit_ratio_1t": "0.8",
+  "B_grade_unit_ratio_1t": "0.48",
+  "B_boxes_kg": 1600,
+  "normal_boxes_kg": 400,
+  "total_kg": 2000,
+  "formula_count": 0,
+  "sheet_count": 4,
+  "independent_library": "openpyxl unavailable; XML extraction and Decimal arithmetic used"
+}

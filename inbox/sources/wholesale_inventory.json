@@ -1,0 +1,17 @@
+{
+  "source": "https://t1.kakaocdn.net/aitop100/aitop100/dist/ycz6_sVFw3aF3-uE3HB5EA.zip",
+  "sha256": "53225be13de700904e16371d0b7c7d5e60d0b61afecb4b6ab9a03c1474cdd960",
+  "bytes": 93005,
+  "entries": [
+    {
+      "name": "도매단가_등급혼합분배.xlsx",
+      "bytes": 11414,
+      "compressed": 10596
+    },
+    {
+      "name": "사업자도매거래안내.pdf",
+      "bytes": 93395,
+      "compressed": 82101
+    }
+  ]
+}

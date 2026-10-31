@@ -235,7 +235,7 @@ def write_tc_md(out: Path, r: dict, build: dict, ts: str, args) -> Path:
     lines = [f"# {r['tc']} — {r['title']}", "",
              f"- TC ID: {r['tc']}", f"- build git SHA: {build['label']} (HEAD {build['sha']}, content_fp {build['content_fp']}, agent {build.get('agent_file', '-')})",
              f"- run: {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}/ ({ts}) · sim={args.sim} · judge={'on×' + str(args.judge_n) if args.judge else 'off'}",
-             f"- 결과: **{r['verdict']}**", ""]
+             f"- 결과: {dict(ok='✅ pass', partial='⚠️ partial', fail='❌ fail')[r['verdict']]} (**{r['verdict']}**)", ""]  # D-036 ①: ✅/pass 명시
     if r["why"]:
         lines += ["## 사유"] + [f"- {w}" for w in r["why"]] + [""]
     f = r["format"]

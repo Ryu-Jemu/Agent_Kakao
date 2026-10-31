@@ -94,6 +94,50 @@ def main():
     dup = [f"{k[0]} 공유: {v}" for k, v in seen.items() if len(v) > 1]
     emit("2.2·2.3·2.6 증거 독립 검사(경로·해시·ID·SHA·고유성)", 1 if dup or any("✗" in m for m in msgs) else 0,
          "\n".join(msgs + dup or ["(행 없음)"]), keep=20)
+    # 2.8 증거-실행 결속(S8 #466 지적 ①②③): 증거 머리·실행 폴더 results.json·metrics.json을 함께 본다
+    bind, runs_seen = [], set()
+    for r in rows:
+        if len(r) < 8 or r[3] != "✅":
+            continue
+        tid = r[0]
+        path = r[7].rpartition("#")[0] or r[7]
+        fp = os.path.realpath(os.path.join(ROOT, path))
+        if not os.path.isfile(fp):
+            bind.append(f"{tid}: ✗ 증거 없음")
+            continue
+        head = open(fp, encoding="utf-8", errors="replace").read(3000)
+        rund = os.path.dirname(fp)
+        runs_seen.add(os.path.relpath(rund, ROOT))
+        chk = {
+            "제목": re.search(rf"^# {re.escape(tid)}(\s|$)", head, re.M) is not None,
+            "TC ID": re.search(rf"^- TC ID: {re.escape(tid)}$", head, re.M) is not None,
+            "결과ok": (re.search(r"^- 결과: (✅ pass \()?\*\*ok\*\*\)?\s*$", head, re.M) is not None
+                       and re.search(r"^- 결과:.*(partial|fail|⚠️|❌)", head, re.M) is None),
+            "파일명=TC": os.path.basename(fp) == f"{tid}.md",
+            "빌드=release·dirty 없음": (re.search(rf"^- build git SHA: {re.escape(full)} \(HEAD {re.escape(full)}", head, re.M) is not None) and "-dirty" not in head,
+        }
+        try:
+            res = {x["tc"]: x for x in json.load(open(os.path.join(rund, "results.json"), encoding="utf-8"))}
+            met = json.load(open(os.path.join(rund, "metrics.json"), encoding="utf-8")).get("build", {})
+            chk["results.json ok"] = res.get(tid, {}).get("verdict") == "ok"
+            chk["metrics 빌드·clean"] = met.get("sha") == full and met.get("dirty") is False and not met.get("dirty_files")
+        except Exception as ex:  # noqa: BLE001
+            chk["run 메타"] = False
+            bind.append(f"{tid}: run 메타 읽기 실패 {type(ex).__name__}")
+        bad = [k for k, v in chk.items() if not v]
+        bind.append(f"{tid}: {'✓' if not bad else '✗ ' + ', '.join(bad)} · {os.path.relpath(fp, ROOT)}")
+    if len(runs_seen) != 1:
+        bind.append(f"✗ 실행 폴더가 하나가 아님(D-036: 같은 run 디렉터리): {len(runs_seen)}개")
+    emit("2.8 증거-실행 결속(결과 ok·dirty 없음·TC 일치·results/metrics 대조·단일 run)", 1 if any("✗" in b for b in bind) else 0,
+         "\n".join(bind + [f"실행 폴더 {len(runs_seen)}개: {sorted(runs_seen)}"]), keep=20)
+    # 2.9 작업트리 봇 경로 미커밋 변경(S8 #466 ⑤)
+    bot = ["agent", "integ", "deploy", "pyproject.toml", "uv.lock", "kb/policy_pack.md", "kb/api_usage.md", "kb/VERSION"]
+    rc9, o9 = run(["git", "status", "--porcelain", "--untracked-files=all", "--", *bot])
+    dirty_bot = [ln for ln in o9.splitlines() if ln.strip() and "agent/logs/" not in ln and "__pycache__" not in ln]
+    excepted = [ln for ln in dirty_bot if ln.strip().endswith("agent/DESIGN.md")]  # #449 승인 예외(비런타임 문서)
+    blocking = [ln for ln in dirty_bot if ln not in excepted]
+    emit("2.9 작업트리 봇 경로 미커밋 변경(FREEZE 범위)", 1 if blocking else 0,
+         "\n".join(blocking + [ln + "  (승인 예외 #449)" for ln in excepted]) or "(없음)")
     ok_rows = [r for r in rows if len(r) >= 8 and r[3] == "✅"]
     random.seed(seed)
     sample = random.sample(ok_rows, min(3, len(ok_rows)))
