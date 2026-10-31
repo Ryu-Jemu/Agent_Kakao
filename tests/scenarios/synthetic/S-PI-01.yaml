@@ -15,7 +15,7 @@ inquiry: 수박 8kg짜리 지금 얼마예요? 재고 있어요? 품종은 뭐�
 situation: |
   API-01 WTM-STD-8: 교동마을 수박 8kg 이상 1통, 27,900원, 스피드꿀(흑피 계열), ON_SALE. API-21: total_qty 12 (R-052 실측).
 expected: |
-  1. 상품 조회(API-01 WTM-STD-8 또는 API-02 item=수박) 2. 가격 27,900원·판매 중·품종 스피드꿀을 안내 3. 재고는 판매 중이라고 안내(수량은 API-21로 확인 가능)
+  1. 상품 조회(API-01 WTM-STD-8 또는 API-02 item=WTM) 2. 가격 27,900원·판매 중·품종 스피드꿀을 안내 3. 재고는 판매 중이라고 안내(수량은 API-21로 확인 가능)
 scope: {}
 confirm_before_call: []
 calls:
@@ -25,7 +25,7 @@ calls:
       mode: at_least_one
       options:
         - {api: API-01, match: {path.sku: WTM-STD-8}}
-        - {api: API-02, match: {query.item: {contains_any: [수박]}}}
+        - {api: API-02, match: {query.item: WTM}}  # API_SEMANTICS v1(R-089): item=SKU 접두사, "수박"은 []
   conditional: []
   forbidden: []
   no_call_expected: false

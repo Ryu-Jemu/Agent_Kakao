@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import re
 
 from tests.scoring import ROOT, section
 
@@ -57,13 +58,23 @@ async def judge(tc_id: str, rubric: dict, history: list[tuple[str, str]], kb_hin
 
 
 def _norm(s: str) -> str:
-    return "".join(s.split()).replace("…", "").replace("...", "")
+    return "".join(s.split()).strip("\"'“”‘’")
+
+
+_ELLIPSIS = re.compile(r"\(?\s*(?:\.{2,}|…)\s*\)?")
 
 
 def _quoted(ev: str, bot_text: str) -> bool:
-    """인용이 봇 발화에 실제로 있는지(공백 무시, 앞 20자 기준 느슨한 확인)."""
-    e = _norm(ev).strip("\"'“”‘’")
-    if not e:
-        return False
+    """인용이 봇 발화에 실제로 있는지. 판정기가 '…'로 이어 붙인 인용은 조각마다 확인한다(공백 무시, 조각 앞 12자)."""
     b = _norm(bot_text)
-    return e in b or e[:20] in b
+    frags = [_norm(f) for f in _ELLIPSIS.split(ev or "")]
+    frags = [f for f in frags if len(f) >= 4]
+    if not frags:
+        return False
+    return all(f[:12] in b or _coverage(f, b) >= 0.7 for f in frags)
+
+
+def _coverage(f: str, b: str, k: int = 5) -> float:
+    """인용 조각의 k자 슁글 중 봇 발화에 있는 비율(괄호 생략 같은 사소한 축약 허용, 지어낸 인용은 낮게 나옴)."""
+    sh = [f[i:i + k] for i in range(0, max(1, len(f) - k + 1), 2)]
+    return sum(x in b for x in sh) / len(sh)

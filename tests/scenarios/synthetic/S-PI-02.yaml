@@ -16,7 +16,7 @@ situation: |
   API-01 HGL-SEL-5: 하우스 감귤 당도선별 5kg, 30,000원, 온주밀감(궁천조생), PREMIUM (R-052). 상세페이지 당도보장 12브릭스(R-05-a 원문).
   기준 미달 시 상세페이지 안내는 「재배송 또는 환불」(R-05-a 상황).
 expected: |
-  1. API-01(HGL-SEL-5) 또는 API-02(item=감귤) 조회 2. 30,000원, 당도보장 12브릭스 안내 3. 미달 시 재배송 또는 환불 가능 안내(선택)
+  1. API-01(HGL-SEL-5) 또는 API-02(item=HGL) 조회 2. 30,000원, 당도보장 12브릭스 안내 3. 미달 시 재배송 또는 환불 가능 안내(선택)
 scope: {}
 confirm_before_call: []
 calls:
@@ -26,7 +26,7 @@ calls:
       mode: at_least_one
       options:
         - {api: API-01, match: {path.sku: HGL-SEL-5}}
-        - {api: API-02, match: {query.item: {contains_any: [감귤]}}}
+        - {api: API-02, match: {query.item: HGL}}  # R-089
   conditional: []
   forbidden: []
   no_call_expected: false

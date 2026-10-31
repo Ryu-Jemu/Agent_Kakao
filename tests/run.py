@@ -26,6 +26,13 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 os.environ.setdefault("LOG_LEVEL", "WARNING")
 
+try:  # 토큰 등 비밀값은 환경으로만 넘긴다(출력 금지). 커밋 추출본에는 .env가 없다
+    from dotenv import load_dotenv
+
+    load_dotenv(ROOT / ".env")
+except Exception:
+    pass
+
 from tests import scoring as S  # noqa: E402
 from tests.sim import Simulator  # noqa: E402
 
@@ -42,7 +49,32 @@ def coord(*args: str, check: bool = False) -> str:
     return (r.stdout + r.stderr).strip()
 
 
-def build_info() -> dict:
+def export_build(sha: str) -> Path:
+    """D-009: 커밋된 sha의 봇 경로만 git archive로 풀어 그 코드로 실행한다(작업 트리의 미커밋 수정 배제, .git 무변경)."""
+    full = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--verify", f"{sha}^{{commit}}"],
+                          capture_output=True, text=True).stdout.strip()
+    if not full:
+        raise SystemExit(f"--build {sha}: 이 저장소의 커밋이 아님")
+    d = ROOT / "tests" / "runs" / "_builds" / full
+    if not (d / "agent").exists():
+        d.mkdir(parents=True, exist_ok=True)
+        arc = subprocess.run(["git", "-C", str(ROOT), "archive", full, "--", *BOT_PATHS], capture_output=True)
+        if arc.returncode != 0:
+            raise SystemExit(f"git archive 실패: {arc.stderr.decode()[:200]}")
+        subprocess.run(["tar", "-x", "-C", str(d)], input=arc.stdout, check=True)
+    (d / "agent" / "logs").mkdir(parents=True, exist_ok=True)
+    return d
+
+
+def build_info(bot_root: Path | None = None, sha_full: str | None = None) -> dict:
+    if bot_root is not None:  # 커밋 추출본: 정의상 clean
+        h = hashlib.sha256()
+        for top in ("agent", "kb"):
+            for p in sorted((bot_root / top).rglob("*")):
+                if p.is_file() and "__pycache__" not in p.parts and "logs" not in p.parts:
+                    h.update(str(p.relative_to(bot_root)).encode()); h.update(p.read_bytes())
+        return {"sha": sha_full, "dirty": False, "label": sha_full, "content_fp": h.hexdigest()[:16],
+                "dirty_files": [], "bot_root": str(bot_root.relative_to(ROOT))}
     sha = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
     st = subprocess.run(["git", "-C", str(ROOT), "status", "--porcelain", "--", *BOT_PATHS],
                         capture_output=True, text=True).stdout.strip()
@@ -192,7 +224,7 @@ def write_tc_md(out: Path, r: dict, build: dict, ts: str, args) -> Path:
     cs = r["calls_score"]
     req_ok = sum(1 for x in cs["required"] if x["ok"])
     lines = [f"# {r['tc']} — {r['title']}", "",
-             f"- TC ID: {r['tc']}", f"- build git SHA: {build['label']} (HEAD {build['sha']}, content_fp {build['content_fp']})",
+             f"- TC ID: {r['tc']}", f"- build git SHA: {build['label']} (HEAD {build['sha']}, content_fp {build['content_fp']}, agent {build.get('agent_file', '-')})",
              f"- run: {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out}/ ({ts}) · sim={args.sim} · judge={'on' if args.judge else 'off'}",
              f"- 결과: **{r['verdict']}**", ""]
     if r["why"]:
@@ -288,7 +320,13 @@ async def amain(args) -> int:
               "--ref", "tests/tc/public/MANIFEST.sha256")
         print("BLOCKER:", probs)
         return 2
-    build = build_info()
+    if args.build:
+        bot_root = export_build(args.build)
+        sys.path.insert(0, str(bot_root))  # agent·integ를 커밋 추출본에서 import
+        os.environ.setdefault("ACTION_RATE_FILE", str(ROOT / ".coord" / "api_rate.json"))  # 세션 간 레이트리밋 공유
+        build = build_info(bot_root, bot_root.name)
+    else:
+        build = build_info()
     print(f"[run] {ts} build={build['label']} tc={len(ids)} sim={args.sim} judge={args.judge}")
     acm = install_trace_hook()
     if args.reset:
@@ -300,6 +338,10 @@ async def amain(args) -> int:
         acm.ActionClient.clear_state()
     import integ.gateway as gw
     handler = gw.load_handler(args.handler)
+    if args.handler == "agent":
+        build["agent_file"] = str(Path(sys.modules["agent"].__file__).resolve().relative_to(ROOT))
+        build["integ_file"] = str(Path(gw.__file__).resolve().relative_to(ROOT))
+        print(f"[run] agent={build['agent_file']} integ={build['integ_file']}")
     t0 = time.monotonic()
     sem = asyncio.Semaphore(args.jobs)
 
@@ -390,10 +432,12 @@ def main():
     ap.add_argument("--no-reset", dest="reset", action="store_false")
     ap.add_argument("--no-judge", dest="judge", action="store_false")
     ap.add_argument("--no-record", dest="record", action="store_false")
+    ap.add_argument("--build", help="커밋 sha(D-009). 지정 시 그 커밋의 봇 경로를 추출해 실행·기록(미지정=작업 트리, 수정 있으면 -dirty)")
     ap.add_argument("--label", default="")
     ap.add_argument("--out", help="산출 디렉터리(기본 tests/runs/<ts>). 다른 소유자는 자기 경로로(A5: analysis/runs/…). 지정 시 TC_MATRIX 기록 안 함")
     ap.add_argument("--handler", default="agent", choices=["agent", "echo"], help="echo = 파이프라인 건식 점검(채점 무의미)")
     args = ap.parse_args()
+    sys.stdout.reconfigure(line_buffering=True)  # 파일로 리다이렉트해도 진행 로그가 바로 보이게
     sys.exit(asyncio.run(amain(args)))
 
 

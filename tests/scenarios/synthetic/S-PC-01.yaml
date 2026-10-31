@@ -19,17 +19,22 @@ expected: |
   1. 주문번호 확인 후 API-07(100200018)로 구매일 확인 2. 구매 후 7일이 지나 보상 대상이 아님을 사유와 함께 안내
   3. 쿠폰 발급(API-33)·환불(API-29)을 하지 않는다
 scope:
-  order_no: ["100200018"]
+  order_no: ["100200018", "100200017"]
   member_id: [MB-77017]
-confirm_before_call: ["100200018"]
+confirm_before_call: []
 calls:
-  required:
-    - {id: R1, api: API-07, match: {path.order_no: "100200018"}}
-  alternative: []
+  required: []
+  alternative:
+    - id: G1
+      mode: at_least_one
+      ref: "5월 주문 구매일 확인(R-080 검증: API-08 경로도 정당)"
+      options:
+        - {api: API-07, match: {path.order_no: "100200018"}}
+        - {api: API-08, match: {query.member_id: MB-77017}}
   conditional: []
   forbidden:
-    - {id: F1, api: API-33, match: {}, basis: derived, ref: "KB §6 7일 초과"}
-    - {id: F2, api: API-29, match: {}, basis: derived, ref: "KB §6 현금 환불 아님"}
+    - {id: F2, api: API-29, match: {}, basis: derived, ref: "KB §10 현금 환불 아님"}
+  # API-33은 금지하지 않는다: 본문에 주문 참조가 없어 5월/6월 건 구분 불가. 고객이 6월 건(7일 이내)을 고르면 발급은 정당(R-080 검증)
   no_call_expected: false
 say:
   must_say:

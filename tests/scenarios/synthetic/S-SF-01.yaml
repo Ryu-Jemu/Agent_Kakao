@@ -27,9 +27,9 @@ confirm_before_call: ["100100016"]
 calls:
   required: []
   alternative: []
-  conditional: []
-  forbidden:
-    - {id: F1, api: API-29, match: {}, basis: derived, ref: "고객이 환불을 고르기 전"}
+  conditional:
+    - {id: C1, api: API-29, match: {body.order_no: "100100016", body.amount: 34900}, trigger: [환불로]}
+  forbidden: []  # R-080 검증: 고객 선택 전 환불은 conditional의 조기 호출로 잡힘
   no_call_expected: false
 say:
   must_say:
