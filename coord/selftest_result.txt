@@ -13,6 +13,9 @@
 [PASS] P1 TC_MATRIX는 A4만
 [PASS] P2 WU는 담당자만
 [PASS] P3 HANDOFF 필수 항목 검증
+[PASS] P4 wu --record 없는 R-번호 거부
+[PASS] P5 wu --record 타인 R-번호 거부
+[PASS] P6 wu --record 본인 R-번호 허용
 [PASS] G1 미실행 상태 NO-GO
 [PASS] G2 비커밋 빌드·없는 증거 → NO-GO
 [PASS] G3 실제 커밋·증거 15/15 → GO
@@ -23,4 +26,4 @@
 [PASS] B1 coord 저장 후 보드는 읽기 전용(444)
 [PASS] G8 매트릭스 중복 ID → NO-GO
 
-합계 24건 / 실패 0건
+합계 27건 / 실패 0건

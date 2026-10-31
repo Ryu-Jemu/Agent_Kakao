@@ -83,6 +83,10 @@ def main():
         check("P1 TC_MATRIX는 A4만", c("tc", "set", "--id", "L-03", "--result", "ok", "--build", "x", "--run", "r", agent="A3")[0] != 0)
         check("P2 WU는 담당자만", c("wu", "set", "--id", "A2-1", "--status", "doing", agent="A3")[0] != 0)
         check("P3 HANDOFF 필수 항목 검증", c("handoff", "--wu", "A2-1", "--text", "- 상태: 완료", agent="A2")[0] != 0)
+        check("P4 wu --record 없는 R-번호 거부", c("wu", "set", "--id", "A2-1", "--record", "R-999", agent="A2")[0] != 0)
+        check("P5 wu --record 타인 R-번호 거부", c("wu", "set", "--id", "A2-1", "--record", rid, agent="A2")[0] != 0)
+        rc_own, rid2 = c("log", "add", "--task", "own", "--result", "ok", "--cmd", "c", "--evidence", "e", agent="A2")
+        check("P6 wu --record 본인 R-번호 허용", c("wu", "set", "--id", "A2-1", "--record", rid2.strip().splitlines()[-1], agent="A2")[0] == 0)
         # ── R3 게이트(tc check) ──
         check("G1 미실행 상태 NO-GO", c("tc", "check", "--build", "deadbeef")[0] == 1)
         # 가짜 성공 15행 + 비커밋 빌드 + 없는 증거 (A6 BLOCKER #4 재현)

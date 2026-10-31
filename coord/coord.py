@@ -600,6 +600,14 @@ def cmd_wu(a):
         if a.status:
             row[4] = WU_STATUS[a.status]
         if a.record:
+            # A6 BLOCKER #7: 예상 번호·타인 번호 오기 방지 — 존재하고 내가 기록한 R-번호만 허용(--foreign으로 명시적 예외)
+            _, _, runs = table(get_sec(text, "RUNLOG"))
+            owner_of = {c[0]: c[2] for _, c in runs}
+            for rid in [x.strip() for x in a.record.split(",") if x.strip() not in ("", "-")]:
+                if rid not in owner_of:
+                    die(f"--record {rid}: RUNLOG에 없는 번호입니다(log add가 반환한 번호만 사용)")
+                if owner_of[rid] != a.agent and not a.foreign:
+                    die(f"--record {rid}: {owner_of[rid]}가 기록한 항목입니다. 타인 기록을 인용하려면 --foreign")
             row[5] = a.record
         if a.remaining is not None:
             row[6] = a.remaining
@@ -814,6 +822,7 @@ def main():
     s = sub.add_parser("wu"); s.add_argument("action", choices=["set", "next", "add"]); s.add_argument("--id")
     s.add_argument("--status", choices=list(WU_STATUS)); s.add_argument("--record"); s.add_argument("--remaining")
     s.add_argument("--next"); s.add_argument("--owner"); s.add_argument("--title"); s.add_argument("--deps")
+    s.add_argument("--foreign", action="store_true", help="타인이 기록한 R-번호 인용 허용")
     s = sub.add_parser("contract"); s.add_argument("--id", required=True); s.add_argument("--text", required=True); s.add_argument("--ref", default="-")
     s = sub.add_parser("watch"); s.add_argument("--interval", type=float, default=2.0)
     sub.add_parser("audit")
