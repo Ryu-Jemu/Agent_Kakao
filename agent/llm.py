@@ -32,24 +32,57 @@ THINKING_BUDGET = os.environ.get("AGENT_THINKING_BUDGET")  # 정수(2.5 계열)
 THINKING_LEVEL = os.environ.get("AGENT_THINKING_LEVEL")  # MINIMAL|LOW|MEDIUM|HIGH. 3.8-flash는 MINIMAL 400
 MODEL_THINKING = {"gemini-3.8-flash": "LOW"}
 
-_client: genai.Client | None = None
+class LLMBlocked(Exception):
+    """모든 백엔드가 403 PERMISSION_DENIED(이용 정책 거부) 상태 — 재시도·폴백 호출을 하지 않는다(R-210)."""
+
+
+def _is_policy_denied(msg: str) -> bool:
+    return "403" in msg and "PERMISSION_DENIED" in msg
+
+
+# 백엔드 체인(D-028·D-029): ① Gemini API 키(AGENT_GEMINI_API_KEY 또는 GEMINI_API_KEY, 사용자 결정 D-029 기본)
+# → ② Vertex(GCP_PROJECT, ADC). 403 PERMISSION_DENIED를 받은 백엔드는 BLOCK_COOLDOWN_S 동안 건너뛰고 다음으로 넘어간다.
+# AGENT_VERTEX_FALLBACK=0이면 키가 있을 때 Vertex를 쓰지 않는다. 키 값은 로그·보드에 쓰지 않는다.
+API_KEY = (os.environ.get("AGENT_GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY") or "").strip()
+VERTEX_FALLBACK = os.environ.get("AGENT_VERTEX_FALLBACK", "1") != "0"
+BLOCK_COOLDOWN_S = float(os.environ.get("AGENT_403_COOLDOWN_S", "300"))
+
+
+class _Backend:
+    def __init__(self, name: str, kind: str):
+        self.name, self.kind = name, kind
+        self.client: genai.Client | None = None
+        self.blocked_until = 0.0
+
+    def get(self) -> genai.Client:
+        if self.client is None:
+            self.client = (genai.Client(api_key=API_KEY) if self.kind == "key"
+                           else genai.Client(vertexai=True, project=PROJECT, location=LOCATION))
+        return self.client
+
+
+BACKENDS: list[_Backend] = []
+if API_KEY:
+    BACKENDS.append(_Backend("gemini-api-key", "key"))
+if not API_KEY or VERTEX_FALLBACK:
+    BACKENDS.append(_Backend(f"vertex:{PROJECT}/{LOCATION}", "vertex"))
+
+
+def _available() -> list[_Backend]:
+    import time as _t
+    now = _t.monotonic()
+    return [b for b in BACKENDS if b.blocked_until <= now]
+
+
+def backend() -> str:
+    av = _available()
+    return av[0].name if av else "blocked"
 
 
 def client() -> genai.Client:
-    global _client
-    if _client is None:
-        _client = genai.Client(vertexai=True, project=PROJECT, location=LOCATION)
-    return _client
-
-
-def _switch_to_global() -> bool:
-    """지역 엔드포인트가 404(모델 접근 불가)면 global로 1회 전환(R-063: 이 프로젝트는 global에서만 동작)."""
-    global _client, LOCATION
-    if LOCATION == "global":
-        return False
-    LOCATION = "global"
-    _client = genai.Client(vertexai=True, project=PROJECT, location="global")
-    return True
+    """현재 사용 가능한 첫 백엔드(vertex_probe·warmup 호환)."""
+    av = _available() or BACKENDS
+    return av[0].get()
 
 
 def thinking_config(model: str, override: str | None = None) -> types.ThinkingConfig | None:
@@ -84,24 +117,28 @@ async def generate(contents, *, system: str, tools: list | None, model: str | No
         if not allow_calls:
             cfg.tool_config = types.ToolConfig(
                 function_calling_config=types.FunctionCallingConfig(mode=types.FunctionCallingConfigMode.NONE))
-    last = None
-    for attempt in range(2):
-        try:
-            return await asyncio.wait_for(
-                client().aio.models.generate_content(model=m, contents=contents, config=cfg), timeout=timeout)
-        except asyncio.TimeoutError as e:
-            last = e
-            break
-        except Exception as e:  # noqa: BLE001 — 429/503 등 1회 재시도
-            last = e
-            msg = str(e)
-            if attempt == 0 and "404" in msg and _switch_to_global():
-                continue
-            if attempt == 0 and any(k in msg for k in ("429", "503", "500", "RESOURCE_EXHAUSTED", "UNAVAILABLE")):
-                await asyncio.sleep(1.0)
-                continue
-            break
-    raise last  # type: ignore[misc]
+    import time as _time
+    last: Exception | None = None
+    for b in _available():
+        for attempt in range(2):
+            try:
+                return await asyncio.wait_for(
+                    b.get().aio.models.generate_content(model=m, contents=contents, config=cfg), timeout=timeout)
+            except asyncio.TimeoutError as e:
+                raise e
+            except Exception as e:  # noqa: BLE001
+                last = e
+                msg = str(e)
+                if _is_policy_denied(msg):
+                    b.blocked_until = _time.monotonic() + BLOCK_COOLDOWN_S  # 이 백엔드 건너뛰고 다음으로
+                    break
+                if attempt == 0 and any(k in msg for k in ("429", "503", "500", "RESOURCE_EXHAUSTED", "UNAVAILABLE")):
+                    await asyncio.sleep(1.0)
+                    continue
+                raise
+    if last is None or _is_policy_denied(str(last)):
+        raise LLMBlocked(str(last)[:200] if last else "all backends blocked")
+    raise last
 
 
 # ───────── 미디어 ─────────

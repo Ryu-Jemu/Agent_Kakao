@@ -16,6 +16,7 @@ from google.genai import types
 
 from agent import dates, format as fmt, llm
 from agent.parse import parse_message
+from agent.prefilter import filter_text
 from agent.session import Session, get_session, peek
 from agent.tools import ToolRunner, function_declarations
 
@@ -105,6 +106,15 @@ async def _run(s: Session, parsed, t0: float) -> tuple[list[str], dict]:
     meta: dict = {"steps": 0, "calls": [], "errors": []}
     s.turns += 1
     s.absorb_customer_text(parsed.body)
+    # 사전 필터(D-029): 명백한 탈취·지시 무시 문장은 LLM에 보내지 않는다. 남는 내용이 없으면 고정 답변(LLM 0회).
+    fl = filter_text(parsed.body)
+    if fl.changed:
+        meta["prefilter"] = fl.categories
+    if fl.fixed_reply:
+        s.history.append(types.Content(role="user", parts=[types.Part.from_text(text=fl.memo())]))
+        s.history.append(types.Content(role="model", parts=[types.Part.from_text(text=fl.fixed_reply)]))
+        s.bubbles_sent += 1
+        return [fl.fixed_reply], meta
     media, failed = await llm.media_parts(parsed.images, parsed.audios)
     notes = []
     if parsed.forged:
@@ -118,7 +128,10 @@ async def _run(s: Session, parsed, t0: float) -> tuple[list[str], dict]:
     runner = ToolRunner(s)
     if not runner.ac:
         notes.append(NO_CASE_NOTE)
-    body = parsed.body or ("(첨부만 보냄)" if (parsed.images or parsed.audios) else "(빈 메시지)")
+    if fl.changed:
+        notes.append(fl.memo())
+    body_src = fl.text if fl.changed else parsed.body
+    body = body_src or ("(첨부만 보냄)" if (parsed.images or parsed.audios) else "(빈 메시지)")
     user_parts = [types.Part.from_text(text="\n".join(notes + [body]))] + media
     s.history.append(types.Content(role="user", parts=user_parts))
 
@@ -141,6 +154,9 @@ async def _run(s: Session, parsed, t0: float) -> tuple[list[str], dict]:
             meta["errors"].append(f"llm:{type(e).__name__}:{str(e)[:160]}")
             meta.setdefault("llm_ms", []).append(round((time.monotonic() - t_llm) * 1000))
             remaining = BUDGET - (time.monotonic() - t0)
+            if isinstance(e, llm.LLMBlocked):
+                meta["blocked_403"] = True
+                break
             if remaining < 4 or fast:
                 break
             fast = True
@@ -175,7 +191,7 @@ async def _run(s: Session, parsed, t0: float) -> tuple[list[str], dict]:
             types.Part.from_function_response(name=c.name, response=r) for c, r in zip(calls, results)]))
     if not final:
         remaining = BUDGET - (time.monotonic() - t0)
-        if remaining >= 4:
+        if remaining >= 4 and not meta.get("blocked_403"):
             try:
                 resp = await llm.generate(s.history, system=system_prompt(s), tools=tools,
                                           timeout=remaining - 1.5, allow_calls=False)
@@ -220,7 +236,7 @@ async def handle_message(session_key: str, text: str, received_at: str) -> list[
             bubbles, meta = [FALLBACK], {"errors": [f"fatal:{type(e).__name__}:{str(e)[:200]}"]}
         _log_turn({
             "ts": time.strftime("%Y-%m-%dT%H:%M:%S"), "session": session_key, "tc_id": s.tc_id, "turn": s.turns,
-            "new_case": new, "received_at": received_at, "model": llm.MODEL, "kb": kb_version(),
+            "new_case": new, "received_at": received_at, "model": llm.MODEL, "backend": llm.backend(), "kb": kb_version(),
             "user": parsed.body[:500], "media": parsed.images + parsed.audios, "reply": bubbles,
             "ms": round((time.monotonic() - t0) * 1000), "api": [
                 {k: c.get(k) for k in ("api_id", "params", "body", "status", "cached", "ms")} for c in s.calls[n_calls_before:]],
