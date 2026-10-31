@@ -4,7 +4,7 @@
 사용: python3 kb/tools/check_kb.py
 - facts: 필수 키, confidence ∈ {사실, 의견, 추측, 해석}, id 중복, quote가 출처 원문에 그대로 있는지
   출처 매핑: tc:<ID> → tests/tc/public/<ID>.md, doc:<NN> → docs/contest/<NN>_*.md,
-            src:<이름> → inbox/sources/_text/<이름>.txt(관계자가 준 문서 원문 추출본),
+            src:<이름> → inbox/sources/_text/<이름>.txt 또는 kb/raw/sources/_text/<이름>.txt(관계자가 준 문서 원문 추출본),
             그 밖(관계자 이름) → kb/raw/<이름>.md
 - questions: '- [ ] Q' 또는 '- [x] Q'로 시작하는 줄의 질문 본문이 200자 이하인지
 종료 코드: 문제 없으면 0, 있으면 1.
@@ -32,6 +32,8 @@ def source_text(src):
         p = os.path.join(ROOT, "tests/tc/public", src[3:] + ".md")
     elif src.startswith("src:"):
         p = os.path.join(ROOT, "inbox/sources/_text", src[4:] + ".txt")
+        if not os.path.exists(p):
+            p = os.path.join(ROOT, "kb/raw/sources/_text", src[4:] + ".txt")
     elif src.startswith("doc:"):
         c = glob.glob(os.path.join(ROOT, "docs/contest", src[4:] + "_*.md"))
         p = c[0] if c else ""
